@@ -1,12 +1,16 @@
 extends Node
 
-var coins: int = 20
-var potions: int = 15
+var coins: int = 5
+var potions: int = 5
 var tribe_count: int = 0   
+var base_health: int = 40
+var base_max_health: int = 100
+var game_result_text = ""
 
 signal coins_changed(new_value)
 signal potions_changed(new_value)
-signal tribe_changed(new_value)  
+signal tribe_changed(new_value)
+signal base_health_changed(new_value)  # 🔥 Nueva señal
 
 # --- MONEDAS ---
 func add_coins(amount: int) -> void:
@@ -46,3 +50,23 @@ func remove_tribe_member() -> void:
 func set_tribe_count(value: int) -> void:
 	tribe_count = max(0, value)
 	emit_signal("tribe_changed", tribe_count)
+
+# --- BASE ---
+func damage_base(amount: int) -> void:
+	base_health = max(0, base_health - amount)
+	emit_signal("base_health_changed", base_health)
+	
+	if base_health == 0:
+		_on_base_destroyed()
+
+func heal_base(amount: int) -> void:
+	base_health = min(base_max_health, base_health + amount)
+	emit_signal("base_health_changed", base_health)
+
+func reset_base_health() -> void:
+	base_health = base_max_health
+	emit_signal("base_health_changed", base_health)
+
+func _on_base_destroyed() -> void:
+	print("💥 Base destruida")
+	game_result_text = "¡La base ha caído!"

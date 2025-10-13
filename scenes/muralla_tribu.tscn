@@ -1,16 +1,46 @@
-[gd_scene load_steps=27 format=3 uid="uid://bxwyycl75xmc8"]
+[gd_scene load_steps=29 format=3 uid="uid://bxwyycl75xmc8"]
 
 [ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="1_ism1i"]
 [ext_resource type="Script" uid="uid://ks0441tp47hn" path="res://scripts/muralla_tribu.gd" id="1_yldxc"]
 [ext_resource type="Texture2D" uid="uid://dd6wm8kdppytc" path="res://assets/img/Yatiri/Escenario/Empaladiza.png" id="3_yldxc"]
 [ext_resource type="AudioStream" uid="uid://bj2543vduipa2" path="res://assets/sound/attack_hit.wav" id="4_rdskk"]
 [ext_resource type="Texture2D" uid="uid://brfapmc4fr52m" path="res://assets/img/Explotion.png" id="5_1e087"]
-[ext_resource type="AudioStream" uid="uid://cvnq8h8erigjy" path="res://assets/sound/glass.wav" id="6_ixsww"]
+[ext_resource type="AudioStream" uid="uid://beil22emq2366" path="res://assets/sound/magic.wav" id="6_ixsww"]
+
+[sub_resource type="Shader" id="Shader_ixsww"]
+code = "shader_type canvas_item;
+
+// 🔹 Export para manejar desde el inspector de Godot
+uniform bool effect_enabled = false;
+uniform vec3 flash_color : source_color = vec3(1.0,0.0,0.0);
+uniform vec3 base_color : source_color = vec3(1.0,1.0,1.0); // color base de tu sprite
+
+void fragment() {
+    vec4 tex = texture(TEXTURE, UV);
+    
+    // 🔹 Aplicar el color base del sprite (por ejemplo, tu tono oscuro)
+    vec4 colored_tex = tex * vec4(base_color, 1.0);
+    
+    if (effect_enabled) {
+        // 🔹 Mezcla con el color del flash
+        COLOR = mix(colored_tex, vec4(flash_color, tex.a), 0.7);
+    } else {
+        COLOR = colored_tex;
+    }
+}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rdskk"]
+shader = SubResource("Shader_ixsww")
+shader_parameter/effect_enabled = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/base_color = Color(0.851769, 0.851769, 0.851769, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixsww"]
 shader = ExtResource("1_ism1i")
 shader_parameter/effect_enabled = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/base_color = Color(0.892034, 0.892034, 0.892034, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1e087"]
 size = Vector2(179, 120)
@@ -156,7 +186,7 @@ flip_h = true
 [node name="Muralla2" type="Sprite2D" parent="."]
 z_index = -1
 texture_filter = 1
-material = SubResource("ShaderMaterial_rdskk")
+material = SubResource("ShaderMaterial_ixsww")
 position = Vector2(-50, -17)
 scale = Vector2(4, 4)
 texture = ExtResource("3_yldxc")
@@ -189,4 +219,5 @@ frame_progress = 1.0
 
 [node name="Explotion2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_ixsww")
-pitch_scale = 0.8
+volume_db = -16.0
+pitch_scale = 0.6

@@ -1,79 +1,54 @@
-extends Player
+extends CharacterBody2D
 class_name Archer
 
+# -------------------- VARIABLES --------------------
 var attack_cooldown := false
 var preloadArrow = preload("res://scenes/arrow.tscn")
 
+@export var health: int = 30
+@export var knockback_force: float = 200.0
+@export var knockback_friction: float = 800.0
+@export var damage_flash_time: float = 0.2
+@export var flash_duration: float = 0.4
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var flashing: bool = false
+var is_dead := false
+var is_hurt := false
+
 func _ready() -> void:
-	#remove_from_group("Player")
 	# Idle inicial con frame aleatorio
-	animated_sprite.play("idle")
-	animated_sprite.frame = randi() % animated_sprite.sprite_frames.get_frame_count("idle")
+	_play_idle()
 
 func _physics_process(delta: float) -> void:
-	# -------------------- MIRAR AL ENEMIGO --------------------
-	var enemies = get_tree().get_nodes_in_group("Enemy")
-	enemies = enemies.filter(func(e): return e and e.is_inside_tree())
+	if is_dead:
+		return
 
-	if enemies.size() > 0:
-		# elegimos el más cercano
-		var closest_enemy = enemies[0]
-		var min_dist = global_position.distance_to(closest_enemy.global_position)
-		for e in enemies:
-			var d = global_position.distance_to(e.global_position)
-			if d < min_dist:
-				min_dist = d
-				closest_enemy = e
+	# Mover con velocity y desacelerar
+	if velocity != Vector2.ZERO:
+		move_and_slide()
+		velocity = velocity.move_toward(Vector2.ZERO, knockback_friction * delta)
 
-		# girar sprite hacia el enemigo
-		if closest_enemy.global_position.x < global_position.x:
-			animated_sprite.flip_h = true
-		else:
-			animated_sprite.flip_h = false
+	# Si terminó hurt, volver a idle
+	if is_hurt and animated_sprite.animation != "hurt":
+		is_hurt = false
+		_play_idle()
 
-	# -------------------- IDLE / ANIMACIÓN --------------------
-	if attack_cooldown:
-		if not animated_sprite.is_playing():
-			attack_cooldown = false
-			animated_sprite.play("idle")
-			animated_sprite.frame = randi() % animated_sprite.sprite_frames.get_frame_count("idle")
-	else:
-		if animated_sprite.animation != "idle":
-			animated_sprite.play("idle")
-
-# -------------------- ATAQUE --------------------
 func do_attack() -> void:
-	# Si ya estamos en cooldown o el nodo no está en escena, salimos
-	if attack_cooldown or not is_inside_tree():
+	if attack_cooldown or is_dead or not is_inside_tree():
 		return
 
-	# Buscar enemigos vivos en la escena
+	attack_cooldown = true
+	animated_sprite.play("attack")
+
+	# Elegir el enemigo más cercano
 	var enemies = get_tree().get_nodes_in_group("Enemy")
 	enemies = enemies.filter(func(e): return e and e.is_inside_tree())
-
-	# Si no hay enemigos, no atacamos y reiniciamos cooldown por si acaso
 	if enemies.size() == 0:
 		attack_cooldown = false
+		_play_idle()
 		return
 
-	# Activamos cooldown
-	attack_cooldown = true
-
-	# Reproducimos animación de ataque
-	if is_inside_tree():
-		animated_sprite.play("attack")
-
-	# Esperamos un poco para sincronizar con la animación
-	await get_tree().create_timer(0.5).timeout
-
-	# Refiltramos enemigos por si alguno murió mientras esperábamos
-	enemies = get_tree().get_nodes_in_group("Enemy")
-	enemies = enemies.filter(func(e): return e and e.is_inside_tree())
-	if enemies.size() == 0:
-		attack_cooldown = false
-		return
-
-	# Elegimos el enemigo más cercano (puede cambiar a random si querés)
 	var closest_enemy = enemies[0]
 	var min_dist = global_position.distance_to(closest_enemy.global_position)
 	for e in enemies:
@@ -82,32 +57,93 @@ func do_attack() -> void:
 			min_dist = d
 			closest_enemy = e
 
-	# Girar sprite hacia el enemigo antes de disparar
-	if closest_enemy.global_position.x < global_position.x:
-		animated_sprite.flip_h = true
-	else:
-		animated_sprite.flip_h = false
+	animated_sprite.flip_h = closest_enemy.global_position.x < global_position.x
 
-	# Instanciamos la flecha
-	if not is_inside_tree():
-		attack_cooldown = false
-		return
-
+	# Instanciar flecha
+	await get_tree().create_timer(0.3).timeout
 	var arrow = preloadArrow.instantiate()
 	arrow.global_position = $ArrowPosition.global_position
 	get_parent().add_child(arrow)
-
-	# Lanzamos flecha hacia el enemigo
-	if closest_enemy and closest_enemy.is_inside_tree():
+	if closest_enemy.is_inside_tree():
 		arrow.launch_towards_enemy(closest_enemy)
 
-	# Sonido de ataque con pitch aleatorio
-	if $Attack and is_inside_tree():
+	if $Attack:
 		$Attack.pitch_scale = randf_range(0.8, 1.0)
 		$Attack.play()
 
-	# Esperamos cooldown antes de poder atacar de nuevo
-	await get_tree().create_timer(10.0).timeout
-
-	# Reiniciamos cooldown
+	# Esperar que termine la animación para volver a idle
+	await animated_sprite.animation_finished
 	attack_cooldown = false
+	if not is_dead:
+		_play_idle()
+
+
+func take_damage(from_direction: Vector2, _unused: bool = true) -> void:
+	if health <= 0 or is_dead:
+		return
+
+	var damage = 10
+	health -= damage
+	if $AttackHit:
+		$AttackHit.play()
+
+	# Flash
+	flash_white()
+
+	# Animación hurt
+	animated_sprite.play("hurt")
+	animated_sprite.frame = 0
+
+	# Knockback
+	if from_direction != Vector2.ZERO:
+		velocity = from_direction.normalized() * knockback_force
+
+	# Esperar que termine hurt antes de volver a idle
+	await animated_sprite.animation_finished
+
+	if health > 0 and not is_dead:
+		_play_idle()
+	else:
+		set_state_dead()
+
+
+func flash_white() -> void:
+	if flashing:
+		return
+	flashing = true
+	var original = animated_sprite.modulate
+	animated_sprite.modulate = Color(2,2,2,1)
+
+	var t = Timer.new()
+	t.wait_time = flash_duration
+	t.one_shot = true
+	add_child(t)
+	t.start()
+	t.timeout.connect(func():
+		animated_sprite.modulate = original
+		flashing = false
+		t.queue_free()
+	)
+
+func set_state_dead() -> void:
+	is_dead = true
+	remove_from_group("Player")
+	$CollisionShape2D.disabled = true
+	attack_cooldown = true
+	animated_sprite.play("death")
+	if $Steps:
+		$Steps.stop()
+	Global.remove_tribe_member()
+	var tween := create_tween()
+	tween.tween_interval(7)
+	tween.tween_property(animated_sprite, "modulate:a", 0.0, 3.5)
+	tween.tween_callback(Callable(self, "_on_fade_out_finished"))
+
+func _on_fade_out_finished() -> void:
+	queue_free()
+
+func _play_idle() -> void:
+	if is_dead:
+		return
+	animated_sprite.play("idle")
+	animated_sprite.frame = randi() % animated_sprite.sprite_frames.get_frame_count("idle")

@@ -1,7 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3orncdx37874"]
+[gd_scene load_steps=13 format=3 uid="uid://d3orncdx37874"]
 
 [ext_resource type="Script" uid="uid://bloqrd36evnnm" path="res://scripts/game_over_screen.gd" id="1_61w2s"]
-[ext_resource type="FontFile" uid="uid://cijxlhmdtc8ap" path="res://assets/font/OwreKynge.ttf" id="1_iwahs"]
+[ext_resource type="Texture2D" uid="uid://bug2pak5p1j2e" path="res://assets/img/parallax/parallax-00.png" id="3_4tlw3"]
+[ext_resource type="Script" uid="uid://31j1lwvdnq2u" path="res://scripts/clouds.gd" id="4_ej65t"]
+[ext_resource type="Texture2D" uid="uid://c43r50yqcdch7" path="res://assets/img/parallax/parallax-01.png" id="5_8i476"]
+[ext_resource type="Texture2D" uid="uid://c4ydaql8xve5a" path="res://assets/img/parallax/parallaxjujuy/fondo_0.png" id="6_ktv0q"]
+[ext_resource type="Texture2D" uid="uid://c87g586k4rkis" path="res://assets/img/parallax/parallaxjujuy/fondo_1.png" id="7_x8ovf"]
+[ext_resource type="Texture2D" uid="uid://cws2s7mjae0h" path="res://assets/img/parallax/parallaxjujuy/fondo_2a.png" id="8_q3lui"]
+[ext_resource type="FontFile" uid="uid://bxqx6c1hu6ki7" path="res://assets/font/Acadian_Runes-Regular_PERSONAL_USE.ttf" id="9_4tlw3"]
+[ext_resource type="Texture2D" uid="uid://dkqf0ubj7e2t" path="res://assets/img/parallax/parallaxjujuy/fondo_2b.png" id="9_cb3on"]
+[ext_resource type="PackedScene" uid="uid://cw3w7ubl15l72" path="res://scenes/transition_control.tscn" id="10_ej65t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ej65t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8i476"]
 
 [node name="GameOverScreen" type="Control"]
 layout_mode = 3
@@ -11,6 +23,60 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_61w2s")
+
+[node name="ParallaxJujuy" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer"]
+texture = ExtResource("3_4tlw3")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_scale = Vector2(0, 1)
+motion_mirroring = Vector2(1440, 0)
+script = ExtResource("4_ej65t")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer2"]
+texture = ExtResource("5_8i476")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_scale = Vector2(0.1, 1)
+motion_mirroring = Vector2(1159, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer3"]
+position = Vector2(-194, 145)
+texture = ExtResource("6_ktv0q")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_scale = Vector2(0.2, 1)
+motion_mirroring = Vector2(657, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer4"]
+position = Vector2(1, 170)
+texture = ExtResource("7_x8ovf")
+centered = false
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_scale = Vector2(0.3, 1)
+motion_mirroring = Vector2(657, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer5"]
+position = Vector2(-8, 172)
+texture = ExtResource("8_q3lui")
+centered = false
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_scale = Vector2(0.3, 1)
+motion_mirroring = Vector2(657, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer6"]
+position = Vector2(-8, 172)
+texture = ExtResource("9_cb3on")
+centered = false
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -22,6 +88,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.192157)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+z_index = 8
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,10 +101,10 @@ theme_override_constants/margin_bottom = 80
 [node name="Label" type="Label" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("1_iwahs")
-theme_override_font_sizes/font_size = 26
-text = "Perdiste
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("9_4tlw3")
+theme_override_font_sizes/font_size = 36
+text = "¡Perdiste!
 
 ¿Volver a intentar?"
 horizontal_alignment = 1
@@ -50,18 +117,29 @@ size_flags_vertical = 8
 theme_override_constants/separation = 50
 
 [node name="PlayButton" type="Button" parent="MarginContainer/HBoxContainer"]
+texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("1_iwahs")
-text = "Jugar"
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("9_4tlw3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ej65t")
+text = "Menú"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/HBoxContainer"]
+texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("1_iwahs")
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("9_4tlw3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8i476")
 text = "Salir"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TransitionControl" parent="CanvasLayer" instance=ExtResource("10_ej65t")]
+visible = false
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

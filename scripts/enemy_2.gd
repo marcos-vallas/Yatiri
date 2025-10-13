@@ -26,7 +26,7 @@ var flashing := false
 var hurt_cooldown := false
 var idle_timer_active := false
 var walk_back_variation: float
-
+var current_target: Node2D = null
 var preloadSpear = preload("res://scenes/spear.tscn")
 
 func _ready() -> void:
@@ -36,6 +36,10 @@ func _ready() -> void:
 	animated_sprite.frame_changed.connect(_on_frame_changed)
 	walk_back_variation = randf_range(0.5, 5.0)
 	
+		# Conectamos la señal de todas las murallas existentes
+	for m in get_tree().get_nodes_in_group("Muralla"):
+		if m.has_signal("muralla_destruida"):
+			m.connect("muralla_destruida", Callable(self, "_on_muralla_destruida"))
 
 	# 👉 Orientación inicial
 	var target = _get_target()
@@ -206,8 +210,8 @@ func take_damage(amount: int, knockback_dir: Vector2, is_arrow_attack: bool = fa
 		return
 
 	hurt_cooldown = true
-	if not is_arrow_attack:
-		$AttackHit.play()
+	#if not is_arrow_attack:
+		#$AttackHit.play()
 	flash_white()
 
 	health -= amount
@@ -253,14 +257,49 @@ func _update_attack_area_direction() -> void:
 	attack_area.position = base_attack_area_position + Vector2(offset * walk_direction, 0)
 
 
+
 # -------------------- NUEVO: OBTENER TARGET --------------------
 func _get_target() -> Node2D:
+	# Si ya hay un target válido, lo seguimos usando
+	if current_target and is_instance_valid(current_target) and current_target.is_inside_tree():
+		# 🚫 Si es una muralla destruida, la descartamos
+		if "destroyed" in current_target and current_target.destroyed:
+			current_target = null
+		else:
+			return current_target
+
+	var closest_target: Node2D = null
+	var closest_distance := INF
+
+	# --- Buscar murallas ---
 	var walls = get_tree().get_nodes_in_group("Muralla")
-	if not walls.is_empty():
-		return walls.front()
+	for w in walls:
+		if not is_instance_valid(w):
+			continue
+		if not (w is Node2D):
+			continue
+		if "destroyed" in w and w.destroyed:
+			continue
+		var dist = global_position.distance_to(w.global_position)
+		if dist < closest_distance:
+			closest_distance = dist
+			closest_target = w
 
-	var players = get_tree().get_nodes_in_group("Player")
-	if not players.is_empty():
-		return players.front()
+	# --- Si no hay murallas válidas, buscar player o base ---
+	if closest_target == null:
+		var candidates: Array[Node2D] = []
+		candidates.append_array(get_tree().get_nodes_in_group("Player"))
+		candidates.append_array(get_tree().get_nodes_in_group("Base"))
 
-	return null
+		for c in candidates:
+			if not is_instance_valid(c):
+				continue
+			if not (c is Node2D):
+				continue
+			var dist = global_position.distance_to(c.global_position)
+			if dist < closest_distance:
+				closest_distance = dist
+				closest_target = c
+
+	current_target = closest_target
+	return closest_target

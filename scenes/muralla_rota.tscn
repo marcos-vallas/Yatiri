@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcu2l4jde10qh"]
+
+[ext_resource type="Texture2D" uid="uid://c0h0fm475agid" path="res://assets/img/Muralla Enemiga/murallaa_rota.png" id="1_lscj8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4rhav"]
+
+[node name="MurallaRota" type="Area2D"]
+z_index = -2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4rhav")
+
+[node name="MurallaRota" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-85, -18)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("1_lscj8")
+
+[node name="MurallaRota2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(41, -8)
+scale = Vector2(3, 3)
+texture = ExtResource("1_lscj8")
+flip_h = true
+
+[node name="MurallaRota3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-32, -23)
+scale = Vector2(4, 4)
+texture = ExtResource("1_lscj8")

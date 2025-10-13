@@ -1,7 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgm4374d746at"]
+[gd_scene load_steps=12 format=3 uid="uid://cgm4374d746at"]
 
 [ext_resource type="Script" uid="uid://bhyq8r0e4qvhm" path="res://scripts/credits.gd" id="1_0ctdu"]
-[ext_resource type="FontFile" uid="uid://bhqiawn1b8wk1" path="res://assets/font/alagard.ttf" id="2_0ctdu"]
+[ext_resource type="PackedScene" uid="uid://cw3w7ubl15l72" path="res://scenes/transition_control.tscn" id="2_2fbfq"]
+[ext_resource type="FontFile" uid="uid://bxqx6c1hu6ki7" path="res://assets/font/Acadian_Runes-Regular_PERSONAL_USE.ttf" id="3_c6kru"]
+[ext_resource type="Texture2D" uid="uid://bug2pak5p1j2e" path="res://assets/img/parallax/parallax-00.png" id="4_7lgdl"]
+[ext_resource type="Script" uid="uid://31j1lwvdnq2u" path="res://scripts/clouds.gd" id="5_c6kru"]
+[ext_resource type="Texture2D" uid="uid://c43r50yqcdch7" path="res://assets/img/parallax/parallax-01.png" id="6_qbfqv"]
+[ext_resource type="Texture2D" uid="uid://c4ydaql8xve5a" path="res://assets/img/parallax/parallaxjujuy/fondo_0.png" id="7_x5q3x"]
+[ext_resource type="Texture2D" uid="uid://c87g586k4rkis" path="res://assets/img/parallax/parallaxjujuy/fondo_1.png" id="8_nmdnh"]
+[ext_resource type="Texture2D" uid="uid://cws2s7mjae0h" path="res://assets/img/parallax/parallaxjujuy/fondo_2a.png" id="9_83ncp"]
+[ext_resource type="Texture2D" uid="uid://dkqf0ubj7e2t" path="res://assets/img/parallax/parallaxjujuy/fondo_2b.png" id="10_sxold"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ckv8"]
 
@@ -16,10 +24,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="Button" type="Button" parent="CanvasLayer/MarginContainer"]
+z_index = 1
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_c6kru")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2ckv8")
+text = "Volver"
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -36,8 +57,9 @@ offset_bottom = 304.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("2_0ctdu")
-theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_c6kru")
+theme_override_font_sizes/font_size = 21
 text = "Producción
 Anabella Bravo
 
@@ -55,16 +77,63 @@ UPSO"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="CanvasLayer"]
-z_index = 1
-offset_left = 573.0
-offset_top = 319.0
-offset_right = 630.0
-offset_bottom = 350.0
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("2_0ctdu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_2ckv8")
-text = "Volver"
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[node name="TransitionControl" parent="CanvasLayer2" instance=ExtResource("2_2fbfq")]
+visible = false
+
+[node name="ParallaxJujuy" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer"]
+texture = ExtResource("4_7lgdl")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_scale = Vector2(0, 1)
+motion_mirroring = Vector2(1440, 0)
+script = ExtResource("5_c6kru")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer2"]
+texture = ExtResource("6_qbfqv")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_scale = Vector2(0.1, 1)
+motion_mirroring = Vector2(1159, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer3"]
+position = Vector2(-194, 145)
+texture = ExtResource("7_x5q3x")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_scale = Vector2(0.2, 1)
+motion_mirroring = Vector2(657, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer4"]
+position = Vector2(1, 170)
+texture = ExtResource("8_nmdnh")
+centered = false
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_scale = Vector2(0.3, 1)
+motion_mirroring = Vector2(657, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer5"]
+position = Vector2(-8, 172)
+texture = ExtResource("9_83ncp")
+centered = false
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxJujuy"]
+motion_scale = Vector2(0.3, 1)
+motion_mirroring = Vector2(657, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer6"]
+position = Vector2(-8, 172)
+texture = ExtResource("10_sxold")
+centered = false
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/Button" to="." method="_on_button_pressed"]

@@ -1,15 +1,18 @@
-[gd_scene load_steps=26 format=3 uid="uid://dffibcq8yx4ff"]
+[gd_scene load_steps=28 format=3 uid="uid://dffibcq8yx4ff"]
 
 [ext_resource type="Script" uid="uid://b7kx2c1k3ghrd" path="res://scripts/muralla_enemiga.gd" id="1_0n11m"]
 [ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="1_imfvb"]
 [ext_resource type="Texture2D" uid="uid://bsynl3770v1uq" path="res://assets/img/Muralla Enemiga/Muralla_enemiga.png" id="3_0n11m"]
 [ext_resource type="Texture2D" uid="uid://brfapmc4fr52m" path="res://assets/img/Explotion.png" id="4_kbltv"]
 [ext_resource type="AudioStream" uid="uid://cvnq8h8erigjy" path="res://assets/sound/glass.wav" id="5_4gyx6"]
+[ext_resource type="Texture2D" uid="uid://dofifx0fc1b85" path="res://assets/img/Muralla Enemiga/murallae_rota.png" id="6_3qxj3"]
+[ext_resource type="Texture2D" uid="uid://c0h0fm475agid" path="res://assets/img/Muralla Enemiga/murallaa_rota.png" id="7_nvgxk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7lweu"]
 shader = ExtResource("1_imfvb")
 shader_parameter/effect_enabled = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/base_color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_imfvb"]
 size = Vector2(209, 74)
@@ -182,13 +185,29 @@ frame_progress = 1.0
 
 [node name="Explotion2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_4gyx6")
-pitch_scale = 0.8
+volume_db = -12.0
+pitch_scale = 0.6
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 256
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+visible = false
 position = Vector2(53, 10)
 shape = SubResource("RectangleShape2D_kbltv")
 debug_color = Color(0.265772, 0.873438, 1, 0.42)
+
+[node name="MurallaRota" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(91, -21)
+scale = Vector2(4, 4)
+texture = ExtResource("6_3qxj3")
+
+[node name="MurallaRota2" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(-7, -31)
+scale = Vector2(4, 4)
+texture = ExtResource("7_nvgxk")

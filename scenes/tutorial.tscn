@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyfvjbgy7ydwc"]
+
+[ext_resource type="FontFile" uid="uid://bxqx6c1hu6ki7" path="res://assets/font/Acadian_Runes-Regular_PERSONAL_USE.ttf" id="1_c13y7"]
+
+[node name="Tutorial" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 70
+
+[node name="Label" type="Label" parent="MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_c13y7")
+theme_override_font_sizes/font_size = 18
+text = "- A - para moverte a la izquierda
+- D - para moverte a la derecha
+- Enter - para atacar
+- Shift - para correr
+- P - para ataque mágico
+
+Presioná ENTER para empezar..."
+horizontal_alignment = 1
+vertical_alignment = 1

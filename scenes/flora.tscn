@@ -23,16 +23,16 @@ texture = ExtResource("1_ow7wg")
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 modulate = Color(0.655601, 0.655601, 0.655601, 1)
 texture_filter = 1
-position = Vector2(1089, 227)
+position = Vector2(1116, 227)
 scale = Vector2(2, 2)
 texture = ExtResource("2_qynvb")
+flip_h = true
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(362, 228)
-scale = Vector2(2, 2)
+position = Vector2(656, 204)
+scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_q06i8")
-flip_h = true
 
 [node name="Sprite2D4" type="Sprite2D" parent="."]
 visible = false

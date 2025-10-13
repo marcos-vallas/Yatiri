@@ -1,26 +1,162 @@
-[gd_scene load_steps=7 format=3 uid="uid://umlahfsnucks"]
+[gd_scene load_steps=28 format=3 uid="uid://umlahfsnucks"]
 
 [ext_resource type="PackedScene" uid="uid://dffibcq8yx4ff" path="res://scenes/muralla_enemiga.tscn" id="1_cvp08"]
 [ext_resource type="Script" uid="uid://h8srdepcwyf3" path="res://scripts/hut_enemigo.gd" id="1_xwguj"]
-[ext_resource type="Texture2D" uid="uid://dwa4wgbj6fonh" path="res://assets/img/Yatiri/Escenario/base_enemiga.png" id="2_1h3n2"]
+[ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="2_2cm1h"]
 [ext_resource type="Texture2D" uid="uid://dd6wm8kdppytc" path="res://assets/img/Yatiri/Escenario/Empaladiza.png" id="4_d1gb5"]
+[ext_resource type="AudioStream" uid="uid://beil22emq2366" path="res://assets/sound/magic.wav" id="6_2cm1h"]
+[ext_resource type="Texture2D" uid="uid://brfapmc4fr52m" path="res://assets/img/Explotion.png" id="6_g5tuq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x2tlc"]
+shader = ExtResource("2_2cm1h")
+shader_parameter/effect_enabled = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/base_color = Color(0.568973, 0.568973, 0.568973, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2cm1h"]
+load_path = "res://.godot/imported/base_enemiga.png-1cfd90e13ad79b40eb248960055d074d.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwguj"]
+size = Vector2(397, 135)
 
 [sub_resource type="Gradient" id="Gradient_1h3n2"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.619608)
 
-[node name="HutEnemigo" type="Area2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixsww"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0sp2"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auadv"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rceni"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvkct"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqa2b"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xw3ra"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23fi2"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blq51"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtea8"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfwui"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2mmq"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8trpq"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p52b1"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egmn4"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4yoi"]
+atlas = ExtResource("6_g5tuq")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_npd4q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixsww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0sp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_auadv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rceni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvkct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqa2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xw3ra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23fi2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blq51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtea8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hfwui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2mmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8trpq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p52b1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egmn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4yoi")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="HutEnemigo" type="Area2D" groups=["Hut Enemigo"]]
+collision_layer = 256
+collision_mask = 66
 script = ExtResource("1_xwguj")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.448067, 0.448067, 0.448067, 1)
+[node name="HutEnemigo" type="Sprite2D" parent="."]
+modulate = Color(0.442911, 0.442911, 0.442911, 1)
 texture_filter = 1
+material = SubResource("ShaderMaterial_x2tlc")
 position = Vector2(91, -14)
 scale = Vector2(3.5, 3.5)
-texture = ExtResource("2_1h3n2")
+texture = SubResource("CompressedTexture2D_2cm1h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(77.5, 20.5)
 shape = SubResource("RectangleShape2D_xwguj")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -56,3 +192,16 @@ texture_filter = 1
 position = Vector2(244, 25)
 scale = Vector2(3, 3)
 texture = ExtResource("4_d1gb5")
+
+[node name="Explotion" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-71, 20)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_npd4q")
+frame = 15
+frame_progress = 1.0
+
+[node name="Explotion2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_2cm1h")
+volume_db = -15.0
+pitch_scale = 0.6

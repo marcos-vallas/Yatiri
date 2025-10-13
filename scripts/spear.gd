@@ -25,10 +25,14 @@ func _physics_process(delta: float) -> void:
 		rotation = vel.angle()
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Muralla") and area.has_method("take_damage"):
-		if $Spear_Impact: $Spear_Impact.play()
-		if $Spear: $Spear.visible = false
-		if $CPUParticles2D: $CPUParticles2D.visible = false
+	if (area.is_in_group("Muralla") or area.is_in_group("Base")) and area.has_method("take_damage"):
+		if $Spear_Impact:
+			$Spear_Impact.play()
+		if $Spear:
+			$Spear.visible = false
+		if $CPUParticles2D:
+			$CPUParticles2D.visible = false
+
 		area.take_damage(damage)
 		await get_tree().create_timer(0.2).timeout
 		queue_free()

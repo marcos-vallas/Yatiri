@@ -40,13 +40,27 @@ var is_dead := false
 var knockback_timer: float = 0.0
 var knockback_duration: float = 0.2
 
+var can_play_hit_sound := true
+
 func _ready() -> void:
+
+	add_to_group("Player")
+
+	var grupos = ["Muralla", "Muralla Enemiga", "Hut Enemigo", "Base"]
+	for grupo in grupos:
+		for nodo in get_tree().get_nodes_in_group(grupo):
+			if nodo.has_signal("muralla_destruida"):
+				nodo.muralla_destruida.connect(_on_muralla_destruida)
+
 	base_attack_area_position = attack_area.position
 	attack_area.body_entered.connect(_on_attack_area_body_entered)
 	attack_area.area_entered.connect(_on_attack_area_area_entered)
 	attack_shape.disabled = true
 	_update_attack_area_direction()
 	$Exhala.hide()
+	
+func _on_muralla_destruida():
+	camera_shake(2.0, 1.5)
 	
 func _physics_process(delta: float) -> void:
 	if is_dead:
@@ -167,6 +181,7 @@ func _start_magic_attack() -> void:
 	animated_sprite.play("magic")
 	_spawn_lightning()
 	$Magic.play()
+	camera_shake(1.0, 1.5)
 	Global.remove_potions(1)
 	if steps.playing:
 		steps.stop()
@@ -193,15 +208,23 @@ func _spawn_lightning() -> void:
 
 func _on_attack_area_body_entered(body: Node) -> void:
 	if body.is_in_group("Enemy") and body.has_method("take_damage"):
+		play_hit_sound()
 		var dir = Vector2(sign(body.global_position.x - global_position.x), 0) * attack_knockback
 		body.take_damage(33, dir)
 		camera_shake(0.2, 1.0)  # duración 0.2s, intensidad 3.0
 
 func _on_attack_area_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Muralla Enemiga") and area.has_method("take_damage"):
-		$AttackHit.play()
+	if (area.is_in_group("Muralla Enemiga") or area.is_in_group("Hut Enemigo")) and area.has_method("take_damage"):
+		play_hit_sound()
 		area.take_damage(10)
 		camera_shake(0.2, 2.0)  # duración 0.2s, intensidad 3.0
+
+func play_hit_sound():
+	if can_play_hit_sound:
+		$AttackHit.play()
+		can_play_hit_sound = false
+		await get_tree().create_timer(0.15).timeout  # 150 ms de cooldown
+		can_play_hit_sound = true
 
 func take_damage(knockback_dir: Vector2, hit_from_right: bool) -> void:
 	if is_dead:
@@ -256,6 +279,8 @@ func die() -> void:
 	animated_sprite.position.y += 6
 
 	await get_tree().create_timer(3.5).timeout
+	Global.game_result_text = "¡Perdiste!\n\n¿Jugar de nuevo?"
+	await get_tree().create_timer(0.05).timeout 
 	get_tree().change_scene_to_file("res://scenes/game_over_screen.tscn")
 
 func camera_shake(duration: float, amount: float) -> void:

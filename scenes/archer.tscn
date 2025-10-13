@@ -204,7 +204,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 6.0
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -259,14 +259,18 @@ shader_parameter/SOFTNESS = 0.65
 scale = Vector2(1.1, 1.1)
 collision_layer = 6
 script = ExtResource("2_cctdm")
-attack_offset = 80.0
+health = 50
+knockback_force = 100.0
+knockback_friction = 800.0
+damage_flash_time = 0.4
+flash_duration = 0.8
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 z_index = 2
 sprite_frames = SubResource("SpriteFrames_ejvcm")
-animation = &"death"
-frame = 9
+animation = &"hurt"
+frame = 3
 frame_progress = 1.0
 
 [node name="Light" parent="AnimatedSprite2D" index="1"]

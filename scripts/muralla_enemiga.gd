@@ -1,5 +1,7 @@
 extends Area2D
 
+signal muralla_destruida
+
 @export var health: int = 100
 @onready var muralla_1: Sprite2D = $Muralla
 @onready var muralla_collision: CollisionShape2D = $MurallaCollision
@@ -44,13 +46,21 @@ func _on_flash_timer_timeout() -> void:
 			muralla_1.material.set_shader_parameter("effect_enabled", false)
 
 func _on_destroyed() -> void:
+	
 	await get_tree().create_timer(0.1).timeout
+	emit_signal("muralla_destruida")
 	muralla_1.hide()
 	muralla_collision.disabled = true
+	$Explotion2.play()
 	$Muralla2.hide()
 	$Muralla3.hide()
 	$Explotion.show()
 	$Explotion.play("default")
 	$StaticBody2D/CollisionShape2D.disabled = true
+	$MurallaRota.show()
+	$MurallaRota2.show()
 	await $Explotion.animation_finished
-	queue_free()
+	$Explotion.hide()
+	#await get_tree().create_timer(2.5).timeout
+	#
+	#queue_free()

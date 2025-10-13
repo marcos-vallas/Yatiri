@@ -262,10 +262,12 @@ size = Vector2(33.3333, 30.8333)
 z_index = 1
 scale = Vector2(1.2, 1.2)
 collision_layer = 32
-collision_mask = 592
+collision_mask = 2640
 script = ExtResource("1_a1412")
 health = 99
 walk_speed = 140.0
+pre_attack_delay = 0.1
+idle_duration = 4.0
 metadata/_edit_group_ = true
 
 [node name="Enemy" type="AnimatedSprite2D" parent="."]
@@ -301,7 +303,7 @@ volume_db = -12.0
 
 [node name="AttackArea" type="Area2D" parent="."]
 collision_layer = 128
-collision_mask = 514
+collision_mask = 2562
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2(-27.5, -1.25)

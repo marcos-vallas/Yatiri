@@ -84,8 +84,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 55
-theme_override_constants/margin_bottom = 55
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 50
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -101,7 +101,7 @@ theme_override_constants/shadow_offset_y = 4
 theme_override_constants/outline_size = 12
 theme_override_constants/shadow_outline_size = 6
 theme_override_fonts/font = ExtResource("5_13sgg")
-theme_override_font_sizes/font_size = 115
+theme_override_font_sizes/font_size = 132
 text = "Yatiri"
 horizontal_alignment = 1
 
@@ -168,6 +168,7 @@ stream = ExtResource("5_4ytvr")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_g3eks")
+autoplay = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]

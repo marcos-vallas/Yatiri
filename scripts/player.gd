@@ -15,9 +15,8 @@ class_name Player
 @onready var camera: Camera2D = $Camera2D
 @onready var exhala: AnimatedSprite2D = $Exhala
 @onready var coin_scene: PackedScene = preload("res://scenes/dropped_coin.tscn")
-@export var lightning_scene: PackedScene = preload("res://scenes/lightning.tscn") # ⚡ nuevo
+@export var lightning_scene: PackedScene = preload("res://scenes/lightning.tscn")
 
-# --- NUEVAS VARIABLES ---
 @export var run_speed: float = 200.0   # velocidad corriendo
 @export var walk_speed: float = 100.0  # velocidad caminando normal
 @export var run_duration: float = 5.0  # máximo tiempo corriendo

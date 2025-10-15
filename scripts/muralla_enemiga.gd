@@ -6,6 +6,8 @@ signal muralla_destruida
 @onready var muralla_1: Sprite2D = $Muralla
 @onready var muralla_collision: CollisionShape2D = $MurallaCollision
 
+@export var attack_effect_scene: PackedScene = preload("res://scenes/explosion.tscn")
+
 var damage_flash_count: int = 2       
 var damage_flash_duration: float = 0.1 
 var flash_counter: int = 0
@@ -22,8 +24,9 @@ func _ready() -> void:
 func take_damage(amount: int) -> void:
 	if health <= 0:
 		return
-
+		
 	health -= amount
+	
 	if health <= 0:
 		_on_destroyed()
 	else:
@@ -59,8 +62,7 @@ func _on_destroyed() -> void:
 	$StaticBody2D/CollisionShape2D.disabled = true
 	$MurallaRota.show()
 	$MurallaRota2.show()
+	$MurallaRota3.show()
 	await $Explotion.animation_finished
 	$Explotion.hide()
-	#await get_tree().create_timer(2.5).timeout
-	#
-	#queue_free()
+	

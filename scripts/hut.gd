@@ -62,6 +62,7 @@ func _on_destroyed() -> void:
 	$Explotion2.play()
 	collision.disabled = true
 	$Explotion.play("default")
+	$HutRoto.show()
 	await $Explotion.animation_finished
 	$Explotion.hide()
 	await get_tree().create_timer(6.0).timeout

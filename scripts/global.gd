@@ -1,7 +1,7 @@
 extends Node
 
-var coins: int = 5
-var potions: int = 5
+var coins: int = 15
+var potions: int = 15
 var tribe_count: int = 0   
 var base_health: int = 40
 var base_max_health: int = 100

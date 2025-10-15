@@ -9,20 +9,20 @@
 [ext_resource type="Texture2D" uid="uid://c43r50yqcdch7" path="res://assets/img/parallax/parallax-01.png" id="5_tipki"]
 [ext_resource type="Texture2D" uid="uid://bh4u7bs6488f1" path="res://assets/img/parallax/parallax-02.png" id="6_85g3d"]
 [ext_resource type="Texture2D" uid="uid://b175t4jfvonk" path="res://assets/img/parallax/parallax-03.png" id="7_choun"]
-[ext_resource type="Texture2D" uid="uid://c4ydaql8xve5a" path="res://assets/img/parallax/parallaxjujuy/fondo_0.png" id="8_og1vs"]
 [ext_resource type="Texture2D" uid="uid://be4af5sror552" path="res://assets/img/parallax/parallax-04.png" id="8_tipki"]
-[ext_resource type="Texture2D" uid="uid://c87g586k4rkis" path="res://assets/img/parallax/parallaxjujuy/fondo_1.png" id="9_2wyq8"]
 [ext_resource type="PackedScene" uid="uid://dtc54osiii58s" path="res://scenes/archer.tscn" id="10_choun"]
+[ext_resource type="Texture2D" uid="uid://b1bikqe8twap4" path="res://assets/img/parallax/parallax-nuevo-1.png" id="10_og1vs"]
 [ext_resource type="Texture2D" uid="uid://cws2s7mjae0h" path="res://assets/img/parallax/parallaxjujuy/fondo_2a.png" id="10_vxglm"]
 [ext_resource type="Texture2D" uid="uid://dkqf0ubj7e2t" path="res://assets/img/parallax/parallaxjujuy/fondo_2b.png" id="11_2f3dj"]
 [ext_resource type="Script" uid="uid://dgpl4g1fu1j8l" path="res://scripts/enemy_spawner.gd" id="11_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://dgj4mpyogw15d" path="res://assets/img/parallax/parallax-nuevo-3.png" id="11_og1vs"]
 [ext_resource type="PackedScene" uid="uid://bdpe0in6t3f84" path="res://scenes/hud.tscn" id="11_ya4ey"]
 [ext_resource type="Script" uid="uid://dtel6iu06o1tn" path="res://scripts/day_night_cycle.gd" id="12_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://cfwmegs4h1pd1" path="res://scenes/power_up.tscn" id="13_gqmmt"]
-[ext_resource type="AudioStream" uid="uid://baj6cumn3ciy3" path="res://assets/sound/charango.mp3" id="15_jbj1t"]
 [ext_resource type="AudioStream" uid="uid://dmxfq5vavwy5r" path="res://assets/sound/birds.mp3" id="16_muem4"]
 [ext_resource type="PackedScene" uid="uid://tmd0h4oma52p" path="res://scenes/hut.tscn" id="17_muem4"]
 [ext_resource type="PackedScene" uid="uid://umlahfsnucks" path="res://scenes/hut_enemigo.tscn" id="19_0ld40"]
+[ext_resource type="AudioStream" uid="uid://co2iwkedlkwty" path="res://assets/sound/Ethnic Drums  Tribal Music Background for Videos [No Copyright].mp3" id="21_og1vs"]
 [ext_resource type="PackedScene" uid="uid://c57j15065au41" path="res://scenes/enemy_1.tscn" id="26_2wyq8"]
 [ext_resource type="PackedScene" uid="uid://cyfvjbgy7ydwc" path="res://scenes/tutorial.tscn" id="26_vxglm"]
 
@@ -646,20 +646,21 @@ centered = false
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxJujuy"]
 motion_scale = Vector2(0.1, 1)
-motion_mirroring = Vector2(1159, 0)
+motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer3"]
-position = Vector2(0, 140)
-texture = ExtResource("8_og1vs")
+position = Vector2(0, 64)
+texture = ExtResource("10_og1vs")
 centered = false
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxJujuy"]
+position = Vector2(0, -99)
 motion_scale = Vector2(0.2, 1)
-motion_mirroring = Vector2(657, 0)
+motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer4"]
-position = Vector2(2, 164)
-texture = ExtResource("9_2wyq8")
+position = Vector2(2, 112)
+texture = ExtResource("11_og1vs")
 centered = false
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxJujuy"]
@@ -667,6 +668,7 @@ motion_scale = Vector2(0.3, 1)
 motion_mirroring = Vector2(657, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer5"]
+visible = false
 position = Vector2(2, 166)
 texture = ExtResource("10_vxglm")
 centered = false
@@ -676,6 +678,7 @@ motion_scale = Vector2(0.3, 1)
 motion_mirroring = Vector2(657, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxJujuy/ParallaxLayer6"]
+visible = false
 position = Vector2(2, 166)
 texture = ExtResource("11_2f3dj")
 centered = false
@@ -746,8 +749,9 @@ z_index = 2
 position = Vector2(905, 332)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("15_jbj1t")
-volume_db = -10.0
+stream = ExtResource("21_og1vs")
+volume_db = -17.0
+autoplay = true
 
 [node name="Sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_muem4")

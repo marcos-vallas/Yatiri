@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://tmd0h4oma52p"]
+[gd_scene load_steps=31 format=3 uid="uid://tmd0h4oma52p"]
 
 [ext_resource type="Script" uid="uid://cw45e7n5laf46" path="res://scripts/hut.gd" id="1_agf4v"]
 [ext_resource type="Texture2D" uid="uid://dwa4wgbj6fonh" path="res://assets/img/Yatiri/Escenario/base_enemiga.png" id="1_lbxpc"]
 [ext_resource type="PackedScene" uid="uid://bxwyycl75xmc8" path="res://scenes/muralla_tribu.tscn" id="2_lbxpc"]
+[ext_resource type="Texture2D" uid="uid://d3t557u8vj610" path="res://assets/img/Yatiri/Escenario/Baseenemiga_rota.png" id="3_bd6qm"]
 [ext_resource type="Texture2D" uid="uid://brfapmc4fr52m" path="res://assets/img/Explotion.png" id="5_8rcwa"]
 [ext_resource type="AudioStream" uid="uid://beil22emq2366" path="res://assets/sound/magic.wav" id="6_agf4v"]
 [ext_resource type="AudioStream" uid="uid://bj2543vduipa2" path="res://assets/sound/attack_hit.wav" id="6_teqky"]
@@ -181,7 +182,18 @@ scale = Vector2(3, 3)
 texture = ExtResource("1_lbxpc")
 flip_h = true
 
+[node name="HutRoto" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.558287, 0.558287, 0.558287, 1)
+texture_filter = 1
+material = SubResource("ShaderMaterial_8y15c")
+position = Vector2(-101, -15)
+scale = Vector2(3, 3)
+texture = ExtResource("3_bd6qm")
+flip_h = true
+
 [node name="BaseCollision" type="CollisionShape2D" parent="." groups=["Base"]]
+visible = false
 position = Vector2(-80.5, 17)
 shape = SubResource("RectangleShape2D_lbxpc")
 
@@ -204,12 +216,13 @@ collision_layer = 2048
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+visible = false
 position = Vector2(-89.5, 17)
 shape = SubResource("RectangleShape2D_agf4v")
 
 [node name="MurallaTribu" parent="." instance=ExtResource("2_lbxpc")]
 position = Vector2(475, 42)
-health = 20
+health = 60
 
 [node name="Explotion" type="AnimatedSprite2D" parent="."]
 z_index = 4

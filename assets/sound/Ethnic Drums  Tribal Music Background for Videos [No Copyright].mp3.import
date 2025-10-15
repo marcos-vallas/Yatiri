@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://co2iwkedlkwty"
+path="res://.godot/imported/Ethnic Drums  Tribal Music Background for Videos [No Copyright].mp3-148ca64bfc96a65b984b5f493b53ad6b.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/Ethnic Drums  Tribal Music Background for Videos [No Copyright].mp3"
+dest_files=["res://.godot/imported/Ethnic Drums  Tribal Music Background for Videos [No Copyright].mp3-148ca64bfc96a65b984b5f493b53ad6b.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

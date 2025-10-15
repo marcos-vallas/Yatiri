@@ -51,6 +51,7 @@ func _on_destroyed() -> void:
 	emit_signal("muralla_destruida")
 	$Explotion2.play()
 	hut_enemigo.hide()
+	$HutEnemigoRoto.show()
 	collision.disabled = true
 	$Explotion.show()
 	$Explotion.play("default")

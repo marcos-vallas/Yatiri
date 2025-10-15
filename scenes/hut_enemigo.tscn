@@ -1,8 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://umlahfsnucks"]
+[gd_scene load_steps=29 format=3 uid="uid://umlahfsnucks"]
 
 [ext_resource type="PackedScene" uid="uid://dffibcq8yx4ff" path="res://scenes/muralla_enemiga.tscn" id="1_cvp08"]
 [ext_resource type="Script" uid="uid://h8srdepcwyf3" path="res://scripts/hut_enemigo.gd" id="1_xwguj"]
 [ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="2_2cm1h"]
+[ext_resource type="Texture2D" uid="uid://d3t557u8vj610" path="res://assets/img/Yatiri/Escenario/Baseenemiga_rota.png" id="3_g5tuq"]
 [ext_resource type="Texture2D" uid="uid://dd6wm8kdppytc" path="res://assets/img/Yatiri/Escenario/Empaladiza.png" id="4_d1gb5"]
 [ext_resource type="AudioStream" uid="uid://beil22emq2366" path="res://assets/sound/magic.wav" id="6_2cm1h"]
 [ext_resource type="Texture2D" uid="uid://brfapmc4fr52m" path="res://assets/img/Explotion.png" id="6_g5tuq"]
@@ -155,6 +156,15 @@ position = Vector2(91, -14)
 scale = Vector2(3.5, 3.5)
 texture = SubResource("CompressedTexture2D_2cm1h")
 
+[node name="HutEnemigoRoto" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.442911, 0.442911, 0.442911, 1)
+texture_filter = 1
+material = SubResource("ShaderMaterial_x2tlc")
+position = Vector2(91, -14)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("3_g5tuq")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(77.5, 20.5)
 shape = SubResource("RectangleShape2D_xwguj")
@@ -194,6 +204,7 @@ scale = Vector2(3, 3)
 texture = ExtResource("4_d1gb5")
 
 [node name="Explotion" type="AnimatedSprite2D" parent="."]
+visible = false
 texture_filter = 1
 position = Vector2(-71, 20)
 scale = Vector2(3, 3)

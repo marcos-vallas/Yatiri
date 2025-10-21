@@ -19,6 +19,8 @@ extends Node2D
 @export var idle_enemies_min: int = 3
 @export var idle_enemies_max: int = 6
 
+@export var activacion:bool=true
+
 # -------------------- VARIABLES INTERNAS --------------------
 var _hut_ref: Node2D
 var _current_wave_enemies: int = 0
@@ -27,16 +29,17 @@ var _is_wave_active: bool = false
 
 # -------------------- READY --------------------
 func _ready() -> void:
-	if enemy_hut != NodePath(""):
-		_hut_ref = get_node(enemy_hut) as Node2D
+	if activacion:
+		if enemy_hut != NodePath(""):
+			_hut_ref = get_node(enemy_hut) as Node2D
 
-	_spawn_timer = Timer.new()
-	_spawn_timer.one_shot = true
-	add_child(_spawn_timer)
-	_spawn_timer.timeout.connect(_on_spawn_timer_timeout)
+		_spawn_timer = Timer.new()
+		_spawn_timer.one_shot = true
+		add_child(_spawn_timer)
+		_spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 
-	_spawn_idle_enemies()
-	_spawn_timer.start(initial_delay)
+		_spawn_idle_enemies()
+		_spawn_timer.start(initial_delay)
 
 # -------------------- OLEADAS --------------------
 func _on_spawn_timer_timeout() -> void:

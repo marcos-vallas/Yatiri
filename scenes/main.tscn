@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://dwrah6o3ea43a"]
+[gd_scene load_steps=31 format=4 uid="uid://dwrah6o3ea43a"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://b7gqby3jeqjbv" path="res://assets/img/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0wfyh"]
@@ -22,6 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://tmd0h4oma52p" path="res://scenes/hut.tscn" id="17_muem4"]
 [ext_resource type="PackedScene" uid="uid://umlahfsnucks" path="res://scenes/hut_enemigo.tscn" id="19_0ld40"]
 [ext_resource type="AudioStream" uid="uid://co2iwkedlkwty" path="res://assets/sound/Ethnic Drums  Tribal Music Background for Videos [No Copyright].mp3" id="21_og1vs"]
+[ext_resource type="Script" uid="uid://cdsnsiniqtbfi" path="res://scenes/game_manager.gd" id="24_y6deb"]
+[ext_resource type="PackedScene" uid="uid://c57j15065au41" path="res://scenes/enemy_1.tscn" id="25_og1vs"]
 [ext_resource type="PackedScene" uid="uid://cyfvjbgy7ydwc" path="res://scenes/tutorial.tscn" id="26_vxglm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
@@ -684,12 +686,13 @@ enemy_hut = NodePath("../HutEnemigo")
 spawn_y = 332.0
 spawn_y_range = 1.0
 initial_delay = 10.0
-max_enemies_per_wave = 2
+max_enemies_per_wave = 0
 spawn_interval = 10.0
 wave_interval = 20.0
 enemy2_y_offset = -5.0
 idle_enemies_min = 1
 idle_enemies_max = 3
+activacion = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -728,3 +731,17 @@ autoplay = true
 [node name="Sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_muem4")
 autoplay = true
+
+[node name="SpawnEnemigos" type="Marker2D" parent="."]
+position = Vector2(552, 324)
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("spawn_punto")]
+script = ExtResource("24_y6deb")
+tiempo_dia = 10.0
+tiempo_noche = 20.0
+cantidad_base_enemigos = 3
+incremento_por_noche = 2
+spawn_punto = NodePath("../SpawnEnemigos")
+enemigo_escena = ExtResource("25_og1vs")
+
+[node name="SpawnTimer" type="Timer" parent="GameManager"]

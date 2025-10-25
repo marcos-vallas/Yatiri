@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://dwrah6o3ea43a"]
+[gd_scene load_steps=36 format=4 uid="uid://dwrah6o3ea43a"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://b7gqby3jeqjbv" path="res://assets/img/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0wfyh"]
@@ -22,9 +22,11 @@
 [ext_resource type="PackedScene" uid="uid://tmd0h4oma52p" path="res://scenes/hut.tscn" id="17_muem4"]
 [ext_resource type="PackedScene" uid="uid://umlahfsnucks" path="res://scenes/hut_enemigo.tscn" id="19_0ld40"]
 [ext_resource type="AudioStream" uid="uid://co2iwkedlkwty" path="res://assets/sound/Ethnic Drums  Tribal Music Background for Videos [No Copyright].mp3" id="21_og1vs"]
-[ext_resource type="Script" uid="uid://cdsnsiniqtbfi" path="res://scenes/game_manager.gd" id="24_y6deb"]
-[ext_resource type="PackedScene" uid="uid://c57j15065au41" path="res://scenes/enemy_1.tscn" id="25_og1vs"]
+[ext_resource type="Script" uid="uid://78h00os5anau" path="res://scenes/game_manager_2.gd" id="25_og1vs"]
+[ext_resource type="Script" uid="uid://dd7q8dqidtkr1" path="res://scenes/base_spawner.gd" id="26_2wyq8"]
 [ext_resource type="PackedScene" uid="uid://cyfvjbgy7ydwc" path="res://scenes/tutorial.tscn" id="26_vxglm"]
+[ext_resource type="PackedScene" uid="uid://c57j15065au41" path="res://scenes/enemy_1.tscn" id="27_vxglm"]
+[ext_resource type="Texture2D" uid="uid://btfvb60do88jx" path="res://assets/img/SuriGames_v2.png" id="27_yq6so"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -534,6 +536,7 @@ script/source = "extends Node2D
 @export var spacing: float = 60.0     
 @export var start_position: Vector2 = Vector2(100, 300)  
 @export var attack_interval: float = 5.0  
+@export var activacion:bool = false
 
 var tribe: Array = []
 
@@ -542,19 +545,20 @@ func _ready() -> void:
 	_start_attack_timer()
 
 func _spawn_tribe() -> void:
-	for i in range(tribe_size):
-		var archer = archer_scene.instantiate()
-		add_child(archer)
+	if activacion :
+		for i in range(tribe_size):
+			var archer = archer_scene.instantiate()
+			add_child(archer)
 
-		var random_offset = randf_range(-40.0, 40.0)
-		archer.position = start_position + Vector2(i * spacing + random_offset, 0)
-		tribe.append(archer)
+			var random_offset = randf_range(-40.0, 40.0)
+			archer.position = start_position + Vector2(i * spacing + random_offset, 0)
+			tribe.append(archer)
 
-		Global.add_tribe_member()
-		
-		if archer.has_signal(\"died\"):
-			archer.died.connect(func():
-				Global.remove_tribe_member())
+			Global.add_tribe_member()
+			
+			if archer.has_signal(\"died\"):
+				archer.died.connect(func():
+					Global.remove_tribe_member())
 
 func _start_attack_timer() -> void:
 	var timer = Timer.new()
@@ -575,6 +579,50 @@ func _on_attack_timeout() -> void:
 				if archer and archer.is_inside_tree():
 					archer.do_attack())  
 "
+
+[sub_resource type="Animation" id="Animation_vxglm"]
+resource_name = "pos_rand"
+length = 5.0
+loop_mode = 1
+markers = [{
+"color": Color(1, 1, 1, 1),
+"name": &"new_marker",
+"time": 0.966667
+}]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.33333, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(200, 320), Vector2(150, 320), Vector2(200, 320)]
+}
+
+[sub_resource type="Animation" id="Animation_2f3dj"]
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.2929, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-779, 312), Vector2(-1009, 312), Vector2(-779, 312)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yq6so"]
+_data = {
+&"RESET": SubResource("Animation_2f3dj"),
+&"pos_rand": SubResource("Animation_vxglm")
+}
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_o5qli")
@@ -711,7 +759,7 @@ transition_time = 30.0
 
 [node name="Player" parent="." instance=ExtResource("3_sugp2")]
 process_mode = 3
-position = Vector2(297, 332)
+position = Vector2(-829, 332)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -732,16 +780,51 @@ autoplay = true
 stream = ExtResource("16_muem4")
 autoplay = true
 
-[node name="SpawnEnemigos" type="Marker2D" parent="."]
+[node name="GameManager" type="Node" parent="."]
+
+[node name="SpawnEnemigos" type="Marker2D" parent="GameManager"]
 position = Vector2(552, 324)
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("spawn_punto")]
-script = ExtResource("24_y6deb")
-tiempo_dia = 10.0
-tiempo_noche = 20.0
-cantidad_base_enemigos = 3
-incremento_por_noche = 2
-spawn_punto = NodePath("../SpawnEnemigos")
-enemigo_escena = ExtResource("25_og1vs")
-
 [node name="SpawnTimer" type="Timer" parent="GameManager"]
+
+[node name="GameManager2" type="Node" parent="." node_paths=PackedStringArray("allied_spawner", "enemy_spawner")]
+script = ExtResource("25_og1vs")
+tiempo_dia = 5.0
+tiempo_noche = 10.0
+allied_spawner = NodePath("AlliedSpawner")
+enemy_spawner = NodePath("EnemySpawner")
+cantidad_incremento_enemigos = 2
+
+[node name="EnemySpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
+script = ExtResource("26_2wyq8")
+unidad_escena = ExtResource("27_vxglm")
+spawn_marker = NodePath("SpawnPos")
+spawn_timer = NodePath("SpawnTimer")
+
+[node name="SpawnPos" type="Marker2D" parent="GameManager2/EnemySpawner"]
+position = Vector2(431, 320)
+
+[node name="SpawnTimer" type="Timer" parent="GameManager2/EnemySpawner"]
+
+[node name="AlliedSpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
+script = ExtResource("26_2wyq8")
+unidad_escena = ExtResource("10_choun")
+spawn_marker = NodePath("SpawnPos")
+spawn_timer = NodePath("SpawnTimer")
+
+[node name="SpawnPos" type="Marker2D" parent="GameManager2/AlliedSpawner"]
+position = Vector2(-779, 312)
+metadata/_edit_group_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameManager2/AlliedSpawner/SpawnPos"]
+libraries = {
+&"": SubResource("AnimationLibrary_yq6so")
+}
+autoplay = "RESET"
+
+[node name="Sprite2D" type="Sprite2D" parent="GameManager2/AlliedSpawner/SpawnPos"]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("27_yq6so")
+
+[node name="SpawnTimer" type="Timer" parent="GameManager2/AlliedSpawner"]
+wait_time = 0.2

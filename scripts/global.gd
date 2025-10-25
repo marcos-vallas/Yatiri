@@ -39,8 +39,8 @@ func set_potions(value: int) -> void:
 	emit_signal("potions_changed", potions)
 
 # --- TRIBU ---
-func add_tribe_member() -> void:
-	tribe_count += 1
+func add_tribe_member(cant:int =1) -> void:
+	tribe_count += cant
 	emit_signal("tribe_changed", tribe_count)
 
 func remove_tribe_member() -> void:

@@ -1,11 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cde1i6dh6q7m7"]
+[gd_scene load_steps=5 format=3 uid="uid://cde1i6dh6q7m7"]
 
 [ext_resource type="PackedScene" uid="uid://tmd0h4oma52p" path="res://scenes/hut.tscn" id="1_qyt2g"]
 [ext_resource type="Script" uid="uid://qxiclr0nsq7r" path="res://scripts/enemy_hut.gd" id="2_xrdn8"]
 [ext_resource type="PackedScene" uid="uid://dffibcq8yx4ff" path="res://scenes/muralla_enemiga.tscn" id="3_knnnk"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qyt2g"]
-load_path = "res://.godot/imported/hut.png-10ed28153f489c6f11dd5315d1e7aeb0.ctex"
 
 [sub_resource type="Gradient" id="Gradient_t5w7m"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.619608)
@@ -15,18 +12,12 @@ collision_layer = 256
 collision_mask = 64
 script = ExtResource("2_xrdn8")
 
-[node name="Sprite2D" parent="." index="0"]
-modulate = Color(0.166853, 0.166853, 0.166853, 1)
-position = Vector2(-1, -15)
-texture = SubResource("CompressedTexture2D_qyt2g")
-flip_h = false
-
-[node name="CPUParticles2D" parent="." index="2"]
-color = Color(1, 0, 0, 1)
-color_ramp = SubResource("Gradient_t5w7m")
-
 [node name="MurallaEnemiga" parent="." index="3" instance=ExtResource("3_knnnk")]
 position = Vector2(-457, 38)
 
-[node name="MurallaTribu" parent="." index="4"]
+[node name="CPUParticles2D" parent="." index="4"]
+color = Color(1, 0, 0, 1)
+color_ramp = SubResource("Gradient_t5w7m")
+
+[node name="MurallaTribu" parent="." index="6"]
 visible = false

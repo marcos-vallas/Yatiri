@@ -269,9 +269,7 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" parent="." index="0"]
 z_index = 2
 sprite_frames = SubResource("SpriteFrames_ejvcm")
-animation = &"hurt"
-frame = 3
-frame_progress = 1.0
+animation = &"idle"
 
 [node name="Light" parent="AnimatedSprite2D" index="1"]
 material = SubResource("ShaderMaterial_vlvv2")

@@ -16,6 +16,9 @@ enum State { WALK_FORWARD, PRE_ATTACK, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 @onready var animated_sprite: AnimatedSprite2D = $Enemy
 @onready var attack_area: Area2D = $AttackArea
 
+@onready var coin_scene = preload("res://scenes/coin.tscn") 
+
+
 var base_attack_area_position: Vector2
 var state: State = State.WALK_FORWARD
 var walk_direction: int = 1
@@ -187,11 +190,13 @@ func set_state(new_state: State) -> void:
 			attack_area.monitoring = false
 
 		State.DEAD:
+			_entregar_recompensa()
 			is_dead = true
 			velocity = Vector2.ZERO
 			animated_sprite.play("death")
 			$CollisionShape2D.disabled = true
 			$Steps.stop()
+			
 			attack_area.monitoring = false
 			remove_from_group("Enemy")
 			
@@ -200,6 +205,13 @@ func set_state(new_state: State) -> void:
 			tween.tween_property(animated_sprite, "modulate:a", 0.0, 2.5)
 			tween.tween_callback(Callable(self, "_on_fade_out_finished"))
 			
+			
+func _entregar_recompensa()-> void:
+	var coin = coin_scene.instantiate()
+	coin.global_position = global_position
+	get_parent().get_parent().add_child(coin)
+	
+	pass
 func _on_fade_out_finished() -> void:
 	queue_free()
 

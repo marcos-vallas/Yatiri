@@ -19,6 +19,12 @@ var is_hurt := false
 func _ready() -> void:
 	# Idle inicial con frame aleatorio
 	_play_idle()
+	
+	do_attack()
+	
+func _init() -> void:
+	print("AgregoMiemro")
+	Global.add_tribe_member()
 
 func _physics_process(delta: float) -> void:
 	if is_dead:

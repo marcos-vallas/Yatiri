@@ -9,7 +9,7 @@ class_name Player
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackArea
-@onready var attack_shape: CollisionShape2D = $AttackArea/CollisionShape2D
+@onready var attack_shape: CollisionShape2D = $AttackArea/AttackShape
 @onready var steps: AudioStreamPlayer2D = $Steps
 @onready var attack_sound: AudioStreamPlayer = $Attack
 @onready var camera: Camera2D = $Camera2D

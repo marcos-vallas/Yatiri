@@ -8,6 +8,8 @@ signal muralla_destruida
 @onready var muralla_collision: CollisionShape2D = $MurallaCollision
 @onready var static_body: StaticBody2D = $StaticBody2D
 @onready var static_collision: CollisionShape2D = $StaticBody2D/CollisionShape2D
+@onready var texto_vida : RichTextLabel = $VidaMuralla
+
 
 var damage_flash_count: int = 2        # cantidad de parpadeos
 var damage_flash_duration: float = 0.1 # duración de cada parpadeo
@@ -19,6 +21,8 @@ func _ready() -> void:
 	add_to_group("Muralla")
 	$Explotion.hide()
 	
+#	Muestra vida muralla
+	texto_vida.text = str(health)
 	# Timer interno para efecto de daño
 	flash_timer = Timer.new()
 	flash_timer.one_shot = false
@@ -34,12 +38,15 @@ func is_destroyed() -> bool:
 	
 func take_damage(amount: int) -> void:
 	if health <= 0 or destroyed:
+		texto_vida.text = str(0)
 		return
 	
 	$Hit.play()
 	health -= amount
+	texto_vida.text = str(health)
 
 	if health <= 0:
+		texto_vida.text = str(0)
 		_on_destroyed()
 	else:
 		_start_flash()

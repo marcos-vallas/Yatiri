@@ -17,8 +17,7 @@ script = ExtResource("2_r26bq")
 [node name="Muralla" parent="." index="0"]
 modulate = Color(1, 1, 1, 1)
 texture = SubResource("CompressedTexture2D_5gs7b")
-flip_h = true
 
-[node name="MurallaCollision" parent="." index="1"]
+[node name="MurallaCollision" parent="." index="3"]
 position = Vector2(18, 8.5)
 shape = SubResource("RectangleShape2D_r26bq")

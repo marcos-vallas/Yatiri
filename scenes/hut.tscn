@@ -222,7 +222,7 @@ shape = SubResource("RectangleShape2D_agf4v")
 
 [node name="MurallaTribu" parent="." instance=ExtResource("2_lbxpc")]
 position = Vector2(475, 42)
-health = 60
+max_health = 40
 
 [node name="Explotion" type="AnimatedSprite2D" parent="."]
 z_index = 4

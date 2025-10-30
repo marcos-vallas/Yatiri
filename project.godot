@@ -30,6 +30,11 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 
+[global_group]
+
+Player=""
+Repair="Para reparar muralla"
+
 [input]
 
 up={
@@ -87,6 +92,7 @@ run={
 2d_physics/layer_10="Muralla"
 2d_physics/layer_11="Spear"
 2d_physics/layer_12="Base"
+2d_physics/layer_13="Repair"
 
 [physics]
 

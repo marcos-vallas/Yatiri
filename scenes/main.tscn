@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://dwrah6o3ea43a"]
+[gd_scene load_steps=37 format=4 uid="uid://dwrah6o3ea43a"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://b7gqby3jeqjbv" path="res://assets/img/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0wfyh"]
@@ -23,8 +23,9 @@
 [ext_resource type="PackedScene" uid="uid://umlahfsnucks" path="res://scenes/hut_enemigo.tscn" id="19_0ld40"]
 [ext_resource type="AudioStream" uid="uid://co2iwkedlkwty" path="res://assets/sound/Ethnic Drums  Tribal Music Background for Videos [No Copyright].mp3" id="21_og1vs"]
 [ext_resource type="Script" uid="uid://78h00os5anau" path="res://scenes/game_manager_2.gd" id="25_og1vs"]
-[ext_resource type="Script" uid="uid://dd7q8dqidtkr1" path="res://scenes/base_spawner.gd" id="26_2wyq8"]
+[ext_resource type="Script" uid="uid://db0r8xp5utovh" path="res://scenes/base_spawner_2.gd" id="25_vxglm"]
 [ext_resource type="PackedScene" uid="uid://cyfvjbgy7ydwc" path="res://scenes/tutorial.tscn" id="26_vxglm"]
+[ext_resource type="PackedScene" uid="uid://f45wojucvxx6" path="res://scenes/enemy_2.tscn" id="26_yq6so"]
 [ext_resource type="PackedScene" uid="uid://c57j15065au41" path="res://scenes/enemy_1.tscn" id="27_vxglm"]
 [ext_resource type="Texture2D" uid="uid://btfvb60do88jx" path="res://assets/img/SuriGames_v2.png" id="27_yq6so"]
 
@@ -580,6 +581,22 @@ func _on_attack_timeout() -> void:
 					archer.do_attack())  
 "
 
+[sub_resource type="Animation" id="Animation_2f3dj"]
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.2929, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-779, 312), Vector2(-1009, 312), Vector2(-779, 312)]
+}
+
 [sub_resource type="Animation" id="Animation_vxglm"]
 resource_name = "pos_rand"
 length = 5.0
@@ -600,22 +617,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(200, 320), Vector2(150, 320), Vector2(200, 320)]
-}
-
-[sub_resource type="Animation" id="Animation_2f3dj"]
-length = 5.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2.2929, 5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-779, 312), Vector2(-1009, 312), Vector2(-779, 312)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yq6so"]
@@ -792,12 +793,14 @@ script = ExtResource("25_og1vs")
 tiempo_dia = 5.0
 tiempo_noche = 10.0
 allied_spawner = NodePath("AlliedSpawner")
+aliado_1_escena = ExtResource("10_choun")
 enemy_spawner = NodePath("EnemySpawner")
-cantidad_incremento_enemigos = 2
+enemigo_1_escena = ExtResource("27_vxglm")
+enemigo_2_escena = ExtResource("26_yq6so")
+cant_Enemigo_2_noche = 0.5
 
 [node name="EnemySpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
-script = ExtResource("26_2wyq8")
-unidad_escena = ExtResource("27_vxglm")
+script = ExtResource("25_vxglm")
 spawn_marker = NodePath("SpawnPos")
 spawn_timer = NodePath("SpawnTimer")
 
@@ -807,8 +810,7 @@ position = Vector2(431, 320)
 [node name="SpawnTimer" type="Timer" parent="GameManager2/EnemySpawner"]
 
 [node name="AlliedSpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
-script = ExtResource("26_2wyq8")
-unidad_escena = ExtResource("10_choun")
+script = ExtResource("25_vxglm")
 spawn_marker = NodePath("SpawnPos")
 spawn_timer = NodePath("SpawnTimer")
 

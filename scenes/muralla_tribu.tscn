@@ -1,7 +1,7 @@
 [gd_scene load_steps=31 format=3 uid="uid://bxwyycl75xmc8"]
 
 [ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="1_ism1i"]
-[ext_resource type="Script" uid="uid://b5e4hpbitj858" path="res://scenes/hut_v2.gd" id="1_ixsww"]
+[ext_resource type="Script" uid="uid://b5e4hpbitj858" path="res://scripts/murallaTribu_v2.gd" id="1_ixsww"]
 [ext_resource type="Texture2D" uid="uid://c0h0fm475agid" path="res://assets/img/Muralla Enemiga/murallaa_rota.png" id="3_c0sp2"]
 [ext_resource type="Texture2D" uid="uid://dd6wm8kdppytc" path="res://assets/img/Yatiri/Escenario/Empaladiza.png" id="3_yldxc"]
 [ext_resource type="AudioStream" uid="uid://bj2543vduipa2" path="res://assets/sound/attack_hit.wav" id="4_rdskk"]

@@ -34,6 +34,59 @@ func _ready() -> void:
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	animated_sprite.frame_changed.connect(_on_frame_changed)
 
+
+func _get_target_with_priority2() -> Node:
+	# Primero Base (Se mantiene)
+	var bases = get_tree().get_nodes_in_group("Base")
+	if not bases.is_empty():
+		var closest = bases.front()
+		var min_dist = global_position.distance_to(closest.global_position)
+		for b in bases:
+			var dist = global_position.distance_to(b.global_position)
+			if dist < min_dist:
+				min_dist = dist
+				closest = b
+		return closest
+
+	# Luego muralla (LÓGICA MODIFICADA AQUÍ)
+	var murallas_raw = get_tree().get_nodes_in_group("Muralla")
+	var murallas_validas = []
+
+	# 1. Filtramos las murallas destruidas
+	for m in murallas_raw:
+		# Asumimos que el objeto Muralla tiene el método `is_destroyed()` (de muralla_tribu.gd)
+		# y que solo tiene sentido atacarlas si NO están destruidas.
+		if m.has_method("is_destroyed") and not m.is_destroyed(): 
+			murallas_validas.append(m)
+
+	if not murallas_validas.is_empty():
+		var closest = murallas_validas.front()
+		var min_dist = global_position.distance_to(closest.global_position)
+		for m in murallas_validas:
+			var dist = global_position.distance_to(m.global_position)
+			if dist < min_dist:
+				min_dist = dist
+				closest = m
+		return closest
+	
+	# Por último player (Se mantiene)
+	var players = get_tree().get_nodes_in_group("Player")
+	if not players.is_empty():
+		var closest = players.front()
+		var min_dist = global_position.distance_to(closest.global_position)
+		for p in players:
+			var dist = global_position.distance_to(p.global_position)
+			if dist < min_dist:
+				min_dist = dist
+				closest = p
+		return closest
+	
+	return null
+
+
+
+
+
 # -------------------- DETECCIÓN DE OBJETIVO CON PRIORIDAD --------------------
 func _get_target_with_priority() -> Node:
 	# Primero Base
@@ -51,6 +104,7 @@ func _get_target_with_priority() -> Node:
 	# Luego muralla
 	var murallas = get_tree().get_nodes_in_group("Muralla")
 	if not murallas.is_empty():
+		
 		var closest = murallas.front()
 		var min_dist = global_position.distance_to(closest.global_position)
 		for m in murallas:
@@ -80,7 +134,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if state == State.WALK_FORWARD:
-		var target = _get_target_with_priority()
+		var target = _get_target_with_priority2()
 		if target:
 			var new_direction = sign(target.global_position.x - global_position.x)
 			if new_direction == 0:
@@ -105,7 +159,7 @@ func _physics_process(delta: float) -> void:
 
 	# --- Chequeo posterior de colisión o rango ---
 	if state == State.WALK_FORWARD:
-		var target = _get_target_with_priority()
+		var target = _get_target_with_priority2()
 		if target:
 			if global_position.distance_to(target.global_position) <= attack_range \
 			or (target.is_in_group("Muralla") and is_on_wall()) \

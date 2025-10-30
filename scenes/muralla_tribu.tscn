@@ -1,7 +1,7 @@
 [gd_scene load_steps=31 format=3 uid="uid://bxwyycl75xmc8"]
 
+[ext_resource type="Script" uid="uid://rb8yr4dp0olp" path="res://scenes/muralla_tribu_3.gd" id="1_c0sp2"]
 [ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="1_ism1i"]
-[ext_resource type="Script" uid="uid://b5e4hpbitj858" path="res://scripts/murallaTribu_v2.gd" id="1_ixsww"]
 [ext_resource type="Texture2D" uid="uid://c0h0fm475agid" path="res://assets/img/Muralla Enemiga/murallaa_rota.png" id="3_c0sp2"]
 [ext_resource type="Texture2D" uid="uid://dd6wm8kdppytc" path="res://assets/img/Yatiri/Escenario/Empaladiza.png" id="3_yldxc"]
 [ext_resource type="AudioStream" uid="uid://bj2543vduipa2" path="res://assets/sound/attack_hit.wav" id="4_rdskk"]
@@ -172,17 +172,17 @@ animations = [{
 "speed": 16.0
 }]
 
-[node name="MurallaTribu" type="Area2D" node_paths=PackedStringArray("sprite_normal", "sprite_destruido", "repair_label", "health_label", "muralla_collision", "static_collision", "repair_collision") groups=["Muralla"]]
+[node name="MurallaTribu" type="Area2D" node_paths=PackedStringArray("sprite_normal", "sprite_destruido", "muralla_area_collision", "static_body", "static_collision", "texto_vida", "repair_label") groups=["Muralla"]]
 collision_layer = 512
-collision_mask = 5280
-script = ExtResource("1_ixsww")
+collision_mask = 5282
+script = ExtResource("1_c0sp2")
 sprite_normal = NodePath("Muralla")
 sprite_destruido = NodePath("MurallaRota")
-repair_label = NodePath("RepairLabel")
-health_label = NodePath("HealthLabel")
-muralla_collision = NodePath("MurallaCollision")
+muralla_area_collision = NodePath("MurallaCollision")
+static_body = NodePath("StaticBody2D")
 static_collision = NodePath("StaticBody2D/StaticCollision")
-repair_collision = NodePath("RepairShape")
+texto_vida = NodePath("HealthLabel")
+repair_label = NodePath("RepairLabel")
 
 [node name="RepairShape" type="CollisionShape2D" parent="."]
 position = Vector2(13.5, 0)
@@ -198,6 +198,7 @@ texture = ExtResource("3_yldxc")
 flip_h = true
 
 [node name="MurallaRota" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(6.5, -15)
 scale = Vector2(3.41304, 3.16981)
 texture = ExtResource("3_c0sp2")
@@ -245,9 +246,12 @@ volume_db = -16.0
 pitch_scale = 0.6
 
 [node name="RepairLabel" type="Label" parent="."]
+offset_top = -157.0
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = -134.0
 
 [node name="HealthLabel" type="Label" parent="."]
+offset_left = 15.0
+offset_top = -107.0
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = -62.0

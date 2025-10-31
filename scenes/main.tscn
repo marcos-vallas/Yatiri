@@ -779,7 +779,7 @@ position = Vector2(905, 332)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_og1vs")
-volume_db = -35.412
+volume_db = -25.46
 autoplay = true
 
 [node name="Sfx" type="AudioStreamPlayer2D" parent="."]

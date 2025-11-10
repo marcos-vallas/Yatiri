@@ -264,6 +264,7 @@ knockback_force = 100.0
 knockback_friction = 800.0
 damage_flash_time = 0.4
 flash_duration = 0.8
+intervalo_ataque = 0.15
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" parent="." index="0"]

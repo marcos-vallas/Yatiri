@@ -7,10 +7,21 @@ var base_health: int = 40
 var base_max_health: int = 100
 var game_result_text = ""
 
+var ciclo_actual : int =1 
+
+
 signal coins_changed(new_value)
 signal potions_changed(new_value)
 signal tribe_changed(new_value)
 signal base_health_changed(new_value)  # 🔥 Nueva señal
+
+signal cycle_changed(new_value)
+
+
+func change_cycle(ciclo:int) -> void:
+	ciclo_actual = ciclo
+	emit_signal("cycle_changed", ciclo_actual)
+
 
 # --- MONEDAS ---
 func add_coins(amount: int) -> void:

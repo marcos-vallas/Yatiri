@@ -6,6 +6,7 @@ extends Control
 @onready var tribe_label: Label = $MarginContainer/VBoxContainer2/TribuContainer/TribuNumber
 @onready var base_health_bar: ProgressBar = $MarginContainer/VBoxContainer2/BaseContainer/BaseHealthBar
 
+@onready var actual_cycle_marker : Label = $MarginContainer/DayLabel
 
 func _ready() -> void:
 	# Conectar señales del Global
@@ -13,6 +14,7 @@ func _ready() -> void:
 	Global.potions_changed.connect(_on_potions_changed)
 	Global.tribe_changed.connect(_on_tribe_changed)
 	Global.base_health_changed.connect(_on_base_health_changed)
+	Global.cycle_changed.connect(_on_cicle_changed)
 
 	# Inicializar visuales
 	_on_coins_changed(Global.coins)
@@ -20,8 +22,13 @@ func _ready() -> void:
 	_on_tribe_changed(Global.tribe_count)
 	_on_base_health_changed(Global.base_health)
 	
+	_on_cicle_changed(Global.ciclo_actual)
+	
 		# Configurar barra
 	base_health_bar.max_value = Global.base_max_health
+	
+func _on_cicle_changed(new_value :int) -> void:
+	actual_cycle_marker.text = "Día " + str(new_value)
 	
 func _on_base_health_changed(new_value: int) -> void:
 	base_health_bar.value = new_value

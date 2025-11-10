@@ -9,7 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://beil22emq2366" path="res://assets/sound/magic.wav" id="6_ixsww"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0sp2"]
-size = Vector2(205, 20)
+size = Vector2(176, 20)
 
 [sub_resource type="Shader" id="Shader_ixsww"]
 code = "shader_type canvas_item;
@@ -185,7 +185,7 @@ texto_vida = NodePath("HealthLabel")
 repair_label = NodePath("RepairLabel")
 
 [node name="RepairShape" type="CollisionShape2D" parent="."]
-position = Vector2(13.5, 0)
+position = Vector2(14, 0)
 shape = SubResource("RectangleShape2D_c0sp2")
 
 [node name="Muralla" type="Sprite2D" parent="."]

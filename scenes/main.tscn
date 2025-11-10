@@ -722,10 +722,11 @@ position = Vector2(-1074, 272)
 
 [node name="MurallaTribu2" parent="." instance=ExtResource("15_yq6so")]
 position = Vector2(-599, 314)
-costo_reparacion = 2
+max_health = 80
+costo_reparacion = 1
 
 [node name="HutEnemigo" parent="." instance=ExtResource("19_0ld40")]
-position = Vector2(2000, 259)
+position = Vector2(1975, 259)
 
 [node name="TribeSpawner" type="Node2D" parent="."]
 script = SubResource("GDScript_ya4ey")
@@ -775,7 +776,7 @@ size_flags_vertical = 0
 
 [node name="PowerUp" parent="." instance=ExtResource("13_gqmmt")]
 z_index = 2
-position = Vector2(905, 332)
+position = Vector2(1977, 322)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_og1vs")
@@ -786,23 +787,16 @@ autoplay = true
 stream = ExtResource("16_muem4")
 autoplay = true
 
-[node name="GameManager" type="Node" parent="."]
-
-[node name="SpawnEnemigos" type="Marker2D" parent="GameManager"]
-position = Vector2(552, 324)
-
-[node name="SpawnTimer" type="Timer" parent="GameManager"]
-
 [node name="GameManager2" type="Node" parent="." node_paths=PackedStringArray("allied_spawner", "enemy_spawner")]
 script = ExtResource("25_og1vs")
-tiempo_dia = 5.0
+tiempo_dia = 10.0
 tiempo_noche = 10.0
 allied_spawner = NodePath("AlliedSpawner")
 aliado_1_escena = ExtResource("10_choun")
 enemy_spawner = NodePath("EnemySpawner")
 enemigo_1_escena = ExtResource("27_vxglm")
 enemigo_2_escena = ExtResource("26_yq6so")
-cant_Enemigo_2_noche = 0.5
+cant_Enemigo_2_noche = 0.25
 
 [node name="EnemySpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
 script = ExtResource("25_vxglm")
@@ -810,7 +804,7 @@ spawn_marker = NodePath("SpawnPos")
 spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnPos" type="Marker2D" parent="GameManager2/EnemySpawner"]
-position = Vector2(431, 328)
+position = Vector2(1311, 328)
 
 [node name="SpawnTimer" type="Timer" parent="GameManager2/EnemySpawner"]
 

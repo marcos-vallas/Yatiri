@@ -3,6 +3,8 @@ class_name Enemy
 
 enum State { WALK_FORWARD, PRE_ATTACK, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 
+enum Objetivo {BASE, MURALLA, JUGADOR, FIJO}
+
 @export var health: int = 100
 @export var walk_speed: float = 170.0
 @export var walk_duration: float = 1.6
@@ -16,7 +18,8 @@ enum State { WALK_FORWARD, PRE_ATTACK, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 @onready var animated_sprite: AnimatedSprite2D = $Enemy
 @onready var attack_area: Area2D = $AttackArea
 
-@onready var coin_scene = preload("res://scenes/coin.tscn") 
+@onready var coin_scene = preload("res://scenes/coin.tscn")
+@onready var powerUp_scene = preload("res://scenes/power_up.tscn") 
 
 
 var base_attack_area_position: Vector2
@@ -35,7 +38,11 @@ func _ready() -> void:
 	animated_sprite.frame_changed.connect(_on_frame_changed)
 
 
+
 func _get_target_with_priority2() -> Node:
+	
+	
+	
 	# Primero Base (Se mantiene)
 	var bases = get_tree().get_nodes_in_group("Base")
 	if not bases.is_empty():
@@ -89,6 +96,21 @@ func _get_target_with_priority2() -> Node:
 
 # -------------------- DETECCIÓN DE OBJETIVO CON PRIORIDAD --------------------
 func _get_target_with_priority() -> Node:
+	
+		# Por último player
+	var players = get_tree().get_nodes_in_group("Player")
+	if not players.is_empty():
+		var closest = players.front()
+		var min_dist = global_position.distance_to(closest.global_position)
+		for p in players:
+			var dist = global_position.distance_to(p.global_position)
+			if dist < min_dist:
+				min_dist = dist
+				closest = p
+		return closest
+	
+	
+	
 	# Primero Base
 	var bases = get_tree().get_nodes_in_group("Base")
 	if not bases.is_empty():
@@ -114,17 +136,7 @@ func _get_target_with_priority() -> Node:
 				closest = m
 		return closest
 	
-	# Por último player
-	var players = get_tree().get_nodes_in_group("Player")
-	if not players.is_empty():
-		var closest = players.front()
-		var min_dist = global_position.distance_to(closest.global_position)
-		for p in players:
-			var dist = global_position.distance_to(p.global_position)
-			if dist < min_dist:
-				min_dist = dist
-				closest = p
-		return closest
+
 	
 	return null
 
@@ -174,6 +186,18 @@ func _is_touching_base() -> bool:
 		if col and col.get_collider() and col.get_collider().is_in_group("Base"):
 			return true
 	return false
+
+func set_objetivo(new_objetivo) -> void:
+	match new_objetivo:
+		"BASE":
+			Objetivo.BASE
+		"MURALLA":
+			Objetivo.MURALLA
+		"FIJO":
+			Objetivo.FIJO
+		"JUGADOR":
+			Objetivo.JUGADOR
+			
 
 # -------------------- ESTADOS --------------------
 func set_state(new_state: State) -> void:
@@ -244,7 +268,7 @@ func set_state(new_state: State) -> void:
 			attack_area.monitoring = false
 
 		State.DEAD:
-			_entregar_recompensa()
+			
 			is_dead = true
 			velocity = Vector2.ZERO
 			animated_sprite.play("death")
@@ -258,7 +282,7 @@ func set_state(new_state: State) -> void:
 			tween.tween_interval(5.0)
 			tween.tween_property(animated_sprite, "modulate:a", 0.0, 2.5)
 			tween.tween_callback(Callable(self, "_on_fade_out_finished"))
-			
+			_entregar_recompensa()
 			
 func _entregar_recompensa()-> void:
 	var coin = coin_scene.instantiate()

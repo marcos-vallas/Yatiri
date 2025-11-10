@@ -5,14 +5,14 @@ extends Area2D
 signal muralla_destruida
 
 # --- MÁQUINA DE ESTADOS ---
-enum State { NORMAL, DESTRUIDA }
+enum State { NORMAL, DESTRUIDA, DAMAGED }
 var current_state: int = State.NORMAL
 
 # --- PROPIEDADES ---
-@export var max_health: int = 20
+@export var max_health: int
 
 var current_health: int = max_health
-@export var costo_reparacion: int = 5 # Monedas necesarias para la reparación
+@export var costo_reparacion: int  # Monedas necesarias para la reparación
 # @export var reparacion_por_moneda: int = 2 # Ya no es necesaria, repararemos al 100%
 
 # --- NODOS (Renombrados para claridad) ---
@@ -45,6 +45,7 @@ func _ready() -> void:
 	add_child(flash_timer)
 	flash_timer.timeout.connect(_on_flash_timer_timeout)
 
+	current_health = max_health
 	# Inicialización del estado
 	set_state(State.NORMAL)
 	#texto_vida.text = str(current_health)
@@ -114,6 +115,25 @@ func set_state(new_state: int) -> void:
 			# Actualiza el texto de vida
 			update_health_display()
 			
+		State.DAMAGED:
+			remove_from_group("Destroyed_Muralla")
+			add_to_group("Muralla")
+			# Sprite Normal
+			sprite_normal.visible = true
+			sprite_destruido.visible = false
+			
+			# Colisiones: Bloquea el paso (StaticBody ON) y mantiene detección (Area2D ON)
+			static_collision.disabled = false 
+			static_body.visible = true
+			
+			# Muestra el texto de reparación
+			repair_label.visible = true 
+			
+			# Muestra el texto de reparación (si el jugador está cerca)
+			repair_label.text = "Presiona 'S' para reparar: %d Monedas" % costo_reparacion
+			repair_label.visible = is_player_in_area
+			update_health_display()
+			pass
 
 		State.DESTRUIDA:
 			remove_from_group("Muralla")
@@ -146,7 +166,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		is_player_in_area = true
 		print("EntraPlayer")
-		if current_state == State.DESTRUIDA:
+		if current_state == State.DESTRUIDA or current_state == State.DAMAGED:
 			repair_label.visible = true
 			
 # Detección de salida del Area2D de la muralla
@@ -160,9 +180,8 @@ func _on_body_exited(body: Node2D) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	# Solo procesamos si está destruida, el jugador está en el área, y pulsa 'S'
 	# ASUMIMOS que tienes una acción en el Input Map llamada "reparar" asignada a la tecla 'S'
-	if current_state == State.DESTRUIDA and is_player_in_area and event.is_action_pressed("down"): 
+	if (current_state == State.DESTRUIDA or current_state == State.DAMAGED) and is_player_in_area and event.is_action_pressed("down"): 
 		print("Reparo con S")
-		
 		# --- Lógica de Reparación ---
 		# 1. Verificar si el jugador tiene suficientes monedas (asumo un singleton 'Global')
 		if Global.coins >= costo_reparacion: 
@@ -189,12 +208,17 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func repair_wall(amount_paid: int):
 	# La cantidad de health recuperada depende de la cantidad de monedas
-	var recovered_health = amount_paid * 10#reparacion_por_moneda
+	var recovered_health = amount_paid * 5#reparacion_por_moneda
 	current_health += recovered_health
 	
 	if current_health >= max_health:
 		current_health = max_health
 		set_state(State.NORMAL)
+	
+	if (current_health > (max_health / 5) and current_health < max_health):
+		set_state(State.DAMAGED)
+		
+	update_health_display()
 	
 	print("Muralla reparada. Salud actual: ", current_health)
 # --- LÓGICA DE DAÑO ---
@@ -207,6 +231,9 @@ func take_damage(amount: int) -> void:
 	$Hit.play()
 	current_health -= amount
 	
+	if current_health < max_health:
+		set_state(State.DAMAGED)
+		
 	if current_health <= 0:
 		current_health = 0
 		set_state(State.DESTRUIDA) # Transición a estado DESTRUIDA

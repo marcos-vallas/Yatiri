@@ -11,6 +11,7 @@ var preloadArrow = preload("res://scenes/arrow.tscn")
 @export var damage_flash_time: float = 0.2
 @export var flash_duration: float = 0.4
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@export var intervalo_ataque : float = 0.3
 
 var flashing: bool = false
 var is_dead := false
@@ -66,7 +67,7 @@ func do_attack() -> void:
 	animated_sprite.flip_h = closest_enemy.global_position.x < global_position.x
 
 	# Instanciar flecha
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(intervalo_ataque).timeout
 	var arrow = preloadArrow.instantiate()
 	arrow.global_position = $ArrowPosition.global_position
 	get_parent().add_child(arrow)

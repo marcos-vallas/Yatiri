@@ -28,7 +28,7 @@ func _ready() -> void:
 	var tile_size = tilemap.tile_set.tile_size
 	segment_width = rect.size.x * tile_size.x
 	tiles.append(tilemap)
-	spawn_coins_in_row(Vector2(100, 342), 3, 220)
+	#spawn_coins_in_row(Vector2(100, 342), 3, 220)
 	
 	set_process(true)  # Reactiva _process al final
 	

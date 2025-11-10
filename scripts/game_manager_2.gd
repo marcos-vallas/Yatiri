@@ -47,6 +47,7 @@ func _process(delta):
 		if es_de_noche:
 			# Transición: NOCHE -> DÍA
 			ciclo_actual += 1 # Preparamos la progresión
+			Global.change_cycle(ciclo_actual)
 			iniciar_dia()
 		else:
 			# Transición: DÍA -> NOCHE

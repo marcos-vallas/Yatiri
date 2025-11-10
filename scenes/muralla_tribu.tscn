@@ -47,7 +47,7 @@ shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/base_color = Color(0.892034, 0.892034, 0.892034, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1e087"]
-size = Vector2(106, 120)
+size = Vector2(105, 120)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yldxc"]
 size = Vector2(102, 127)
@@ -172,7 +172,7 @@ animations = [{
 "speed": 16.0
 }]
 
-[node name="MurallaTribu" type="Area2D" node_paths=PackedStringArray("sprite_normal", "sprite_destruido", "muralla_area_collision", "static_body", "static_collision", "texto_vida", "repair_label") groups=["Muralla"]]
+[node name="MurallaTribu" type="Area2D" node_paths=PackedStringArray("sprite_normal", "sprite_destruido", "muralla_area_collision", "static_body", "static_collision", "texto_vida", "repair_label") groups=["Area2D_Muralla", "Muralla"]]
 collision_layer = 512
 collision_mask = 5282
 script = ExtResource("1_c0sp2")
@@ -213,7 +213,7 @@ scale = Vector2(4, 4)
 texture = ExtResource("3_yldxc")
 
 [node name="MurallaCollision" type="CollisionShape2D" parent="." groups=["Muralla"]]
-position = Vector2(16, -7)
+position = Vector2(15.5, -7)
 shape = SubResource("RectangleShape2D_1e087")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Muralla"]]

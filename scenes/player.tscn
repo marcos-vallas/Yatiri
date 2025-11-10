@@ -338,7 +338,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d2wvv"]
-size = Vector2(75, 20)
+size = Vector2(27, 20)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
@@ -383,7 +383,8 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player_Body"]]
+scale = Vector2(1, 1.00796)
 shape = SubResource("CapsuleShape2D_u8vuu")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -432,5 +433,6 @@ collision_layer = 4096
 collision_mask = 4096
 
 [node name="ActionShape" type="CollisionShape2D" parent="ActionArea"]
-position = Vector2(5.5, 0)
+position = Vector2(1.5, 0)
+scale = Vector2(0.994141, 1.00514)
 shape = SubResource("RectangleShape2D_d2wvv")

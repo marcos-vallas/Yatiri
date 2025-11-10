@@ -3,17 +3,18 @@ class_name Enemy
 
 enum State { WALK_FORWARD, PRE_ATTACK, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 
-enum Objetivo {BASE, MURALLA, JUGADOR, FIJO}
-
 @export var health: int = 100
 @export var walk_speed: float = 170.0
 @export var walk_duration: float = 1.6
 @export var attack_knockback: float = 400.0
 @export var steps_volume_db: float = -23.0
-@export var attack_range: float = 50.0
+@export var attack_range: float = 80.0
 @export var pre_attack_delay: float = 0.3
 @export var idle_duration: float = 5.0
 @export var attack_offset: float = 50.0
+
+@export var custom_detection_range: float = 500.0 # Nuevo rango de detección por defecto
+@export var use_custom_range: bool = false # Bandera para usar el rango personalizado
 
 @onready var animated_sprite: AnimatedSprite2D = $Enemy
 @onready var attack_area: Area2D = $AttackArea
@@ -23,7 +24,7 @@ enum Objetivo {BASE, MURALLA, JUGADOR, FIJO}
 
 
 var base_attack_area_position: Vector2
-var state: State = State.WALK_FORWARD
+var state: State = State.IDLE
 var walk_direction: int = 1
 var can_attack_sound := true
 var is_dead := false
@@ -38,6 +39,66 @@ func _ready() -> void:
 	animated_sprite.frame_changed.connect(_on_frame_changed)
 
 
+# -------------------- DETECCIÓN DE OBJETIVO: MÁS CERCANO (MODIFICADO) --------------------
+# 1) Modificación solicitada: Encuentra todos los objetivos válidos y devuelve el más cercano.
+func _get_target_with_priority3() -> Node:
+	var all_targets = []
+	var max_range = INF
+	
+	# Si está habilitado, el objetivo debe estar dentro del rango personalizado (Requisito 2)
+	if use_custom_range:
+		max_range = custom_detection_range
+
+	# 1. Recolectar Bases
+	all_targets.append_array(get_tree().get_nodes_in_group("Base"))
+
+	# 2. Recolectar Murallas válidas (no destruidas)
+	var murallas_raw = []
+	murallas_raw.append_array(get_tree().get_nodes_in_group("Area2D_Muralla"))
+	
+	#print(murallas_raw)
+	for m in murallas_raw:
+		# Se asume que el objeto Muralla tiene el método `is_destroyed()`
+		#print(m)
+		if is_instance_valid(m):
+			#print(m)
+			if m.has_method("is_destroyed"):
+				var destruida = m.is_destroyed()
+				#print(destruida)
+				if destruida == false:
+					all_targets.append(m)
+					#print(all_targets)
+			#else:
+				# Si no tiene el método, se considera un objetivo válido por defecto.
+				#all_targets.append(m)
+				pass
+
+
+	# 3. Recolectar Jugadores
+	all_targets.append_array(get_tree().get_nodes_in_group("Player_Body"))
+
+	if all_targets.is_empty():
+		return null
+
+	# Encontrar el objetivo más cercano que esté dentro del rango (Requisito 1 y 2)
+	var closest_target: Node = null
+	var min_dist: float = INF
+	
+	for target in all_targets:
+		# Se realiza una verificación de validez y posición
+		if is_instance_valid(target): # and target.has_method("global_position"):
+			var dist = global_position.distance_to(target.global_position)
+			
+			# Aplicar filtro de rango de detección (Requisito 2)
+			if dist <= max_range:
+				if dist < min_dist:
+					min_dist = dist 
+					closest_target = target
+					#print(closest_target)
+				
+	#print("TARGET CERCANO:")
+	print(closest_target)
+	return closest_target
 
 func _get_target_with_priority2() -> Node:
 	
@@ -144,9 +205,21 @@ func _get_target_with_priority() -> Node:
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
+	
+	# Detectar el objetivo en cada frame
+	var target = _get_target_with_priority3()
+	
+	# 1. Lógica de transición desde IDLE (Inicio del ciclo)
+	if state == State.IDLE:
+		if target != null:
+			# FIX 1: Cambiamos la comparación 'state == State.WALK_FORWARD' 
+			# por la llamada a la función de transición 'set_state()'.
+			# Esto inicia el movimiento y el ciclo de ataque.
+			if not idle_timer_active:
+				set_state(State.WALK_FORWARD) 
 
+	# Lógica de WALK_FORWARD (solo se ejecuta si el estado es WALK_FORWARD)
 	if state == State.WALK_FORWARD:
-		var target = _get_target_with_priority2()
 		if target:
 			var new_direction = sign(target.global_position.x - global_position.x)
 			if new_direction == 0:
@@ -169,9 +242,8 @@ func _physics_process(delta: float) -> void:
 	# --- Movimiento ---
 	move_and_slide()
 
-	# --- Chequeo posterior de colisión o rango ---
+	# --- Chequeo posterior de colisión o rango (solo si está avanzando) ---
 	if state == State.WALK_FORWARD:
-		var target = _get_target_with_priority2()
 		if target:
 			if global_position.distance_to(target.global_position) <= attack_range \
 			or (target.is_in_group("Muralla") and is_on_wall()) \
@@ -187,27 +259,22 @@ func _is_touching_base() -> bool:
 			return true
 	return false
 
-func set_objetivo(new_objetivo) -> void:
-	match new_objetivo:
-		"BASE":
-			Objetivo.BASE
-		"MURALLA":
-			Objetivo.MURALLA
-		"FIJO":
-			Objetivo.FIJO
-		"JUGADOR":
-			Objetivo.JUGADOR
-			
+func set_target_detection_range(range_value: float, enable: bool = true) -> void:
+	if enable and range_value > 0:
+		use_custom_range = true
+		custom_detection_range = range_value
+	else:
+		# Desactiva el uso del rango, permitiendo al enemigo detectar cualquier objetivo (o el más cercano, según la lógica de _get_target_with_priority2)
+		use_custom_range = false
 
 # -------------------- ESTADOS --------------------
 func set_state(new_state: State) -> void:
 	if state == new_state:
 		return
 	state = new_state
-
+	var target = _get_target_with_priority3()
 	match state:
 		State.WALK_FORWARD:
-			var target = _get_target_with_priority()
 			if target:
 				var new_direction = sign(target.global_position.x - global_position.x)
 				if new_direction == 0:
@@ -219,6 +286,7 @@ func set_state(new_state: State) -> void:
 				animated_sprite.play("walk")
 				$Steps.volume_db = steps_volume_db
 				$Steps.play()
+				attack_area.monitoring = true
 
 		State.PRE_ATTACK:
 			velocity = Vector2.ZERO
@@ -248,12 +316,13 @@ func set_state(new_state: State) -> void:
 			$Steps.stop()
 			attack_area.monitoring = false
 			animated_sprite.play("idle")
+			_start_idle_timer()
+			
 			
 				# --- Pequeño desplazamiento lateral ---
 			var offset = 10.0
 			global_position.x += offset * walk_direction
-
-			var target = _get_target_with_priority()
+			
 			if target:
 				var dir = sign(target.global_position.x - global_position.x)
 				if dir != 0:
@@ -356,7 +425,7 @@ func take_damage(amount: int, knockback_dir: Vector2, is_arrow_attack: bool = fa
 	set_state(State.HURT)
 	velocity = knockback_dir
 	flash_white()
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.1).timeout
 	hurt_cooldown = false
 
 func flash_white() -> void:

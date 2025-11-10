@@ -158,7 +158,12 @@ func set_state(new_state: int) -> void:
 			update_health_display()
 			
 
-
+func is_destroyed() -> bool:
+	var destruida = false
+	#print("Muralla no destruida")
+	if current_state == State.DESTRUIDA:
+		destruida = true
+	return destruida
 # --- LÓGICA DE DETECCIÓN Y INPUT ---
 
 # Detección de entrada al Area2D de la muralla

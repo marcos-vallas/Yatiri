@@ -729,6 +729,7 @@ costo_reparacion = 1
 position = Vector2(1975, 259)
 
 [node name="TribeSpawner" type="Node2D" parent="."]
+visible = false
 script = SubResource("GDScript_ya4ey")
 archer_scene = ExtResource("10_choun")
 spacing = 70.0
@@ -736,6 +737,7 @@ start_position = Vector2(-1000, 325)
 attack_interval = 6.0
 
 [node name="EnemySpawner" type="Node2D" parent="."]
+visible = false
 script = ExtResource("11_dp3eg")
 enemy_hut = NodePath("../HutEnemigo")
 spawn_y = 332.0
@@ -789,7 +791,7 @@ autoplay = true
 
 [node name="GameManager2" type="Node" parent="." node_paths=PackedStringArray("allied_spawner", "enemy_spawner")]
 script = ExtResource("25_og1vs")
-tiempo_dia = 10.0
+tiempo_dia = 5.0
 tiempo_noche = 10.0
 allied_spawner = NodePath("AlliedSpawner")
 aliado_1_escena = ExtResource("10_choun")
@@ -804,7 +806,7 @@ spawn_marker = NodePath("SpawnPos")
 spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnPos" type="Marker2D" parent="GameManager2/EnemySpawner"]
-position = Vector2(1311, 328)
+position = Vector2(1712, 327)
 
 [node name="SpawnTimer" type="Timer" parent="GameManager2/EnemySpawner"]
 

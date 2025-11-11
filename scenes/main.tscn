@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://dwrah6o3ea43a"]
+[gd_scene load_steps=44 format=4 uid="uid://dwrah6o3ea43a"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://b7gqby3jeqjbv" path="res://assets/img/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0wfyh"]
@@ -21,14 +21,19 @@
 [ext_resource type="PackedScene" uid="uid://bxwyycl75xmc8" path="res://scenes/muralla_tribu.tscn" id="15_yq6so"]
 [ext_resource type="AudioStream" uid="uid://dmxfq5vavwy5r" path="res://assets/sound/birds.mp3" id="16_muem4"]
 [ext_resource type="PackedScene" uid="uid://tmd0h4oma52p" path="res://scenes/hut.tscn" id="17_muem4"]
+[ext_resource type="PackedScene" uid="uid://dffibcq8yx4ff" path="res://scenes/muralla_enemiga.tscn" id="17_qkpxi"]
 [ext_resource type="PackedScene" uid="uid://umlahfsnucks" path="res://scenes/hut_enemigo.tscn" id="19_0ld40"]
 [ext_resource type="AudioStream" uid="uid://co2iwkedlkwty" path="res://assets/sound/Ethnic Drums  Tribal Music Background for Videos [No Copyright].mp3" id="21_og1vs"]
 [ext_resource type="Script" uid="uid://78h00os5anau" path="res://scripts/game_manager_2.gd" id="25_og1vs"]
 [ext_resource type="Script" uid="uid://db0r8xp5utovh" path="res://scripts/base_spawner_2.gd" id="25_vxglm"]
 [ext_resource type="PackedScene" uid="uid://cyfvjbgy7ydwc" path="res://scenes/tutorial.tscn" id="26_vxglm"]
 [ext_resource type="PackedScene" uid="uid://f45wojucvxx6" path="res://scenes/enemy_2.tscn" id="26_yq6so"]
+[ext_resource type="PackedScene" uid="uid://df28lywfiv1bg" path="res://scenes/allied_2_customRange.tscn" id="27_5q0nq"]
+[ext_resource type="PackedScene" uid="uid://if70u5c5so77" path="res://scenes/Allied_1.tscn" id="27_dgi5k"]
 [ext_resource type="PackedScene" uid="uid://c57j15065au41" path="res://scenes/enemy_1.tscn" id="27_vxglm"]
 [ext_resource type="Texture2D" uid="uid://btfvb60do88jx" path="res://assets/img/SuriGames_v2.png" id="27_yq6so"]
+[ext_resource type="PackedScene" uid="uid://fvgpcsm2h5nm" path="res://scenes/enemy_1_customRange.tscn" id="28_tel4y"]
+[ext_resource type="Texture2D" uid="uid://cao2hu7accqv6" path="res://assets/img/Yatiri/Escenario/algarrobo_1.png" id="30_fv21b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -626,7 +631,11 @@ _data = {
 &"pos_rand": SubResource("Animation_vxglm")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tel4y"]
+size = Vector2(55.5, 139.25)
+
 [node name="Main" type="Node2D"]
+scale = Vector2(1, 1.0058)
 script = ExtResource("1_o5qli")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
@@ -716,17 +725,29 @@ position = Vector2(2, 123)
 texture = ExtResource("14_qkpxi")
 centered = false
 
-[node name="Hut" parent="." instance=ExtResource("17_muem4")]
-z_index = -2
-position = Vector2(-1074, 272)
+[node name="Propia" type="Node" parent="."]
 
-[node name="MurallaTribu2" parent="." instance=ExtResource("15_yq6so")]
-position = Vector2(-599, 314)
+[node name="Hut" parent="Propia" instance=ExtResource("17_muem4")]
+z_index = -2
+position = Vector2(-1074, 273.578)
+scale = Vector2(1, 1.0058)
+
+[node name="MurallaTribu2" parent="Propia" instance=ExtResource("15_yq6so")]
+z_index = -2
+position = Vector2(-599, 315.822)
+scale = Vector2(1, 1.0058)
 max_health = 80
 costo_reparacion = 1
 
-[node name="HutEnemigo" parent="." instance=ExtResource("19_0ld40")]
-position = Vector2(1975, 259)
+[node name="Enemy_Derecha" type="Node" parent="."]
+
+[node name="HutEnemigo" parent="Enemy_Derecha" instance=ExtResource("19_0ld40")]
+position = Vector2(1975, 260.503)
+scale = Vector2(1, 1.0058)
+
+[node name="MurallaEnemiga" parent="Enemy_Derecha" instance=ExtResource("17_qkpxi")]
+position = Vector2(1477, 296)
+scale = Vector2(1, 1.0058)
 
 [node name="TribeSpawner" type="Node2D" parent="."]
 visible = false
@@ -739,7 +760,7 @@ attack_interval = 6.0
 [node name="EnemySpawner" type="Node2D" parent="."]
 visible = false
 script = ExtResource("11_dp3eg")
-enemy_hut = NodePath("../HutEnemigo")
+enemy_hut = NodePath("../Enemy_Derecha/HutEnemigo")
 spawn_y = 332.0
 spawn_y_range = 1.0
 initial_delay = 10.0
@@ -791,14 +812,16 @@ autoplay = true
 
 [node name="GameManager2" type="Node" parent="." node_paths=PackedStringArray("allied_spawner", "enemy_spawner")]
 script = ExtResource("25_og1vs")
-tiempo_dia = 5.0
+tiempo_dia = 15.0
 tiempo_noche = 10.0
 allied_spawner = NodePath("AlliedSpawner")
-aliado_1_escena = ExtResource("10_choun")
+aliado_1_escena = ExtResource("27_dgi5k")
+aliado_2_escena = ExtResource("27_5q0nq")
 enemy_spawner = NodePath("EnemySpawner")
 enemigo_1_escena = ExtResource("27_vxglm")
 enemigo_2_escena = ExtResource("26_yq6so")
-cant_Enemigo_2_noche = 0.25
+cant_Enemigo_2_noche = 0.5
+enemigo_3_escena = ExtResource("28_tel4y")
 
 [node name="EnemySpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
 script = ExtResource("25_vxglm")
@@ -833,3 +856,30 @@ texture = ExtResource("27_yq6so")
 
 [node name="SpawnTimer" type="Timer" parent="GameManager2/AlliedSpawner"]
 wait_time = 0.2
+
+[node name="Paredes invisibles" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Paredes invisibles"]
+position = Vector2(-2259, 284)
+disable_mode = 1
+
+[node name="Algarrobo2" type="Sprite2D" parent="Paredes invisibles/StaticBody2D"]
+position = Vector2(17.001, -49)
+scale = Vector2(1.79404, 2.44935)
+texture = ExtResource("30_fv21b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes invisibles/StaticBody2D"]
+position = Vector2(13, -5)
+shape = SubResource("RectangleShape2D_tel4y")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Paredes invisibles"]
+position = Vector2(3143, 382)
+
+[node name="Algarrobo1" type="Sprite2D" parent="Paredes invisibles/StaticBody2D2"]
+position = Vector2(-20.999, -103)
+scale = Vector2(1.33942, 1.56504)
+texture = ExtResource("30_fv21b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes invisibles/StaticBody2D2"]
+position = Vector2(-24, -90)
+shape = SubResource("RectangleShape2D_tel4y")

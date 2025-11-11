@@ -82,7 +82,7 @@ run={
 
 2d_physics/layer_1="Ground"
 2d_physics/layer_2="Player"
-2d_physics/layer_3="Archer"
+2d_physics/layer_3="Allied_1"
 2d_physics/layer_4="Coin"
 2d_physics/layer_5="Arrow"
 2d_physics/layer_6="Enemy"
@@ -90,9 +90,10 @@ run={
 2d_physics/layer_8="EnemyAttacks"
 2d_physics/layer_9="MurallaEnemiga"
 2d_physics/layer_10="Muralla"
-2d_physics/layer_11="Spear"
+2d_physics/layer_11="Lanza_Enemy_2"
 2d_physics/layer_12="Base"
 2d_physics/layer_13="Repair"
+2d_physics/layer_14="Allied_2"
 
 [physics]
 

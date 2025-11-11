@@ -65,4 +65,5 @@ func _on_destroyed() -> void:
 	$MurallaRota3.show()
 	await $Explotion.animation_finished
 	$Explotion.hide()
+	queue_free()
 	

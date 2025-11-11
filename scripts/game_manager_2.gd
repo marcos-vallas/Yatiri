@@ -21,6 +21,8 @@ extends Node
 @export var cant_Enemigo_1_noche :float =1
 @export var enemigo_2_escena: PackedScene
 @export var cant_Enemigo_2_noche :float =1
+@export var enemigo_3_escena: PackedScene
+@export var cant_Enemigo_3_noche :float =1
 
 @export_category("Unidades")
 # --- Referencias a Escenas de Unidades ---
@@ -99,6 +101,7 @@ func generar_oleada_enemigos(noche: int) -> Array:
 
 	var num_Enemigo_1: int = (noche * cant_Enemigo_1_noche)
 	var num_Enemigo_2: int = (noche * cant_Enemigo_2_noche) # Un tanque cada dos noches
+	var num_Enemigo_3: int = (noche * cant_Enemigo_3_noche)
 	
 	# Rellenar la lista con enemigos básicos
 	for i in range(num_Enemigo_1):
@@ -107,6 +110,9 @@ func generar_oleada_enemigos(noche: int) -> Array:
 	# Rellenar la lista con enemigos tanque
 	for i in range(num_Enemigo_2):
 		lista_oleada.append(enemigo_2_escena)
+		
+	for i in range(num_Enemigo_3):
+		lista_oleada.append(enemigo_3_escena)
 		
 	# Opcional: Mezclar la lista para que no salgan todos los básicos primero
 	#lista_oleada.shuffle()

@@ -264,16 +264,19 @@ knockback_force = 100.0
 knockback_friction = 800.0
 damage_flash_time = 0.4
 flash_duration = 0.8
-intervalo_ataque = 0.15
+intervalo_ataque = 0.05
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 z_index = 2
+position = Vector2(-0.09091, -8.09091)
+scale = Vector2(0.997159, 1.25284)
 sprite_frames = SubResource("SpriteFrames_ejvcm")
-animation = &"idle"
 
 [node name="Light" parent="AnimatedSprite2D" index="1"]
 material = SubResource("ShaderMaterial_vlvv2")
+
+[node name="CollisionShape2D" parent="." index="1" groups=["Aliado"]]
 
 [node name="ArrowPosition" type="Node2D" parent="." index="3"]
 position = Vector2(7, -7)

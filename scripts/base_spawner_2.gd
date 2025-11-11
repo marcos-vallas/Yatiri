@@ -20,7 +20,6 @@ var intervalo_spawn: float = 1.0 # El intervalo base por defecto
 var unidades_a_spawnear_lista: Array = [] # Nuevo: Almacenará las PackedScene de la oleada
 var indice_spawn_actual: int = 0
 
-
 func _ready():
 	spawn_timer.autostart = false
 	spawn_timer.one_shot = false

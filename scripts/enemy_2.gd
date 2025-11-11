@@ -13,6 +13,10 @@ enum State { WALK_FORWARD, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 @export var knockback_force: float = 250.0
 @export var hurt_knockback_duration: float = 0.18
 
+@export var custom_detection_range: float = 500.0 # Nuevo rango de detección por defecto
+@export var use_custom_range: bool = false # Bandera para usar el rango personalizado
+
+
 @onready var animated_sprite: AnimatedSprite2D = $Enemy2
 @onready var attack_area: Area2D = $AttackArea
 @onready var spear_position: Node2D = $SpearPosition
@@ -44,7 +48,7 @@ func _ready() -> void:
 			m.connect("muralla_destruida", Callable(self, "_on_muralla_destruida"))
 
 	# 👉 Orientación inicial
-	var target = _get_target()
+	var target = _get_target_with_priority3()
 	if target:
 		walk_direction = sign(target.global_position.x - global_position.x)
 		if walk_direction == 0:
@@ -64,7 +68,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	# buscamos muralla o player como objetivo
-	var target = _get_target()
+	var target = _get_target_with_priority3()
 	if target == null:
 		if state != State.IDLE:
 			set_state(State.IDLE)
@@ -109,7 +113,7 @@ func set_state(new_state: State) -> void:
 
 	match state:
 		State.WALK_FORWARD:
-			var target = _get_target()
+			var target = _get_target_with_priority3()
 			if target:
 				walk_direction = sign(target.global_position.x - global_position.x)
 				if walk_direction == 0:
@@ -180,7 +184,7 @@ func _on_frame_changed() -> void:
 		_throw_spear()
 
 func _throw_spear() -> void:
-	var target = _get_target()
+	var target = _get_target_with_priority3()
 	if target == null:
 		return
 	var spear = preloadSpear.instantiate()
@@ -266,48 +270,74 @@ func _update_attack_area_direction() -> void:
 
 
 
-# -------------------- NUEVO: OBTENER TARGET --------------------
-func _get_target() -> Node2D:
-	# Si ya hay un target válido, lo seguimos usando
-	if current_target and is_instance_valid(current_target) and current_target.is_inside_tree():
-		# 🚫 Si es una muralla destruida, la descartamos
-		if "destroyed" in current_target and current_target.destroyed:
-			current_target = null
-		else:
-			return current_target
+func set_target_detection_range(range_value: float, enable: bool = true) -> void:
+	if enable and range_value > 0:
+		use_custom_range = true
+		custom_detection_range = range_value
+	else:
+		# Desactiva el uso del rango, permitiendo al enemigo detectar cualquier objetivo (o el más cercano, según la lógica de _get_target_with_priority2)
+		use_custom_range = false
+		
+		
+# -------------------- DETECCIÓN DE OBJETIVO: MÁS CERCANO (MODIFICADO) --------------------
+# 1) Modificación solicitada: Encuentra todos los objetivos válidos y devuelve el más cercano.
+func _get_target_with_priority3() -> Node:
+	var all_targets = []
+	var max_range = INF
+	
+	# Si está habilitado, el objetivo debe estar dentro del rango personalizado (Requisito 2)
+	if use_custom_range:
+		max_range = custom_detection_range
 
-	var closest_target: Node2D = null
-	var closest_distance := INF
+	# 1. Recolectar Bases
+	all_targets.append_array(get_tree().get_nodes_in_group("Base"))
 
-	# --- Buscar murallas ---
-	var walls = get_tree().get_nodes_in_group("Muralla")
-	for w in walls:
-		if not is_instance_valid(w):
-			continue
-		if not (w is Node2D):
-			continue
-		if "destroyed" in w and w.destroyed:
-			continue
-		var dist = global_position.distance_to(w.global_position)
-		if dist < closest_distance:
-			closest_distance = dist
-			closest_target = w
+	# 2. Recolectar Murallas válidas (no destruidas)
+	var murallas_raw = []
+	murallas_raw.append_array(get_tree().get_nodes_in_group("Area2D_Muralla"))
+	
+	#print(murallas_raw)
+	for m in murallas_raw:
+		# Se asume que el objeto Muralla tiene el método `is_destroyed()`
+		#print(m)
+		if is_instance_valid(m):
+			#print(m)
+			if m.has_method("is_destroyed"):
+				var destruida = m.is_destroyed()
+				#print(destruida)
+				if destruida == false:
+					all_targets.append(m)
+					#print(all_targets)
+			#else:
+				# Si no tiene el método, se considera un objetivo válido por defecto.
+				#all_targets.append(m)
+				pass
 
-	# --- Si no hay murallas válidas, buscar player o base ---
-	if closest_target == null:
-		var candidates: Array[Node2D] = []
-		candidates.append_array(get_tree().get_nodes_in_group("Player"))
-		candidates.append_array(get_tree().get_nodes_in_group("Base"))
 
-		for c in candidates:
-			if not is_instance_valid(c):
-				continue
-			if not (c is Node2D):
-				continue
-			var dist = global_position.distance_to(c.global_position)
-			if dist < closest_distance:
-				closest_distance = dist
-				closest_target = c
+	# 3. Recolectar Jugadores
+	all_targets.append_array(get_tree().get_nodes_in_group("Player_Body"))
+	all_targets.append_array(get_tree().get_nodes_in_group("Aliado_1"))
+	all_targets.append_array(get_tree().get_nodes_in_group("Aliado_2"))
 
-	current_target = closest_target
+	if all_targets.is_empty():
+		return null
+
+	# Encontrar el objetivo más cercano que esté dentro del rango (Requisito 1 y 2)
+	var closest_target: Node = null
+	var min_dist: float = INF
+	
+	for target in all_targets:
+		# Se realiza una verificación de validez y posición
+		if is_instance_valid(target): # and target.has_method("global_position"):
+			var dist = global_position.distance_to(target.global_position)
+			
+			# Aplicar filtro de rango de detección (Requisito 2)
+			if dist <= max_range:
+				if dist < min_dist:
+					min_dist = dist 
+					closest_target = target
+					#print(closest_target)
+				
+	#print("TARGET CERCANO:")
+	#print(closest_target)
 	return closest_target

@@ -11,13 +11,18 @@ enum State { WALK_FORWARD, PRE_ATTACK, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 @export var attack_range: float = 80.0
 @export var pre_attack_delay: float = 0.3
 @export var idle_duration: float = 5.0
-@export var attack_offset: float = 50.0
+
+@export var danio_a_base : int = 10
+@export var danio_a_muralla:int =10
+@export var danio_a_aliados : int = 50
 
 @export var custom_detection_range: float = 500.0 # Nuevo rango de detección por defecto
 @export var use_custom_range: bool = false # Bandera para usar el rango personalizado
 
 @onready var animated_sprite: AnimatedSprite2D = $Enemy
 @onready var attack_area: Area2D = $AttackArea
+
+@export var Collision_body : CollisionShape2D
 
 @onready var coin_scene = preload("res://scenes/coin.tscn")
 @onready var powerUp_scene = preload("res://scenes/power_up.tscn") 
@@ -77,6 +82,9 @@ func _get_target_with_priority3() -> Node:
 	# 3. Recolectar Jugadores
 	all_targets.append_array(get_tree().get_nodes_in_group("Player_Body"))
 
+	all_targets.append_array(get_tree().get_nodes_in_group("Aliado_1"))
+	all_targets.append_array(get_tree().get_nodes_in_group("Aliado_2"))
+
 	if all_targets.is_empty():
 		return null
 
@@ -97,109 +105,8 @@ func _get_target_with_priority3() -> Node:
 					#print(closest_target)
 				
 	#print("TARGET CERCANO:")
-	print(closest_target)
+	#print(closest_target)
 	return closest_target
-
-func _get_target_with_priority2() -> Node:
-	
-	
-	
-	# Primero Base (Se mantiene)
-	var bases = get_tree().get_nodes_in_group("Base")
-	if not bases.is_empty():
-		var closest = bases.front()
-		var min_dist = global_position.distance_to(closest.global_position)
-		for b in bases:
-			var dist = global_position.distance_to(b.global_position)
-			if dist < min_dist:
-				min_dist = dist
-				closest = b
-		return closest
-
-	# Luego muralla (LÓGICA MODIFICADA AQUÍ)
-	var murallas_raw = get_tree().get_nodes_in_group("Muralla")
-	var murallas_validas = []
-
-	# 1. Filtramos las murallas destruidas
-	for m in murallas_raw:
-		# Asumimos que el objeto Muralla tiene el método `is_destroyed()` (de muralla_tribu.gd)
-		# y que solo tiene sentido atacarlas si NO están destruidas.
-		if m.has_method("is_destroyed") and not m.is_destroyed(): 
-			murallas_validas.append(m)
-
-	if not murallas_validas.is_empty():
-		var closest = murallas_validas.front()
-		var min_dist = global_position.distance_to(closest.global_position)
-		for m in murallas_validas:
-			var dist = global_position.distance_to(m.global_position)
-			if dist < min_dist:
-				min_dist = dist
-				closest = m
-		return closest
-	
-	# Por último player (Se mantiene)
-	var players = get_tree().get_nodes_in_group("Player")
-	if not players.is_empty():
-		var closest = players.front()
-		var min_dist = global_position.distance_to(closest.global_position)
-		for p in players:
-			var dist = global_position.distance_to(p.global_position)
-			if dist < min_dist:
-				min_dist = dist
-				closest = p
-		return closest
-	
-	return null
-
-
-
-
-
-# -------------------- DETECCIÓN DE OBJETIVO CON PRIORIDAD --------------------
-func _get_target_with_priority() -> Node:
-	
-		# Por último player
-	var players = get_tree().get_nodes_in_group("Player")
-	if not players.is_empty():
-		var closest = players.front()
-		var min_dist = global_position.distance_to(closest.global_position)
-		for p in players:
-			var dist = global_position.distance_to(p.global_position)
-			if dist < min_dist:
-				min_dist = dist
-				closest = p
-		return closest
-	
-	
-	
-	# Primero Base
-	var bases = get_tree().get_nodes_in_group("Base")
-	if not bases.is_empty():
-		var closest = bases.front()
-		var min_dist = global_position.distance_to(closest.global_position)
-		for b in bases:
-			var dist = global_position.distance_to(b.global_position)
-			if dist < min_dist:
-				min_dist = dist
-				closest = b
-		return closest
-
-	# Luego muralla
-	var murallas = get_tree().get_nodes_in_group("Muralla")
-	if not murallas.is_empty():
-		
-		var closest = murallas.front()
-		var min_dist = global_position.distance_to(closest.global_position)
-		for m in murallas:
-			var dist = global_position.distance_to(m.global_position)
-			if dist < min_dist:
-				min_dist = dist
-				closest = m
-		return closest
-	
-
-	
-	return null
 
 # -------------------- MOVIMIENTO Y ATAQUE --------------------
 func _physics_process(delta: float) -> void:
@@ -298,7 +205,7 @@ func set_state(new_state: State) -> void:
 			attack_area.monitoring = true
 			animated_sprite.play("attack")
 			if can_attack_sound:
-				$Attack.play()
+				
 				can_attack_sound = false
 				_reset_attack_sound_cooldown()
 
@@ -341,7 +248,8 @@ func set_state(new_state: State) -> void:
 			is_dead = true
 			velocity = Vector2.ZERO
 			animated_sprite.play("death")
-			$CollisionShape2D.disabled = true
+
+			Collision_body.disabled = true
 			$Steps.stop()
 			
 			attack_area.monitoring = false
@@ -384,10 +292,19 @@ func _on_frame_changed() -> void:
 					body.take_damage(dir, hit_from_right)
 
 				elif body.is_in_group("Muralla"):
-					body.take_damage(10)
+					body.take_damage(danio_a_muralla)
 
 				elif body.is_in_group("Base"):
-					body.take_damage(10)
+					body.take_damage(danio_a_base)
+				
+				elif body.is_in_group("Aliado_1"):
+					var dir = Vector2(sign(body.global_position.x - global_position.x), 0) * (attack_knockback / 2)
+					body.take_damage(danio_a_aliados, dir)
+					
+				elif body.is_in_group("Aliado_2"):
+					var dir = Vector2(sign(body.global_position.x - global_position.x), 0) * (attack_knockback / 2)
+					body.take_damage(danio_a_aliados, dir)
+			$AttackHit.play()
 
 
 func _on_animation_finished() -> void:
@@ -425,7 +342,7 @@ func take_damage(amount: int, knockback_dir: Vector2, is_arrow_attack: bool = fa
 	set_state(State.HURT)
 	velocity = knockback_dir
 	flash_white()
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.01).timeout
 	hurt_cooldown = false
 
 func flash_white() -> void:

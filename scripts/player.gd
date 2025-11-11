@@ -22,6 +22,10 @@ class_name Player
 @export var run_duration: float = 5.0  # máximo tiempo corriendo
 @export var rest_duration: float = 6.0 # tiempo mínimo caminando antes de poder volver a correr
 
+@export var danio_a_enemigo :int = 30
+@export var danio_a_muralla : int =10
+
+
 var run_timer: float = 0.0
 var rest_timer: float = 0.0
 var is_running: bool = false
@@ -209,13 +213,13 @@ func _on_attack_area_body_entered(body: Node) -> void:
 	if body.is_in_group("Enemy") and body.has_method("take_damage"):
 		play_hit_sound()
 		var dir = Vector2(sign(body.global_position.x - global_position.x), 0) * attack_knockback
-		body.take_damage(33, dir)
+		body.take_damage(danio_a_enemigo, dir)
 		camera_shake(0.2, 1.0)  # duración 0.2s, intensidad 3.0
 
 func _on_attack_area_area_entered(area: Area2D) -> void:
 	if (area.is_in_group("Muralla Enemiga") or area.is_in_group("Hut Enemigo")) and area.has_method("take_damage"):
 		play_hit_sound()
-		area.take_damage(10)
+		area.take_damage(danio_a_muralla)
 		camera_shake(0.2, 2.0)  # duración 0.2s, intensidad 3.0
 
 func play_hit_sound():
@@ -272,7 +276,7 @@ func flash_white() -> void:
 
 func die() -> void:
 	is_dead = true
-	$CollisionShape2D.disabled = true
+	$Player_Body.disabled = true
 	animated_sprite.play("death")
 	velocity = Vector2.ZERO
 	animated_sprite.position.y += 6

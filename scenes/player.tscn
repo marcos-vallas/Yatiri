@@ -269,21 +269,21 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_ur7pv"]
+[sub_resource type="Gradient" id="Gradient_d2wvv"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_y4r1p"]
-gradient = SubResource("Gradient_ur7pv")
+gradient = SubResource("Gradient_d2wvv")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d2wvv"]
 blend_mode = 1
 light_mode = 2
 
-[sub_resource type="Gradient" id="Gradient_y4r1p"]
+[sub_resource type="Gradient" id="Gradient_3v2ag"]
 offsets = PackedFloat32Array(0, 0.652482)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_jej6c"]
-gradient = SubResource("Gradient_y4r1p")
+gradient = SubResource("Gradient_3v2ag")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
@@ -340,7 +340,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d2wvv"]
 size = Vector2(27, 20)
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" groups=["Player", "Player_Body"]]
 collision_layer = 2
 collision_mask = 393
 script = ExtResource("1_g2els")
@@ -383,7 +383,7 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player_Body"]]
+[node name="Player_Body" type="CollisionShape2D" parent="."]
 scale = Vector2(1, 1.00796)
 shape = SubResource("CapsuleShape2D_u8vuu")
 

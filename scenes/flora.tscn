@@ -14,6 +14,7 @@ z_index = -6
 shape = SubResource("RectangleShape2D_vcq5o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.733005, 0.733005, 0.733005, 1)
 texture_filter = 1
 position = Vector2(-455, 229)

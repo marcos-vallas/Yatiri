@@ -283,7 +283,7 @@ height = 48.0
 collision_layer = 4
 collision_mask = 385
 script = ExtResource("1_cw7t5")
-intervalo_ataque = 0.8
+intervalo_ataque = 1.0
 rango_ataque = 600.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

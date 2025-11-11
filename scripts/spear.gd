@@ -1,14 +1,20 @@
 extends Area2D
 
+@export var calculation_gravity_multiplier: float = 1.5
 @export var fall_gravity: float = 1200.0
 @export var damage: int = 10
 
 # Ajustes de la trayectoria
-@export var min_time_to_hit: float = 0.2
-@export var max_time_to_hit: float = 0.8
+@export var min_time_to_hit: float = 0.3
+@export var max_time_to_hit: float = 2.0
 @export var x_offset_random: float = 30.0
 @export var y_offset_random: float = 10.0
-@export var downward_bias: float = 100.0  # empuje extra hacia abajo
+
+@export var elevation_boost : float = 150.0
+@export var elevation_scale: float = 1.5 # Ajusta este valor para controlar la intensidad del arco.
+
+
+
 
 var vel: Vector2 = Vector2.ZERO
 
@@ -25,7 +31,9 @@ func _physics_process(delta: float) -> void:
 		rotation = vel.angle()
 
 func _on_area_entered(area: Area2D) -> void:
-	if (area.is_in_group("Muralla") or area.is_in_group("Base")) and area.has_method("take_damage"):
+	if \
+	(area.is_in_group("Muralla") or area.is_in_group("Base")) \
+	and area.has_method("take_damage"):
 		if $Spear_Impact:
 			$Spear_Impact.play()
 		if $Spear:
@@ -33,13 +41,13 @@ func _on_area_entered(area: Area2D) -> void:
 		if $CPUParticles2D:
 			$CPUParticles2D.visible = false
 
-		area.take_damage(damage)
+		area.take_damage(damage/5)
 		await get_tree().create_timer(0.2).timeout
 		queue_free()
 
 
 func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("Player") and body.has_method("take_damage"):
+	if (body.is_in_group("Player_Body") or body.is_in_group("Aliado_1"))  and body.has_method("take_damage"):
 		if $Spear_Impact: $Spear_Impact.play()
 		if $Spear: $Spear.visible = false
 		if $CPUParticles2D: $CPUParticles2D.visible = false
@@ -58,12 +66,19 @@ func _on_body_entered(body: Node) -> void:
 		await get_tree().create_timer(0.3).timeout
 		queue_free()
 
-func launch_towards_wall(wall: Node2D, time_to_hit: float = -1.0) -> void:
-	if not wall or not wall.is_inside_tree():
+func launch_towards_wall(objetivo: Node2D, time_to_hit: float = -1.0) -> void:
+	if not objetivo or not objetivo.is_inside_tree():
 		return
 	if time_to_hit <= 0:
-		time_to_hit = randf_range(min_time_to_hit, max_time_to_hit)
-	_prepare_and_launch(wall.global_position, time_to_hit)
+		time_to_hit =  randf_range(min_time_to_hit, max_time_to_hit/2)
+		
+	#if objetivo.is_in_group("Aliado_1"):
+		#elevation_boost = 150
+		#fall_gravity = 2200
+	#else: 
+		#elevation_boost = 0
+		#fall_gravity = 1500
+	_prepare_and_launch(objetivo.global_position, time_to_hit)
 
 func launch_towards_muralla(muralla: Node2D, time_to_hit: float = -1.0) -> void:
 	launch_towards_wall(muralla, time_to_hit)
@@ -71,16 +86,61 @@ func launch_towards_muralla(muralla: Node2D, time_to_hit: float = -1.0) -> void:
 func launch_towards_enemy(enemy: Node2D, time_to_hit: float = -1.0) -> void:
 	launch_towards_wall(enemy, time_to_hit)
 
+
 # ----------------------------
 # Cálculo de trayectoria
 # ----------------------------
 func _prepare_and_launch(target_global_pos: Vector2, time_to_hit: float) -> void:
 	var target_pos = target_global_pos
-	target_pos.x += randf_range(-30.0, 30.0)   # dispersión horizontal
-	target_pos.y += randf_range(-10.0, 10.0)   # dispersión vertical mínima
+	# Usa las variables exportadas para la dispersión
+	target_pos.x += randf_range(-x_offset_random, x_offset_random)
+	target_pos.y += randf_range(-y_offset_random, y_offset_random)
+
+	var distance = target_pos - global_position
+	
+	if (distance.x < -450) or (distance.x > 450):
+		print(distance.x)
+		time_to_hit = max_time_to_hit
+
+	# Cálculo de la velocidad inicial (como estaba antes)
+	# vel.x para llegar en 'time_to_hit'
+	vel.x = distance.x / time_to_hit
+	# vel.y para compensar la gravedad y llegar a distance.y
+	vel.y = (distance.y - 0.5 * fall_gravity * time_to_hit * time_to_hit) / time_to_hit
+	
+	# --- MODIFICACIÓN CLAVE ---
+	# Restar (empujar hacia arriba) el 'elevation_boost' a la velocidad inicial vertical.
+	# Esto aumenta la altura máxima sin cambiar el tiempo de vuelo o el destino.
+	#vel.y -= elevation_boost 
+
+
+# ----------------------------
+# Cálculo de trayectoria
+# ----------------------------
+func _prepare_and_launch2(target_global_pos: Vector2, time_to_hit: float) -> void:
+	var target_pos = target_global_pos
+	# Añadir dispersión (usando variables exportadas)
+	target_pos.x += randf_range(-x_offset_random, x_offset_random)
+	target_pos.y += randf_range(-y_offset_random, y_offset_random)
 
 	var distance = target_pos - global_position
 
-	# velocidad inicial para llegar en 'time_to_hit' segundos (g = fall_gravity)
+	# --- MODIFICACIÓN CLAVE: Gravedad de CÁLCULO ---
+	# Usamos la gravedad multiplicada solo para el cálculo, no para la simulación
+	var g_calc = fall_gravity * calculation_gravity_multiplier
+	
+	# Cálculo dinámico del Elevation Boost (basado en la distancia X)
+	var horizontal_distance: float = abs(distance.x)
+	var calculated_elevation_boost: float = horizontal_distance * elevation_scale
+	
+	# ---------------------------------------------
+	
+	# Cálculo de la velocidad inicial (Horizontal)
 	vel.x = distance.x / time_to_hit
-	vel.y = (distance.y - 0.5 * fall_gravity * time_to_hit * time_to_hit) / time_to_hit
+	
+	# Cálculo de la velocidad inicial (Vertical)
+	# Reemplazamos 'fall_gravity' por 'g_calc' en la fórmula.
+	vel.y = (distance.y - 0.5 * g_calc * time_to_hit * time_to_hit) / time_to_hit
+	
+	# Aplicar el boost dinámico adicional (después del cálculo base):
+	vel.y -= calculated_elevation_boost 

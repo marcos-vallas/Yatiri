@@ -31,7 +31,7 @@ var is_dead := false
 var flashing := false
 var hurt_cooldown := false
 var idle_timer_active := false
-var walk_back_variation: float
+@export var walk_back_variation: float = 1.0
 var current_target: Node2D = null
 var preloadSpear = preload("res://scenes/spear.tscn")
 
@@ -40,7 +40,7 @@ func _ready() -> void:
 	attack_area.monitoring = false
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	animated_sprite.frame_changed.connect(_on_frame_changed)
-	walk_back_variation = randf_range(0.5, 5.0)
+	walk_back_variation = randf_range(walk_back_variation-0.2, walk_back_variation+0.2)
 	
 		# Conectamos la señal de todas las murallas existentes
 	for m in get_tree().get_nodes_in_group("Muralla"):

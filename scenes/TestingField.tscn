@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://xrcegsl5abd4"]
+
+[ext_resource type="Texture2D" uid="uid://dihejj8oo7wgn" path="res://assets/img/Test/Screenshot 2025-11-11 162326.png" id="1_aiu1w"]
+[ext_resource type="PackedScene" uid="uid://f45wojucvxx6" path="res://scenes/enemy_2.tscn" id="2_cy8pk"]
+[ext_resource type="PackedScene" uid="uid://bxwyycl75xmc8" path="res://scenes/muralla_tribu.tscn" id="3_i0auk"]
+[ext_resource type="PackedScene" uid="uid://cwifmrlq3q17b" path="res://scenes/player.tscn" id="4_i0auk"]
+[ext_resource type="PackedScene" uid="uid://if70u5c5so77" path="res://scenes/Allied_1.tscn" id="5_htfgd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yxjtj"]
+size = Vector2(1642, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cy8pk"]
+size = Vector2(20, 372)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i0auk"]
+size = Vector2(20, 373)
+
+[node name="TestingField" type="Node2D"]
+
+[node name="terrain" type="Node" parent="."]
+
+[node name="bkgnd test" type="Sprite2D" parent="terrain"]
+z_index = -45
+position = Vector2(320, 159)
+scale = Vector2(0.626459, 0.546087)
+texture = ExtResource("1_aiu1w")
+
+[node name="Piso" type="StaticBody2D" parent="terrain" groups=["Ground"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain/Piso"]
+position = Vector2(283, 322.5)
+shape = SubResource("RectangleShape2D_yxjtj")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="terrain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain/StaticBody2D2"]
+position = Vector2(-460, 173)
+shape = SubResource("RectangleShape2D_cy8pk")
+
+[node name="izq" type="StaticBody2D" parent="terrain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain/izq"]
+position = Vector2(912, 171)
+shape = SubResource("RectangleShape2D_i0auk")
+
+[node name="Enemy2" parent="." instance=ExtResource("2_cy8pk")]
+position = Vector2(451, 288)
+collision_mask = 593
+attack_range = 500.0
+
+[node name="MurallaTribu" parent="." instance=ExtResource("3_i0auk")]
+position = Vector2(272, 257)
+max_health = 100
+costo_reparacion = 2
+
+[node name="Player" parent="." instance=ExtResource("4_i0auk")]
+position = Vector2(102, 289)
+
+[node name="Allied_1" parent="." instance=ExtResource("5_htfgd")]
+position = Vector2(-2, 287)
+intervalo_ataque = 2.0

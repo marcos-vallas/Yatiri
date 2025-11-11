@@ -858,7 +858,6 @@ aliado_2_escena = ExtResource("27_5q0nq")
 enemy_spawner = NodePath("EnemySpawner")
 enemigo_1_escena = ExtResource("27_vxglm")
 enemigo_2_escena = ExtResource("26_yq6so")
-cant_Enemigo_2_noche = 0.5
 enemigo_3_escena = ExtResource("28_tel4y")
 
 [node name="EnemySpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
@@ -959,3 +958,6 @@ texture = ExtResource("30_fv21b")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes invisibles/StaticBody2D2"]
 position = Vector2(-26, -87)
 shape = SubResource("RectangleShape2D_tel4y")
+
+[node name="Enemy2" parent="." instance=ExtResource("26_yq6so")]
+position = Vector2(-91, 318.155)

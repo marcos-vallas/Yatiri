@@ -286,9 +286,12 @@ collision_layer = 32
 collision_mask = 592
 script = ExtResource("1_hqy2m")
 health = 90
+walk_duration = 0.3
 attack_knockback = 300.0
-attack_range = 300.0
+attack_range = 450.0
+idle_duration = 3.5
 knockback_force = 150.0
+walk_back_variation = 0.5
 metadata/_edit_group_ = true
 
 [node name="Enemy2" type="AnimatedSprite2D" parent="."]

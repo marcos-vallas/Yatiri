@@ -270,7 +270,7 @@ attack_knockback = 200.0
 attack_range = 45.0
 pre_attack_delay = 0.02
 idle_duration = 0.5
-danio_a_aliados = 40
+danio_a_base = 12
 Collision_body = NodePath("Enemy_1_Body")
 metadata/_edit_group_ = true
 

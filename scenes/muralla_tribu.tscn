@@ -11,7 +11,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0sp2"]
 size = Vector2(176, 20)
 
-[sub_resource type="Shader" id="Shader_ixsww"]
+[sub_resource type="Shader" id="Shader_c0sp2"]
 code = "shader_type canvas_item;
 
 // 🔹 Export para manejar desde el inspector de Godot
@@ -35,7 +35,7 @@ void fragment() {
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rdskk"]
-shader = SubResource("Shader_ixsww")
+shader = SubResource("Shader_c0sp2")
 shader_parameter/effect_enabled = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/base_color = Color(0.851769, 0.851769, 0.851769, 1)

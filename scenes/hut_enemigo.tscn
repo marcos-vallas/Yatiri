@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://umlahfsnucks"]
+[gd_scene load_steps=30 format=3 uid="uid://umlahfsnucks"]
 
 [ext_resource type="Script" uid="uid://h8srdepcwyf3" path="res://scripts/hut_enemigo.gd" id="1_xwguj"]
 [ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="2_2cm1h"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dd6wm8kdppytc" path="res://assets/img/Yatiri/Escenario/Empaladiza.png" id="4_d1gb5"]
 [ext_resource type="AudioStream" uid="uid://beil22emq2366" path="res://assets/sound/magic.wav" id="6_2cm1h"]
 [ext_resource type="Texture2D" uid="uid://brfapmc4fr52m" path="res://assets/img/Explotion.png" id="6_g5tuq"]
+[ext_resource type="Texture2D" uid="uid://bsynl3770v1uq" path="res://assets/img/Muralla Enemiga/Muralla_enemiga.png" id="7_g5tuq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x2tlc"]
 shader = ExtResource("2_2cm1h")
@@ -142,6 +143,12 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_npd4q"]
+shader = ExtResource("2_2cm1h")
+shader_parameter/effect_enabled = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/base_color = Color(1, 1, 1, 1)
+
 [node name="HutEnemigo" type="Area2D" groups=["Hut Enemigo"]]
 collision_layer = 256
 collision_mask = 66
@@ -213,3 +220,21 @@ frame_progress = 1.0
 stream = ExtResource("6_2cm1h")
 volume_db = -15.0
 pitch_scale = 0.6
+
+[node name="Muralla2" type="Sprite2D" parent="."]
+z_index = -4
+texture_filter = 1
+material = SubResource("ShaderMaterial_npd4q")
+position = Vector2(-143, 37)
+scale = Vector2(2.73451, 2.8195)
+texture = ExtResource("7_g5tuq")
+flip_h = true
+
+[node name="Muralla3" type="Sprite2D" parent="."]
+z_index = -4
+texture_filter = 1
+material = SubResource("ShaderMaterial_npd4q")
+position = Vector2(298, 37)
+scale = Vector2(2.73451, 2.8195)
+texture = ExtResource("7_g5tuq")
+flip_h = true

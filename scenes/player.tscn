@@ -346,6 +346,9 @@ collision_mask = 393
 script = ExtResource("1_g2els")
 attack_knockback = 50.0
 flash_duration = 0.6
+run_duration = 7.0
+danio_a_enemigo = 50
+danio_a_muralla = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 4

@@ -292,32 +292,32 @@ func _get_target_with_priority3() -> Node:
 	# 1. Recolectar Bases
 	all_targets.append_array(get_tree().get_nodes_in_group("Base"))
 
-	# 2. Recolectar Murallas válidas (no destruidas)
-	var murallas_raw = []
-	murallas_raw.append_array(get_tree().get_nodes_in_group("Area2D_Muralla"))
-	
-	#print(murallas_raw)
-	for m in murallas_raw:
-		# Se asume que el objeto Muralla tiene el método `is_destroyed()`
-		#print(m)
-		if is_instance_valid(m):
-			#print(m)
-			if m.has_method("is_destroyed"):
-				var destruida = m.is_destroyed()
-				#print(destruida)
-				if destruida == false:
-					all_targets.append(m)
-					#print(all_targets)
-			#else:
-				# Si no tiene el método, se considera un objetivo válido por defecto.
-				#all_targets.append(m)
-				pass
+	## 2. Recolectar Murallas válidas (no destruidas)
+	#var murallas_raw = []
+	#murallas_raw.append_array(get_tree().get_nodes_in_group("Area2D_Muralla"))
+	#
+	##print(murallas_raw)
+	#for m in murallas_raw:
+		## Se asume que el objeto Muralla tiene el método `is_destroyed()`
+		##print(m)
+		#if is_instance_valid(m):
+			##print(m)
+			#if m.has_method("is_destroyed"):
+				#var destruida = m.is_destroyed()
+				##print(destruida)
+				#if destruida == false:
+					#all_targets.append(m)
+					##print(all_targets)
+			##else:
+				## Si no tiene el método, se considera un objetivo válido por defecto.
+				##all_targets.append(m)
+				#pass
 
 
 	# 3. Recolectar Jugadores
 	all_targets.append_array(get_tree().get_nodes_in_group("Player_Body"))
 	all_targets.append_array(get_tree().get_nodes_in_group("Aliado_1"))
-	all_targets.append_array(get_tree().get_nodes_in_group("Aliado_2"))
+	#all_targets.append_array(get_tree().get_nodes_in_group("Aliado_2"))
 
 	if all_targets.is_empty():
 		return null

@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://dwrah6o3ea43a"]
+[gd_scene load_steps=50 format=4 uid="uid://dwrah6o3ea43a"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://b7gqby3jeqjbv" path="res://assets/img/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0wfyh"]
@@ -34,6 +34,9 @@
 [ext_resource type="Texture2D" uid="uid://btfvb60do88jx" path="res://assets/img/SuriGames_v2.png" id="27_yq6so"]
 [ext_resource type="PackedScene" uid="uid://fvgpcsm2h5nm" path="res://scenes/enemy_1_customRange.tscn" id="28_tel4y"]
 [ext_resource type="Texture2D" uid="uid://cao2hu7accqv6" path="res://assets/img/Yatiri/Escenario/algarrobo_1.png" id="30_fv21b"]
+[ext_resource type="Texture2D" uid="uid://dd6wm8kdppytc" path="res://assets/img/Yatiri/Escenario/Empaladiza.png" id="35_j8jky"]
+[ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="36_fuf3a"]
+[ext_resource type="Texture2D" uid="uid://bsynl3770v1uq" path="res://assets/img/Muralla Enemiga/Muralla_enemiga.png" id="37_pibwh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_0wfyh")
@@ -631,8 +634,43 @@ _data = {
 &"pos_rand": SubResource("Animation_vxglm")
 }
 
+[sub_resource type="Shader" id="Shader_ixsww"]
+code = "shader_type canvas_item;
+
+// 🔹 Export para manejar desde el inspector de Godot
+uniform bool effect_enabled = false;
+uniform vec3 flash_color : source_color = vec3(1.0,0.0,0.0);
+uniform vec3 base_color : source_color = vec3(1.0,1.0,1.0); // color base de tu sprite
+
+void fragment() {
+    vec4 tex = texture(TEXTURE, UV);
+    
+    // 🔹 Aplicar el color base del sprite (por ejemplo, tu tono oscuro)
+    vec4 colored_tex = tex * vec4(base_color, 1.0);
+    
+    if (effect_enabled) {
+        // 🔹 Mezcla con el color del flash
+        COLOR = mix(colored_tex, vec4(flash_color, tex.a), 0.7);
+    } else {
+        COLOR = colored_tex;
+    }
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kmb1v"]
+shader = SubResource("Shader_ixsww")
+shader_parameter/effect_enabled = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/base_color = Color(0.851769, 0.851769, 0.851769, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tel4y"]
-size = Vector2(55.5, 139.25)
+size = Vector2(105, 168.813)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c6pm6"]
+shader = ExtResource("36_fuf3a")
+shader_parameter/effect_enabled = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/base_color = Color(1, 1, 1, 1)
 
 [node name="Main" type="Node2D"]
 scale = Vector2(1, 1.0058)
@@ -864,22 +902,60 @@ position = Vector2(-2259, 284)
 disable_mode = 1
 
 [node name="Algarrobo2" type="Sprite2D" parent="Paredes invisibles/StaticBody2D"]
+visible = false
 position = Vector2(17.001, -49)
 scale = Vector2(1.79404, 2.44935)
 texture = ExtResource("30_fv21b")
 
+[node name="Muralla" type="Sprite2D" parent="Paredes invisibles/StaticBody2D"]
+y_sort_enabled = true
+texture_filter = 1
+material = SubResource("ShaderMaterial_kmb1v")
+position = Vector2(507, 21)
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("35_j8jky")
+flip_h = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes invisibles/StaticBody2D"]
-position = Vector2(13, -5)
+position = Vector2(509, -9)
 shape = SubResource("RectangleShape2D_tel4y")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="Paredes invisibles"]
 position = Vector2(3143, 382)
 
+[node name="Muralla" type="Sprite2D" parent="Paredes invisibles/StaticBody2D2"]
+modulate = Color(0.755386, 0.755386, 0.755386, 1)
+texture_filter = 1
+material = SubResource("ShaderMaterial_c6pm6")
+position = Vector2(-20.9998, -77.0001)
+scale = Vector2(2.5, 2.5145)
+texture = ExtResource("37_pibwh")
+flip_h = true
+
+[node name="Muralla2" type="Sprite2D" parent="Paredes invisibles/StaticBody2D2/Muralla"]
+modulate = Color(0.755386, 0.755386, 0.755386, 1)
+texture_filter = 1
+material = SubResource("ShaderMaterial_c6pm6")
+position = Vector2(117.6, -15.1123)
+scale = Vector2(1.58914, 1.80272)
+texture = ExtResource("37_pibwh")
+flip_h = true
+
+[node name="Muralla" type="Sprite2D" parent="Paredes invisibles/StaticBody2D2/Muralla"]
+modulate = Color(0.755386, 0.755386, 0.755386, 1)
+texture_filter = 1
+material = SubResource("ShaderMaterial_c6pm6")
+position = Vector2(56.5749, -22.0149)
+scale = Vector2(1.90263, 2.19993)
+texture = ExtResource("37_pibwh")
+flip_h = true
+
 [node name="Algarrobo1" type="Sprite2D" parent="Paredes invisibles/StaticBody2D2"]
+visible = false
 position = Vector2(-20.999, -103)
 scale = Vector2(1.33942, 1.56504)
 texture = ExtResource("30_fv21b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes invisibles/StaticBody2D2"]
-position = Vector2(-24, -90)
+position = Vector2(-26, -87)
 shape = SubResource("RectangleShape2D_tel4y")

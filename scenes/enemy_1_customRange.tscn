@@ -322,3 +322,11 @@ pitch_scale = 0.6
 stream = ExtResource("9_agcsc")
 volume_db = -20.0
 pitch_scale = 0.7
+
+[node name="Label" type="Label" parent="."]
+offset_left = -8.33333
+offset_top = -24.1667
+offset_right = 95.6667
+offset_bottom = -1.16666
+scale = Vector2(0.21072, 0.210159)
+text = "Range seeker"

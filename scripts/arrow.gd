@@ -24,13 +24,14 @@ func _physics_process(delta: float) -> void:
 # detectar colisión con enemigos y suelo
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Enemy") and body.has_method("take_damage"):
+		$CollisionShape2D.disabled = true
 		# knockback solo horizontal, pequeño
 		$Arrow_Impact.play()
 		$Arrow.visible = false
 		$CPUParticles2D.visible = false
 		var knockback_dir = Vector2(sign(body.global_position.x - global_position.x) * 10, 0)
 		# true = ataque de flecha
-		body.take_damage(damage, knockback_dir, true)  # true = es ataque de flecha
+		body.take_damage(damage, knockback_dir)  # true = es ataque de flecha
 		await get_tree().create_timer(0.2).timeout
 		queue_free()
 	elif body.is_in_group("Ground"):

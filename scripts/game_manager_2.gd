@@ -10,13 +10,19 @@ extends Node
 # Asegúrate de conectar estos nodos en el Inspector o en _ready()
 @export_category("Aliados")
 @export var allied_spawner :Node # = $AlliedSpawner
+@export var base_aliada : PackedScene
+@export var muralla_aliada : PackedScene
 #-- variables de configuracion
+@export_group("Escenas")
 @export var aliado_1_escena: PackedScene
 @export var cant_Aliado_1_dia :float =1
 @export var aliado_2_escena: PackedScene
 @export var cant_Aliado_2_dia :float =1
 @export_category("Enemigos")
 @export var enemy_spawner :Node # = $EnemySpawner
+@export var base_enemiga : Base_Enemiga
+@export var muralla_enemiga : Muralla_Enemiga
+@export_group("Escenas")
 @export var enemigo_1_escena: PackedScene
 @export var cant_Enemigo_1_noche :float =1
 @export var enemigo_2_escena: PackedScene
@@ -48,12 +54,21 @@ func _process(delta):
 	if tiempo_restante <= 0:
 		if es_de_noche:
 			# Transición: NOCHE -> DÍA
+			
 			ciclo_actual += 1 # Preparamos la progresión
+			Global.change_time("Dia")
 			Global.change_cycle(ciclo_actual)
 			iniciar_dia()
+			
+			
+			
 		else:
 			# Transición: DÍA -> NOCHE
+			Global.change_time("Noche")
 			iniciar_noche()
+			
+			#base_enemiga.health += 10
+			#muralla_enemiga.health += 10
 
 # --- Funciones de Transición de Ciclo ---
 
@@ -76,6 +91,8 @@ func iniciar_noche():
 	es_de_noche = true
 	tiempo_restante = tiempo_noche
 	print("Transición a NOCHE 🌑 - Ciclo #%d" % ciclo_actual)
+	
+	
 	
 	# 1. Detener el spawn de Aliados
 	allied_spawner.detener_spawn()

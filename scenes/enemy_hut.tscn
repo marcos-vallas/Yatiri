@@ -15,9 +15,6 @@ script = ExtResource("2_xrdn8")
 [node name="MurallaEnemiga" parent="." index="3" instance=ExtResource("3_knnnk")]
 position = Vector2(-457, 38)
 
-[node name="CPUParticles2D" parent="." index="4"]
+[node name="CPUParticles2D" parent="." index="5"]
 color = Color(1, 0, 0, 1)
 color_ramp = SubResource("Gradient_t5w7m")
-
-[node name="MurallaTribu" parent="." index="6"]
-visible = false

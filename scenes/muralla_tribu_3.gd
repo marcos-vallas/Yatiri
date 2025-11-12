@@ -1,6 +1,8 @@
 # muralla_tribu.gd
 extends Area2D
 
+class_name Muralla_Tribu
+
 # Señal original
 signal muralla_destruida
 
@@ -228,7 +230,7 @@ func repair_wall(amount_paid: int):
 	print("Muralla reparada. Salud actual: ", current_health)
 # --- LÓGICA DE DAÑO ---
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, kb= Vector2(0,0)) -> void:
 	if current_state == State.DESTRUIDA:
 		update_health_display()
 		return

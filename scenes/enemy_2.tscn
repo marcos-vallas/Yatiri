@@ -281,17 +281,18 @@ height = 44.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2yeo"]
 
-[node name="Enemy2" type="CharacterBody2D" groups=["Enemy"]]
+[node name="Enemy_2" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 32
 collision_mask = 592
 script = ExtResource("1_hqy2m")
 health = 90
+attack_range = 500.0
 walk_duration = 0.3
-attack_knockback = 300.0
-attack_range = 450.0
-idle_duration = 3.5
-knockback_force = 150.0
 walk_back_variation = 0.5
+idle_duration = 1.2
+attack_knockback = 300.0
+variacion_dist_muralla = 30.0
+knockback_force = 150.0
 metadata/_edit_group_ = true
 
 [node name="Enemy2" type="AnimatedSprite2D" parent="."]

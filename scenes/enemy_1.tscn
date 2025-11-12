@@ -266,11 +266,11 @@ collision_mask = 2640
 script = ExtResource("1_a1412")
 health = 90
 walk_speed = 140.0
-attack_knockback = 200.0
+danio_a_base = 12
 attack_range = 45.0
 pre_attack_delay = 0.02
 idle_duration = 0.5
-danio_a_base = 12
+attack_knockback = 200.0
 Collision_body = NodePath("Enemy_1_Body")
 metadata/_edit_group_ = true
 

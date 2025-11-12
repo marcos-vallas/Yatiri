@@ -3,49 +3,22 @@
 [ext_resource type="Script" uid="uid://cw45e7n5laf46" path="res://scripts/hut.gd" id="1_agf4v"]
 [ext_resource type="Texture2D" uid="uid://dwa4wgbj6fonh" path="res://assets/img/Yatiri/Escenario/base_enemiga.png" id="1_lbxpc"]
 [ext_resource type="Texture2D" uid="uid://bu84r2ubraiqj" path="res://assets/img/Yatiri/Escenario/algarrobo_3.png" id="2_bd6qm"]
+[ext_resource type="Material" uid="uid://r0x1jbfdk122" path="res://scenes/hut.tres" id="2_teqky"]
+[ext_resource type="Texture2D" uid="uid://cjn8hultcoyvn" path="res://assets/img/Yatiri/Escenario/Basepropia_rota.png" id="3_8rcwa"]
 [ext_resource type="Texture2D" uid="uid://d3t557u8vj610" path="res://assets/img/Yatiri/Escenario/Baseenemiga_rota.png" id="3_bd6qm"]
 [ext_resource type="Texture2D" uid="uid://brfapmc4fr52m" path="res://assets/img/Explotion.png" id="5_8rcwa"]
 [ext_resource type="AudioStream" uid="uid://beil22emq2366" path="res://assets/sound/magic.wav" id="6_agf4v"]
 [ext_resource type="AudioStream" uid="uid://bj2543vduipa2" path="res://assets/sound/attack_hit.wav" id="6_teqky"]
 [ext_resource type="PackedScene" uid="uid://bkkodudqtsrih" path="res://scenes/flora.tscn" id="7_agf4v"]
 
-[sub_resource type="Shader" id="Shader_gly16"]
-code = "shader_type canvas_item;
-
-// 🔹 Export para manejar desde el inspector de Godot
-uniform bool effect_enabled = false;
-uniform vec3 flash_color : source_color = vec3(1.0,0.0,0.0);
-uniform vec3 base_color : source_color = vec3(1.0,1.0,1.0); // color base de tu sprite
-
-void fragment() {
-    vec4 tex = texture(TEXTURE, UV);
-    
-    // 🔹 Aplicar el color base del sprite (por ejemplo, tu tono oscuro)
-    vec4 colored_tex = tex * vec4(base_color, 1.0);
-    
-    if (effect_enabled) {
-        // 🔹 Mezcla con el color del flash
-        COLOR = mix(colored_tex, vec4(flash_color, tex.a), 0.7);
-    } else {
-        COLOR = colored_tex;
-    }
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8y15c"]
-shader = SubResource("Shader_gly16")
-shader_parameter/effect_enabled = false
-shader_parameter/flash_color = Color(1, 1, 1, 1)
-shader_parameter/base_color = Color(0.661081, 0.661081, 0.661081, 1)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lbxpc"]
-size = Vector2(57, 333)
+size = Vector2(97, 333)
 
 [sub_resource type="Gradient" id="Gradient_n3evu"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.619608)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_agf4v"]
-size = Vector2(283, 90)
+size = Vector2(37, 205)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ixsww"]
 atlas = ExtResource("5_8rcwa")
@@ -173,17 +146,26 @@ collision_layer = 2048
 collision_mask = 1184
 script = ExtResource("1_agf4v")
 
-[node name="Sprite2D5" type="Sprite2D" parent="."]
+[node name="BasePropia" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(-70, -142)
+material = ExtResource("2_teqky")
+position = Vector2(13, -142)
 scale = Vector2(3.84033, 4.45427)
 texture = ExtResource("2_bd6qm")
+
+[node name="BasepropiaRota" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+material = ExtResource("2_teqky")
+position = Vector2(19, -176)
+scale = Vector2(4.37226, 5.15447)
+texture = ExtResource("3_8rcwa")
 
 [node name="Hut" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0.558287, 0.558287, 0.558287, 1)
 texture_filter = 1
-material = SubResource("ShaderMaterial_8y15c")
+material = ExtResource("2_teqky")
 position = Vector2(-101, -15)
 scale = Vector2(3, 3)
 texture = ExtResource("1_lbxpc")
@@ -193,18 +175,18 @@ flip_h = true
 visible = false
 modulate = Color(0.558287, 0.558287, 0.558287, 1)
 texture_filter = 1
-material = SubResource("ShaderMaterial_8y15c")
+material = ExtResource("2_teqky")
 position = Vector2(-101, -15)
 scale = Vector2(3, 3)
 texture = ExtResource("3_bd6qm")
 flip_h = true
 
 [node name="BaseCollision" type="CollisionShape2D" parent="." groups=["Base"]]
-position = Vector2(-82.5, -100.5)
+position = Vector2(0.5, -100)
 shape = SubResource("RectangleShape2D_lbxpc")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(-78, 85)
+position = Vector2(3, 85)
 amount = 40
 lifetime = 0.8
 speed_scale = 0.2
@@ -219,11 +201,10 @@ color_ramp = SubResource("Gradient_n3evu")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Base"]]
 collision_layer = 2048
-collision_mask = 128
+collision_mask = 1152
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-visible = false
-position = Vector2(-89.5, 17)
+position = Vector2(1.5, -40.5)
 shape = SubResource("RectangleShape2D_agf4v")
 
 [node name="Explotion" type="AnimatedSprite2D" parent="."]
@@ -248,3 +229,12 @@ pitch_scale = 0.6
 [node name="Flora" parent="." instance=ExtResource("7_agf4v")]
 visible = false
 position = Vector2(-961, -246)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -12.0
+offset_top = -109.0
+offset_right = 39.0
+offset_bottom = -60.0
+text = "vida:
+"

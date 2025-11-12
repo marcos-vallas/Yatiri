@@ -18,7 +18,7 @@ shader_parameter/base_color = Color(0.568973, 0.568973, 0.568973, 1)
 load_path = "res://.godot/imported/base_enemiga.png-1cfd90e13ad79b40eb248960055d074d.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwguj"]
-size = Vector2(397, 135)
+size = Vector2(40.5, 135)
 
 [sub_resource type="Gradient" id="Gradient_1h3n2"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.619608)
@@ -151,7 +151,7 @@ shader_parameter/base_color = Color(1, 1, 1, 1)
 
 [node name="HutEnemigo" type="Area2D" groups=["Hut Enemigo"]]
 collision_layer = 256
-collision_mask = 66
+collision_mask = 8278
 script = ExtResource("1_xwguj")
 health = 200
 
@@ -172,8 +172,21 @@ position = Vector2(91, -14)
 scale = Vector2(3.5, 3.5)
 texture = ExtResource("3_g5tuq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(77.5, 20.5)
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="." groups=["Hut Enemigo"]]
+position = Vector2(225.75, 24)
+shape = SubResource("RectangleShape2D_xwguj")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="." groups=["Hut Enemigo"]]
+position = Vector2(92, 44)
+scale = Vector2(10.8545, -0.454514)
+shape = SubResource("RectangleShape2D_xwguj")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." groups=["Hut Enemigo"]]
+position = Vector2(46, 22)
+shape = SubResource("RectangleShape2D_xwguj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Hut Enemigo"]]
+position = Vector2(-82, 21)
 shape = SubResource("RectangleShape2D_xwguj")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -238,3 +251,10 @@ position = Vector2(298, 37)
 scale = Vector2(2.73451, 2.8195)
 texture = ExtResource("7_g5tuq")
 flip_h = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = 22.0
+offset_top = -141.0
+offset_right = 62.0
+offset_bottom = -118.0
+text = "Vida:"

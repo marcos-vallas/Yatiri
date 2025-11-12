@@ -8,15 +8,18 @@ var preloadArrow = preload("res://scenes/arrow.tscn")
 
 enum State { IDLE, ATTACK, HURT, DEAD }
 
-
+@export_category("Stats")
 @export var health: int = 30
+@export var intervalo_ataque : float = 0.3
+@export var variacion_intervalo_ataque : float = 0.2
+@export var rango_ataque : float = 500.0
+@export_category("Comportamiento TakeDamage")
 @export var knockback_force: float = 200.0
 @export var knockback_friction: float = 800.0
 @export var damage_flash_time: float = 0.2
 @export var flash_duration: float = 0.4
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@export var intervalo_ataque : float = 0.3
-@export var rango_ataque : float = 500.0
+
 
 var state: State = State.IDLE
 
@@ -136,7 +139,8 @@ func do_attack(target:Node2D) -> void:
 	
 	var intervalo_random : float = randf_range(intervalo_ataque - 0.2, intervalo_ataque + 0.2)
 	# Instanciar flecha
-	await get_tree().create_timer(intervalo_random).timeout
+	intervalo_ataque + randf_range(0, variacion_intervalo_ataque)
+	await get_tree().create_timer(intervalo_ataque).timeout
 	animated_sprite.play("attack")
 	var arrow = preloadArrow.instantiate()
 	arrow.global_position = $ArrowPosition.global_position
@@ -157,11 +161,11 @@ func do_attack(target:Node2D) -> void:
 	
 
 
-func take_damage(from_direction: Vector2, _unused: bool = true) -> void:
+func take_damage(damage:int, from_direction: Vector2= Vector2(0,0), _unused: bool = true) -> void:
 	if health <= 0 or is_dead:
 		return
 
-	var damage = 10
+	
 	health -= damage
 	if $AttackHit:
 		$AttackHit.play()

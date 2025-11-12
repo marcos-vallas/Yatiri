@@ -292,7 +292,7 @@ radius = 8.0
 height = 48.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tuyoq"]
-size = Vector2(26, 28)
+size = Vector2(36, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hax0n"]
 atlas = ExtResource("11_3v2ag")
@@ -412,7 +412,7 @@ collision_layer = 64
 collision_mask = 288
 
 [node name="AttackShape" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(20, 1)
+position = Vector2(25, 1)
 shape = SubResource("RectangleShape2D_tuyoq")
 
 [node name="AttackHit" type="AudioStreamPlayer2D" parent="."]
@@ -439,3 +439,11 @@ collision_mask = 4096
 position = Vector2(1.5, 0)
 scale = Vector2(0.994141, 1.00514)
 shape = SubResource("RectangleShape2D_d2wvv")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -4.0
+offset_top = -40.0
+offset_right = 17.0
+offset_bottom = -17.0
+scale = Vector2(0.603249, 0.450646)
+text = "##"

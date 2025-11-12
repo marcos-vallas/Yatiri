@@ -3,19 +3,27 @@ class_name Enemy2
 
 enum State { WALK_FORWARD, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 
+@export_category("Stats")
 @export var health: int = 100
 @export var walk_speed: float = 170.0
-@export var walk_duration: float = 1.6
-@export var attack_knockback: float = 400.0
-@export var steps_volume_db: float = -23.0
-@export var attack_range: float = 200.0
+@export_category("Comportamiento ataque")
+@export var attack_range: float = 450.0
+@export var acercamiento_ataque : float = 100.0
+@export var walk_duration: float = 0.5
+@export var walk_back_variation: float = 1.0
 @export var idle_duration: float = 5.0
+@export var attack_knockback: float = 400.0
+@export_category("Comportamiento a Muralla")
+@export var distancia_a_la_muralla : float = 180
+@export var variacion_dist_muralla : float = 10
+@export_category("Comportamiento TakeDamage")
 @export var knockback_force: float = 250.0
 @export var hurt_knockback_duration: float = 0.18
-
+@export_category("Range_seeker")
 @export var custom_detection_range: float = 500.0 # Nuevo rango de detección por defecto
 @export var use_custom_range: bool = false # Bandera para usar el rango personalizado
-
+@export_category("Misc")
+@export var steps_volume_db: float = -23.0
 
 @onready var animated_sprite: AnimatedSprite2D = $Enemy2
 @onready var attack_area: Area2D = $AttackArea
@@ -31,7 +39,7 @@ var is_dead := false
 var flashing := false
 var hurt_cooldown := false
 var idle_timer_active := false
-@export var walk_back_variation: float = 1.0
+
 var current_target: Node2D = null
 var preloadSpear = preload("res://scenes/spear.tscn")
 
@@ -58,6 +66,9 @@ func _ready() -> void:
 
 	_update_sprite_flip()
 
+
+
+
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
@@ -75,6 +86,8 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
+	
+
 
 	match state:
 		State.WALK_FORWARD:
@@ -84,17 +97,26 @@ func _physics_process(delta: float) -> void:
 			walk_direction = new_direction
 			_update_sprite_flip()
 			_update_attack_area_direction()
-
 			if animated_sprite.animation != "walk":
 				animated_sprite.play("walk")
 				$Steps.volume_db = -30.0  
 				if not $Steps.playing:
 					$Steps.play()
-
-			if global_position.distance_to(target.global_position) <= attack_range:
-				set_state(State.ATTACK)
-
 			velocity.x = walk_speed * walk_direction
+			
+			var dist = global_position.distance_to(target.global_position)
+			dist = int(dist)
+			if abs(dist) <= attack_range:
+				set_state(State.ATTACK)
+			
+			if _get_cerca_de_muralla():
+				set_state(State.ATTACK)
+			
+			
+			
+			
+		State.IDLE:
+			pass
 
 		State.WALK_BACK:
 			velocity.x = -walk_speed * walk_direction
@@ -110,10 +132,10 @@ func set_state(new_state: State) -> void:
 	if state == new_state:
 		return
 	state = new_state
-
+	var target = _get_target_with_priority3()
 	match state:
 		State.WALK_FORWARD:
-			var target = _get_target_with_priority3()
+			
 			if target:
 				walk_direction = sign(target.global_position.x - global_position.x)
 				if walk_direction == 0:
@@ -135,13 +157,14 @@ func set_state(new_state: State) -> void:
 				_reset_attack_sound_cooldown()
 
 		State.WALK_BACK:
-			velocity.x = -walk_speed * walk_direction
-			_update_sprite_flip()
-			_update_attack_area_direction()
-			animated_sprite.play("walk")
-			$Steps.volume_db = steps_volume_db
-			$Steps.play()
-			_start_walk_back_timer()
+			
+				velocity.x = -walk_speed * walk_direction
+				_update_sprite_flip()
+				_update_attack_area_direction()
+				animated_sprite.play("walk")
+				$Steps.volume_db = steps_volume_db
+				$Steps.play()
+				_start_walk_back_timer()
 
 		State.IDLE:
 			velocity = Vector2.ZERO
@@ -149,6 +172,8 @@ func set_state(new_state: State) -> void:
 			animated_sprite.play("idle")
 			_update_sprite_flip()
 			_update_attack_area_direction()
+			_idle_wait_and_go()
+		
 
 		State.HURT:
 			$Steps.stop()
@@ -196,7 +221,16 @@ func _throw_spear() -> void:
 # -------------------- ANIMACIONES --------------------
 func _on_animation_finished() -> void:
 	if animated_sprite.animation == "attack" and state == State.ATTACK:
-		set_state(State.WALK_BACK)
+		var target = _get_target_with_priority3()
+		var dist = (target.global_position.x - global_position.x)
+		dist = int(dist)
+		if  (abs(dist) <= (attack_range - acercamiento_ataque)) and !_get_cerca_de_muralla():
+			set_state(State.WALK_BACK)
+		elif (abs(dist) <= (attack_range - acercamiento_ataque)) and _get_cerca_de_muralla():
+			set_state(State.IDLE)
+		else:
+			set_state(State.IDLE)
+		
 	elif animated_sprite.animation == "hurt" and state == State.HURT:
 		if health <= 0:
 			set_state(State.DEAD)
@@ -205,19 +239,48 @@ func _on_animation_finished() -> void:
 	elif animated_sprite.animation == "death" and state == State.DEAD:
 		pass
 
-
+#---------------------DETECCION DE MURALLA-------------------
+func _get_cerca_de_muralla()-> bool :
+	var esta_cerca = false
+	var murallas = []
+	murallas.append_array(get_tree().get_nodes_in_group("Muralla"))
+	var closest_target: Node = null
+	var min_dist: float = INF
+	var max_range: float = INF
+	
+	for muralla in murallas:
+		# Se realiza una verificación de validez y posición
+		if is_instance_valid(muralla): # and target.has_method("global_position"):
+			var dist = global_position.distance_to(muralla.global_position)
+			
+			# Aplicar filtro de rango de detección (Requisito 2)
+			if dist <= max_range:
+				if dist < min_dist:
+					min_dist = dist 
+					closest_target = muralla
+					
+	var distb = global_position.distance_to(closest_target.global_position)
+	distb = int(distb)
+	
+	if abs(distb) <= distancia_a_la_muralla + randf_range(variacion_dist_muralla,variacion_dist_muralla):
+		esta_cerca = true
+	return esta_cerca
 # -------------------- WALK BACK --------------------
 func _start_walk_back_timer() -> void:
 	await get_tree().create_timer(walk_duration + walk_back_variation).timeout
+	_idle_wait_and_go()
+	
+func _idle_wait_and_go()->void:
 	if not is_dead:
 		set_state(State.IDLE)
-		await get_tree().create_timer(2.0).timeout
-		if not is_dead and state == State.IDLE:
+		await get_tree().create_timer(idle_duration).timeout
+		if (not is_dead and state == State.IDLE) and !_get_cerca_de_muralla():
 			set_state(State.WALK_FORWARD)
-
+		elif (not is_dead and state == State.IDLE) and _get_cerca_de_muralla():
+			set_state(State.ATTACK)
 
 # -------------------- DAMAGE --------------------
-func take_damage(amount: int, knockback_dir: Vector2, is_arrow_attack: bool = false) -> void:
+func take_damage(amount: int, knockback_dir: Vector2= Vector2(0,0)) -> void:
 	if health <= 0 or is_dead or hurt_cooldown:
 		return
 

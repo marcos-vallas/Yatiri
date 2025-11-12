@@ -115,11 +115,11 @@ func do_attack() -> void:
 		_play_idle()
 
 
-func take_damage(from_direction: Vector2, _unused: bool = true) -> void:
+func take_damage(damage:int, from_direction: Vector2= Vector2(0,0), _unused: bool = true) -> void:
 	if health <= 0 or is_dead:
 		return
 
-	var damage = 10
+
 	health -= damage
 	if $AttackHit:
 		$AttackHit.play()

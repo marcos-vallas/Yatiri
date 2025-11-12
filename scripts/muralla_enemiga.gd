@@ -1,4 +1,6 @@
 extends Area2D
+class_name Muralla_Enemiga
+
 
 signal muralla_destruida
 
@@ -21,11 +23,12 @@ func _ready() -> void:
 	add_child(flash_timer)
 	flash_timer.timeout.connect(_on_flash_timer_timeout)
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, kb = Vector2(0,0)) -> void:
 	if health <= 0:
 		return
 		
 	health -= amount
+	$Label.text = "vida: " + str(health)
 	
 	if health <= 0:
 		_on_destroyed()

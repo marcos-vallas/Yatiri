@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://if70u5c5so77" path="res://scenes/Allied_1.tscn" id="5_htfgd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxjtj"]
-size = Vector2(1642, 17)
+size = Vector2(2122, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cy8pk"]
 size = Vector2(20, 372)
@@ -28,7 +28,7 @@ texture = ExtResource("1_aiu1w")
 [node name="Piso" type="StaticBody2D" parent="terrain" groups=["Ground"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="terrain/Piso"]
-position = Vector2(283, 322.5)
+position = Vector2(523, 322.5)
 shape = SubResource("RectangleShape2D_yxjtj")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="terrain"]
@@ -38,15 +38,16 @@ position = Vector2(-460, 173)
 shape = SubResource("RectangleShape2D_cy8pk")
 
 [node name="izq" type="StaticBody2D" parent="terrain"]
+position = Vector2(384, -3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="terrain/izq"]
 position = Vector2(912, 171)
 shape = SubResource("RectangleShape2D_i0auk")
 
 [node name="Enemy2" parent="." instance=ExtResource("2_cy8pk")]
-position = Vector2(451, 288)
+position = Vector2(555, 278)
 collision_mask = 593
-attack_range = 500.0
+acercamiento_ataque = 50.0
 
 [node name="MurallaTribu" parent="." instance=ExtResource("3_i0auk")]
 position = Vector2(272, 257)
@@ -56,6 +57,24 @@ costo_reparacion = 2
 [node name="Player" parent="." instance=ExtResource("4_i0auk")]
 position = Vector2(102, 289)
 
+[node name="marcador" type="Node2D" parent="."]
+position = Vector2(104, 256)
+scale = Vector2(1.35902, 1.00772)
+
 [node name="Allied_1" parent="." instance=ExtResource("5_htfgd")]
-position = Vector2(-2, 287)
-intervalo_ataque = 2.0
+position = Vector2(22, 280)
+
+[node name="Allied_2" parent="." instance=ExtResource("5_htfgd")]
+position = Vector2(-19, 280)
+
+[node name="Allied_3" parent="." instance=ExtResource("5_htfgd")]
+position = Vector2(-57, 279)
+
+[node name="Allied_4" parent="." instance=ExtResource("5_htfgd")]
+position = Vector2(-96, 279)
+
+[node name="Enemy_2" parent="." instance=ExtResource("2_cy8pk")]
+position = Vector2(685, 283)
+
+[node name="Enemy_3" parent="." instance=ExtResource("2_cy8pk")]
+position = Vector2(780, 280)

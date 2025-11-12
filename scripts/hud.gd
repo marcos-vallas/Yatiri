@@ -8,6 +8,8 @@ extends Control
 
 @onready var actual_cycle_marker : Label = $MarginContainer/DayLabel
 
+@onready var tiempo :String = "Dia "
+
 func _ready() -> void:
 	# Conectar señales del Global
 	Global.coins_changed.connect(_on_coins_changed)
@@ -15,6 +17,7 @@ func _ready() -> void:
 	Global.tribe_changed.connect(_on_tribe_changed)
 	Global.base_health_changed.connect(_on_base_health_changed)
 	Global.cycle_changed.connect(_on_cicle_changed)
+	Global.time_changed.connect(_on_time_changed)
 
 	# Inicializar visuales
 	_on_coins_changed(Global.coins)
@@ -22,13 +25,21 @@ func _ready() -> void:
 	_on_tribe_changed(Global.tribe_count)
 	_on_base_health_changed(Global.base_health)
 	
+	_on_time_changed(Global.tiempo_actual)
 	_on_cicle_changed(Global.ciclo_actual)
+
 	
 		# Configurar barra
 	base_health_bar.max_value = Global.base_max_health
 	
+func _on_time_changed(time :String) -> void:
+	tiempo = time
+	
 func _on_cicle_changed(new_value :int) -> void:
-	actual_cycle_marker.text = "Día " + str(new_value)
+	actual_cycle_marker.text = "Dia " + str(new_value)
+		
+func es_par(numero: int) -> bool:
+	return numero % 2 == 0
 	
 func _on_base_health_changed(new_value: int) -> void:
 	base_health_bar.value = new_value

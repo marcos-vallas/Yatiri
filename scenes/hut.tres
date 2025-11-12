@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://r0x1jbfdk122"]
+
+[ext_resource type="Shader" uid="uid://bqk83bsw1uqn3" path="res://scenes/hut.gdshader" id="1_dplni"]
+
+[resource]
+shader = ExtResource("1_dplni")
+shader_parameter/effect_enabled = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/base_color = Color(1, 1, 1, 1)

@@ -48,7 +48,7 @@ var can_play_hit_sound := true
 func _ready() -> void:
 
 	add_to_group("Player")
-
+	$Label.text = str(Global.coins)
 	var grupos = ["Muralla", "Muralla Enemiga", "Hut Enemigo", "Base"]
 	for grupo in grupos:
 		for nodo in get_tree().get_nodes_in_group(grupo):
@@ -64,7 +64,8 @@ func _ready() -> void:
 	
 func _on_muralla_destruida():
 	camera_shake(2.0, 1.5)
-	
+func _process(delta: float) -> void:
+	$Label.text = str(Global.coins)
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
@@ -229,7 +230,7 @@ func play_hit_sound():
 		await get_tree().create_timer(0.15).timeout  # 150 ms de cooldown
 		can_play_hit_sound = true
 
-func take_damage(knockback_dir: Vector2, hit_from_right: bool) -> void:
+func take_damage(damage:int, knockback_dir: Vector2 = Vector2(0,0), hit_from_right: bool=false ) -> void:
 	if is_dead:
 		return
 
@@ -253,8 +254,11 @@ func take_damage(knockback_dir: Vector2, hit_from_right: bool) -> void:
 	elif direction.x != 0 and not is_attacking and not is_magic_attacking: # ⚡ agregado
 		animated_sprite.play("run")
 
+	$Label.text = str(Global.coins)
 	if Global.coins <= 0:
 		die()
+		
+	
 
 func flash_white() -> void:
 	if flashing:

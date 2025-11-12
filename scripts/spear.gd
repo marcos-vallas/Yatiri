@@ -1,18 +1,25 @@
 extends Area2D
 
-@export var calculation_gravity_multiplier: float = 1.5
-@export var fall_gravity: float = 1200.0
-@export var damage: int = 10
 
+
+@export_category("Stats")
+@export var damage_unidades: int = 10
+@export var damage_edificios: int = damage_unidades/5
+
+@export_category("Trayectoria")
+var calculation_gravity_multiplier: float = 1.5
+@export var fall_gravity: float = 1200.0
 # Ajustes de la trayectoria
 @export var min_time_to_hit: float = 0.3
-@export var max_time_to_hit: float = 2.0
+@export var max_time_to_hit_Close: float = 1.0
+@export var max_time_to_hit_Far: float = 2.0
 @export var x_offset_random: float = 30.0
 @export var y_offset_random: float = 10.0
+@export var correccion_altura : float = 0.5
 
-@export var elevation_boost : float = 150.0
-@export var elevation_scale: float = 1.5 # Ajusta este valor para controlar la intensidad del arco.
 
+var elevation_boost : float = 150.0
+var elevation_scale: float = 1.5 # Ajusta este valor para controlar la intensidad del arco.
 
 
 
@@ -34,6 +41,7 @@ func _on_area_entered(area: Area2D) -> void:
 	if \
 	(area.is_in_group("Muralla") or area.is_in_group("Base")) \
 	and area.has_method("take_damage"):
+		$CollisionShape2D.disabled = true
 		if $Spear_Impact:
 			$Spear_Impact.play()
 		if $Spear:
@@ -41,19 +49,20 @@ func _on_area_entered(area: Area2D) -> void:
 		if $CPUParticles2D:
 			$CPUParticles2D.visible = false
 
-		area.take_damage(damage/5)
+		area.take_damage(damage_edificios)
 		await get_tree().create_timer(0.2).timeout
 		queue_free()
 
 
 func _on_body_entered(body: Node) -> void:
 	if (body.is_in_group("Player_Body") or body.is_in_group("Aliado_1"))  and body.has_method("take_damage"):
+		$CollisionShape2D.disabled = true
 		if $Spear_Impact: $Spear_Impact.play()
 		if $Spear: $Spear.visible = false
 		if $CPUParticles2D: $CPUParticles2D.visible = false
 
 		var knockback_dir = Vector2(sign(body.global_position.x - global_position.x), 0)
-		body.take_damage(knockback_dir, true)
+		body.take_damage(damage_unidades, knockback_dir, true)
 
 		await get_tree().create_timer(0.2).timeout
 		queue_free()
@@ -70,7 +79,7 @@ func launch_towards_wall(objetivo: Node2D, time_to_hit: float = -1.0) -> void:
 	if not objetivo or not objetivo.is_inside_tree():
 		return
 	if time_to_hit <= 0:
-		time_to_hit =  randf_range(min_time_to_hit, max_time_to_hit/2)
+		time_to_hit =  randf_range(min_time_to_hit, max_time_to_hit_Close)
 		
 	#if objetivo.is_in_group("Aliado_1"):
 		#elevation_boost = 150
@@ -100,14 +109,14 @@ func _prepare_and_launch(target_global_pos: Vector2, time_to_hit: float) -> void
 	
 	if (distance.x < -450) or (distance.x > 450):
 		print(distance.x)
-		time_to_hit = max_time_to_hit
+		time_to_hit += (max_time_to_hit_Far - time_to_hit)/2
 
 	# Cálculo de la velocidad inicial (como estaba antes)
 	# vel.x para llegar en 'time_to_hit'
 	vel.x = distance.x / time_to_hit
 	# vel.y para compensar la gravedad y llegar a distance.y
 	vel.y = (distance.y - 0.5 * fall_gravity * time_to_hit * time_to_hit) / time_to_hit
-	
+	vel.y -= correccion_altura
 	# --- MODIFICACIÓN CLAVE ---
 	# Restar (empujar hacia arriba) el 'elevation_boost' a la velocidad inicial vertical.
 	# Esto aumenta la altura máxima sin cambiar el tiempo de vuelo o el destino.

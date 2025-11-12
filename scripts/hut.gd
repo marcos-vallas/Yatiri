@@ -2,11 +2,13 @@ extends Area2D
 
 signal muralla_destruida
 
-@onready var hut: Sprite2D = $Hut
+@onready var hut_sano: Sprite2D = $BasePropia
+@onready var hut_roto: Sprite2D = $BasepropiaRota
 @onready var collision: CollisionShape2D = $BaseCollision
 @onready var static_body: StaticBody2D = $StaticBody2D
 @onready var static_collision: CollisionShape2D = $StaticBody2D/CollisionShape2D
 
+@export var health : int = 100
 var damage_flash_count: int = 2        # cantidad de parpadeos
 var damage_flash_duration: float = 0.1 # duración de cada parpadeo
 var flash_counter: int = 0
@@ -25,18 +27,27 @@ func _ready() -> void:
 	# Asegurar que el StaticBody2D bloquee, pero esta Area2D reciba daño
 	monitorable = true
 	monitoring = true
+	
+	Global.base_health = health
+	Global.base_max_health = health
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int,knock:Vector2= Vector2(0,0)) -> void:
 	if Global.base_health <= 0:
 		return
 	
 	$Hit.play()
-	Global.damage_base(amount)
+	#Global.damage_base(amount)
+	Global.base_health -= amount
+	Global.update_base_health()
+	$Label.text = str(Global.base_health)
+	
 	
 	if Global.base_health <= 0:
 		_on_destroyed()
+		Global._on_base_destroyed()
 	else:
 		_start_flash()
+
 		
 		
 func _start_flash() -> void:
@@ -46,23 +57,23 @@ func _start_flash() -> void:
 func _on_flash_timer_timeout() -> void:
 	if flash_counter < damage_flash_count * 2:
 		var active = flash_counter % 2 == 0
-		if hut.material:
-			hut.material.set_shader_parameter("effect_enabled", active)
+		if hut_sano.material:
+			hut_sano.material.set_shader_parameter("effect_enabled", active)
 		flash_counter += 1
 	else:
 		flash_timer.stop()
-		if hut.material:
-			hut.material.set_shader_parameter("effect_enabled", false)
+		if hut_sano.material:
+			hut_sano.material.set_shader_parameter("effect_enabled", false)
 
 func _on_destroyed() -> void:
 	await get_tree().create_timer(0.1).timeout
 	emit_signal("muralla_destruida")
-	hut.hide()
+	hut_sano.hide()
 	$Explotion.show()
 	$Explotion2.play()
 	collision.disabled = true
 	$Explotion.play("default")
-	$HutRoto.show()
+	hut_roto.show()
 	await $Explotion.animation_finished
 	$Explotion.hide()
 	await get_tree().create_timer(6.0).timeout

@@ -3,21 +3,29 @@ class_name Enemy
 
 enum State { WALK_FORWARD, PRE_ATTACK, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 
+@export_category("Stats")
 @export var health: int = 100
 @export var walk_speed: float = 170.0
+@export var danio_a_base : int = 10
+@export var danio_a_muralla:int =10
+@export var danio_a_enemigo : int = 20
+@export var danio_a_aliados : int = 50
+@export_category("Comportamiento_Ataque")
 @export var walk_duration: float = 1.6
-@export var attack_knockback: float = 400.0
-@export var steps_volume_db: float = -23.0
 @export var attack_range: float = 80.0
 @export var pre_attack_delay: float = 0.3
 @export var idle_duration: float = 5.0
-
-@export var danio_a_base : int = 10
-@export var danio_a_muralla:int =10
-@export var danio_a_aliados : int = 50
-
+@export var attack_knockback: float = 400.0
+@export_category("Seguimiento")
+@export var follow_range: float = 80.0
+@export_category("Range_seeker")
 @export var custom_detection_range: float = 500.0 # Nuevo rango de detección por defecto
 @export var use_custom_range: bool = false # Bandera para usar el rango personalizado
+@export_category("Misc")
+@export var steps_volume_db: float = -23.0
+
+
+
 
 @onready var animated_sprite: AnimatedSprite2D = $Enemy
 @onready var attack_area: Area2D = $AttackArea
@@ -289,7 +297,7 @@ func _on_frame_changed() -> void:
 				if body.is_in_group("Player"):
 					var dir = Vector2(sign(body.global_position.x - global_position.x), 0) * (attack_knockback / 2)
 					var hit_from_right = body.global_position.x < global_position.x
-					body.take_damage(dir, hit_from_right)
+					body.take_damage(1, dir, hit_from_right) #danio a jugador siempre es 1
 
 				elif body.is_in_group("Muralla"):
 					body.take_damage(danio_a_muralla)
@@ -334,7 +342,7 @@ func _start_idle_timer() -> void:
 		set_state(State.WALK_FORWARD)
 
 # -------------------- DAMAGE --------------------
-func take_damage(amount: int, knockback_dir: Vector2, is_arrow_attack: bool = false) -> void:
+func take_damage(amount: int, knockback_dir: Vector2= Vector2(0,0)) -> void:
 	if health <= 0 or is_dead or hurt_cooldown:
 		return
 	health -= amount

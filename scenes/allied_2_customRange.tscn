@@ -261,21 +261,19 @@ size = Vector2(33.3333, 30.8333)
 [node name="Allied 2" type="CharacterBody2D" groups=["Aliado_2"]]
 modulate = Color(0.938787, 0.505424, 0.54633, 1)
 z_index = 1
-position = Vector2(1, 10)
-scale = Vector2(1.2, 1.2)
 collision_layer = 8192
-collision_mask = 1440
+collision_mask = 1152
 script = ExtResource("1_06a6k")
 health = 90
 walk_speed = 100.0
+danio_a_base = 6
+danio_a_muralla = 5
+danio_a_enemigo = 30
 walk_duration = 0.5
-attack_knockback = 200.0
 attack_range = 45.0
 pre_attack_delay = 0.01
 idle_duration = 0.4
-danio_a_base = 12
-danio_a_muralla = 12
-danio_a_enemigo = 30
+attack_knockback = 200.0
 use_custom_range = true
 metadata/_edit_group_ = true
 
@@ -311,7 +309,7 @@ volume_db = -12.0
 
 [node name="AttackArea" type="Area2D" parent="."]
 collision_layer = 64
-collision_mask = 1312
+collision_mask = 288
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2(-27.5, -1.25)

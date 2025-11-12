@@ -20,11 +20,13 @@ z_index = 2
 collision_layer = 1024
 collision_mask = 2567
 script = ExtResource("1_efxkm")
-calculation_gravity_multiplier = 1.15
+damage_edificios = 1
 fall_gravity = 1500.0
-max_time_to_hit = 1.5
+min_time_to_hit = 0.45
+max_time_to_hit_Close = 0.9
+max_time_to_hit_Far = 1.8
 x_offset_random = 20.0
-elevation_scale = 0.5
+correccion_altura = -0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -1)

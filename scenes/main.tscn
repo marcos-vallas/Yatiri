@@ -767,14 +767,14 @@ centered = false
 
 [node name="Hut" parent="Propia" instance=ExtResource("17_muem4")]
 z_index = -2
-position = Vector2(-1074, 273.578)
+position = Vector2(-1185, 274)
 scale = Vector2(1, 1.0058)
 
 [node name="MurallaTribu2" parent="Propia" instance=ExtResource("15_yq6so")]
 z_index = -2
 position = Vector2(-599, 315.822)
 scale = Vector2(1, 1.0058)
-max_health = 80
+max_health = 100
 costo_reparacion = 1
 
 [node name="Enemy_Derecha" type="Node" parent="."]
@@ -786,6 +786,7 @@ scale = Vector2(1, 1.0058)
 [node name="MurallaEnemiga" parent="Enemy_Derecha" instance=ExtResource("17_qkpxi")]
 position = Vector2(1477, 296)
 scale = Vector2(1, 1.0058)
+health = 200
 
 [node name="TribeSpawner" type="Node2D" parent="."]
 visible = false
@@ -850,7 +851,7 @@ autoplay = true
 
 [node name="GameManager2" type="Node" parent="." node_paths=PackedStringArray("allied_spawner", "enemy_spawner")]
 script = ExtResource("25_og1vs")
-tiempo_dia = 15.0
+tiempo_dia = 10.0
 tiempo_noche = 10.0
 allied_spawner = NodePath("AlliedSpawner")
 aliado_1_escena = ExtResource("27_dgi5k")
@@ -858,6 +859,7 @@ aliado_2_escena = ExtResource("27_5q0nq")
 enemy_spawner = NodePath("EnemySpawner")
 enemigo_1_escena = ExtResource("27_vxglm")
 enemigo_2_escena = ExtResource("26_yq6so")
+cant_Enemigo_2_noche = 0.5
 enemigo_3_escena = ExtResource("28_tel4y")
 
 [node name="EnemySpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
@@ -866,7 +868,7 @@ spawn_marker = NodePath("SpawnPos")
 spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnPos" type="Marker2D" parent="GameManager2/EnemySpawner"]
-position = Vector2(1712, 327)
+position = Vector2(1690, 325)
 
 [node name="SpawnTimer" type="Timer" parent="GameManager2/EnemySpawner"]
 
@@ -958,6 +960,3 @@ texture = ExtResource("30_fv21b")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes invisibles/StaticBody2D2"]
 position = Vector2(-26, -87)
 shape = SubResource("RectangleShape2D_tel4y")
-
-[node name="Enemy2" parent="." instance=ExtResource("26_yq6so")]
-position = Vector2(-91, 318.155)

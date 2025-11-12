@@ -8,6 +8,7 @@ var base_max_health: int = 100
 var game_result_text = ""
 
 var ciclo_actual : int =1 
+var tiempo_actual : String = "Dia "
 
 
 signal coins_changed(new_value)
@@ -16,12 +17,17 @@ signal tribe_changed(new_value)
 signal base_health_changed(new_value)  # 🔥 Nueva señal
 
 signal cycle_changed(new_value)
+signal time_changed(new_value)
 
 
 func change_cycle(ciclo:int) -> void:
 	ciclo_actual = ciclo
 	emit_signal("cycle_changed", ciclo_actual)
 
+func change_time(time) -> void:
+	tiempo_actual = time
+	print(tiempo_actual)
+	emit_signal("time_changed", tiempo_actual)
 
 # --- MONEDAS ---
 func add_coins(amount: int) -> void:
@@ -70,8 +76,11 @@ func damage_base(amount: int) -> void:
 	if base_health == 0:
 		_on_base_destroyed()
 
-func heal_base(amount: int) -> void:
-	base_health = min(base_max_health, base_health + amount)
+func health_base(amount: int) -> void:
+	base_health = amount 
+	emit_signal("base_health_changed", base_health)
+	
+func update_base_health() -> void:
 	emit_signal("base_health_changed", base_health)
 
 func reset_base_health() -> void:

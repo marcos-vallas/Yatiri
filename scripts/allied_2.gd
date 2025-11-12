@@ -4,24 +4,26 @@ class_name Allied_2
 
 enum State { WALK_FORWARD, PRE_ATTACK, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 
+@export_category("Stats")
 @export var health: int = 100
 @export var walk_speed: float = 170.0
-@export var walk_duration: float = 1.6
-@export var attack_knockback: float = 400.0
-@export var steps_volume_db: float = -23.0
-@export_category("Seguimiento")
-@export var attack_range: float = 80.0
-@export var follow_range: float = 80.0
-@export_category("")
-@export var pre_attack_delay: float = 0.3
-@export var idle_duration: float = 5.0
-
 @export var danio_a_base : int = 10
 @export var danio_a_muralla:int =10
 @export var danio_a_enemigo : int = 20
-
+@export_category("Comportamiento_Ataque")
+@export var walk_duration: float = 1.6
+@export var attack_range: float = 80.0
+@export var pre_attack_delay: float = 0.3
+@export var idle_duration: float = 5.0
+@export var attack_knockback: float = 400.0
+@export_category("Seguimiento")
+@export var follow_range: float = 80.0
+@export_category("Range_seeker")
 @export var custom_detection_range: float = 500.0 # Nuevo rango de detección por defecto
 @export var use_custom_range: bool = false # Bandera para usar el rango personalizado
+@export_category("Misc")
+@export var steps_volume_db: float = -23.0
+
 
 @onready var animated_sprite: AnimatedSprite2D = $Enemy
 @onready var attack_area: Area2D = $AttackArea
@@ -57,13 +59,6 @@ func _get_target_with_priority3() -> Node:
 	if use_custom_range:
 		max_range = custom_detection_range
 
-	# 1. Recolectar Bases
-	#all_targets.append_array(get_tree().get_nodes_in_group("Base"))
-	
-	# 1. Recolectar Bases
-	#all_targets.append_array(get_tree().get_nodes_in_group("Enemy"))
-#
-	#all_targets.append_array(get_tree().get_nodes_in_group("Muralla Enemiga"))
 
 	## 2. Recolectar Murallas válidas (no destruidas)
 	#var murallas_raw = []
@@ -86,13 +81,10 @@ func _get_target_with_priority3() -> Node:
 				##all_targets.append(m)
 				#pass
 
-
-	# 3. Recolectar Jugadores
-	#all_targets.append_array(get_tree().get_nodes_in_group("Player_Body"))
-	# 1. Recolectar Bases
 	
 	all_targets.append_array(get_tree().get_nodes_in_group("Enemy"))
 	all_targets.append_array(get_tree().get_nodes_in_group("Muralla Enemiga"))
+	all_targets.append_array(get_tree().get_nodes_in_group("Hut Enemigo"))
 	
 	
 	if all_targets.is_empty():
@@ -189,10 +181,17 @@ func _physics_process(delta: float) -> void:
 	# --- Chequeo posterior de colisión o rango (solo si está avanzando) ---
 	if state == State.WALK_FORWARD:
 		if target:
+			#$Label.text = str(target)
+			#print(global_position.distance_to(target.global_position))
+			#print(attack_range)
 			if global_position.distance_to(target.global_position) <= attack_range \
-			and ((target.is_in_group("Muralla Enemiga")) \
-			or (target.is_in_group("Enemy"))):
+			and (\
+			target.is_in_group("Muralla Enemiga") \
+			or target.is_in_group("Enemy") \
+			or target.is_in_group("Hut Enemigo")\
+			):
 				set_state(State.PRE_ATTACK)
+				#print("Aliado 2 ataca")
 			if global_position.distance_to(target.global_position) <= follow_range \
 			and (target.is_in_group("Player_Body")) :
 				set_state(State.IDLE)
@@ -334,8 +333,10 @@ func _on_frame_changed() -> void:
 				elif body.is_in_group("Muralla Enemiga"):
 					body.take_damage(danio_a_muralla)
 
-				elif body.is_in_group("Base Enemiga"):
+				elif body.is_in_group("Hut Enemigo"):
 					body.take_damage(danio_a_base)
+				
+					
 			$AttackHit.play()
 
 func _on_animation_finished() -> void:
@@ -365,7 +366,7 @@ func _start_idle_timer() -> void:
 		set_state(State.WALK_FORWARD)
 
 # -------------------- DAMAGE --------------------
-func take_damage(amount: int, knockback_dir: Vector2, is_arrow_attack: bool = false) -> void:
+func take_damage(amount: int, knockback_dir: Vector2 = Vector2(0,0), is_arrow_attack: bool = false) -> void:
 	if health <= 0 or is_dead or hurt_cooldown:
 		return
 	health -= amount

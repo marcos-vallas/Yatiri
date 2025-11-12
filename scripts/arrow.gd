@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 # detectar colisión con enemigos y suelo
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Enemy") and body.has_method("take_damage"):
-		$CollisionShape2D.disabled = true
+		$CollisionShape2D.set_deferred("disabled", true)
 		# knockback solo horizontal, pequeño
 		$Arrow_Impact.play()
 		$Arrow.visible = false

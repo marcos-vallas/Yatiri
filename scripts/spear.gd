@@ -17,6 +17,7 @@ var calculation_gravity_multiplier: float = 1.5
 @export var y_offset_random: float = 10.0
 @export var correccion_altura : float = 0.5
 
+@export var self_sprite : Sprite2D
 
 var elevation_boost : float = 150.0
 var elevation_scale: float = 1.5 # Ajusta este valor para controlar la intensidad del arco.
@@ -44,21 +45,53 @@ func _on_area_entered(area: Area2D) -> void:
 		$CollisionShape2D.disabled = true
 		if $Spear_Impact:
 			$Spear_Impact.play()
-		if $Spear:
-			$Spear.visible = false
+		if self_sprite != null : self_sprite.visible = false
 		if $CPUParticles2D:
 			$CPUParticles2D.visible = false
 
 		area.take_damage(damage_edificios)
 		await get_tree().create_timer(0.2).timeout
 		queue_free()
+	if (area.is_in_group("Player_Body") or area.is_in_group("Aliado_1"))  and area.has_method("take_damage"):
+		$CollisionShape2D.set_deferred("disabled",true)
+		if $Spear_Impact: $Spear_Impact.play()
+		if self_sprite != null : self_sprite.visible = false
+		if $CPUParticles2D: $CPUParticles2D.visible = false
+
+		var knockback_dir = Vector2(sign(area.global_position.x - global_position.x), 0)
+		area.take_damage(damage_unidades, knockback_dir, true)
+
+		await get_tree().create_timer(0.2).timeout
+		queue_free()
+		
+	elif area.is_in_group("Ground"):
+		if self_sprite != null : self_sprite.visible = false
+		$CPUParticles2D.one_shot = true
+		$CPUParticles2D.emitting = false
+		$CPUParticles2D.speed_scale = 0
+		await get_tree().create_timer(0.3).timeout
+		queue_free()
 
 
 func _on_body_entered(body: Node) -> void:
-	if (body.is_in_group("Player_Body") or body.is_in_group("Aliado_1"))  and body.has_method("take_damage"):
+	if \
+	(body.is_in_group("Muralla") or body.is_in_group("Base")) \
+	and body.has_method("take_damage"):
 		$CollisionShape2D.disabled = true
+		if $Spear_Impact:
+			$Spear_Impact.play()
+		if self_sprite != null : self_sprite.visible = false
+		if $CPUParticles2D:
+			$CPUParticles2D.visible = false
+
+		body.take_damage(damage_edificios)
+		await get_tree().create_timer(0.2).timeout
+		queue_free()
+		
+	if (body.is_in_group("Player_Body") or body.is_in_group("Aliado_1"))  and body.has_method("take_damage"):
+		$CollisionShape2D.set_deferred("disabled",true)
 		if $Spear_Impact: $Spear_Impact.play()
-		if $Spear: $Spear.visible = false
+		if self_sprite != null : self_sprite.visible = false
 		if $CPUParticles2D: $CPUParticles2D.visible = false
 
 		var knockback_dir = Vector2(sign(body.global_position.x - global_position.x), 0)
@@ -68,7 +101,7 @@ func _on_body_entered(body: Node) -> void:
 		queue_free()
 		
 	elif body.is_in_group("Ground"):
-		$Spear.visible = false
+		if self_sprite != null : self_sprite.visible = false
 		$CPUParticles2D.one_shot = true
 		$CPUParticles2D.emitting = false
 		$CPUParticles2D.speed_scale = 0

@@ -14,6 +14,6 @@ func _on_body_entered(body: Node) -> void:
 		$Coin_Sound.pitch_scale = randf_range(0.95, 1.0)
 		$Coin_Sound.play()
 		$Coin.visible = false
-		$CollisionShape2D.disabled = true
+		$CollisionShape2D.set_deferred("disabled", true)
 		await get_tree().create_timer(0.2).timeout
 		queue_free() 

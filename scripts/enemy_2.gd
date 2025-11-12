@@ -262,7 +262,7 @@ func _get_cerca_de_muralla()-> bool :
 	var distb = global_position.distance_to(closest_target.global_position)
 	distb = int(distb)
 	
-	if abs(distb) <= distancia_a_la_muralla + randf_range(variacion_dist_muralla,variacion_dist_muralla):
+	if abs(distb) <= distancia_a_la_muralla + randf_range(0,variacion_dist_muralla):
 		esta_cerca = true
 	return esta_cerca
 # -------------------- WALK BACK --------------------

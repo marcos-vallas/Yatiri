@@ -284,8 +284,9 @@ collision_layer = 4
 collision_mask = 385
 script = ExtResource("1_cw7t5")
 intervalo_ataque = 1.0
-variacion_intervalo_ataque = 1.0
+variacion_intervalo_ataque = 0.5
 rango_ataque = 600.0
+variacion_dist_muralla = 100.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 2
@@ -355,3 +356,5 @@ offset_top = -37.0
 offset_right = 26.0
 offset_bottom = -14.0
 scale = Vector2(0.814112, 0.507774)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

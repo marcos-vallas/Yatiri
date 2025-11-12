@@ -27,20 +27,20 @@ texture = ExtResource("1_aiu1w")
 
 [node name="Piso" type="StaticBody2D" parent="terrain" groups=["Ground"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain/Piso"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain/Piso" groups=["Ground"]]
 position = Vector2(523, 322.5)
 shape = SubResource("RectangleShape2D_yxjtj")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="terrain"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain/StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain/StaticBody2D2" groups=["Ground"]]
 position = Vector2(-460, 173)
 shape = SubResource("RectangleShape2D_cy8pk")
 
 [node name="izq" type="StaticBody2D" parent="terrain"]
 position = Vector2(384, -3)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain/izq"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain/izq" groups=["Ground"]]
 position = Vector2(912, 171)
 shape = SubResource("RectangleShape2D_i0auk")
 

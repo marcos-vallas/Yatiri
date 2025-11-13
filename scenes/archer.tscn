@@ -265,6 +265,7 @@ knockback_friction = 800.0
 damage_flash_time = 0.4
 flash_duration = 0.8
 intervalo_ataque = 0.05
+rango_ataque = 500.0
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" parent="." index="0"]
@@ -275,8 +276,6 @@ sprite_frames = SubResource("SpriteFrames_ejvcm")
 
 [node name="Light" parent="AnimatedSprite2D" index="1"]
 material = SubResource("ShaderMaterial_vlvv2")
-
-[node name="CollisionShape2D" parent="." index="1" groups=["Aliado"]]
 
 [node name="ArrowPosition" type="Node2D" parent="." index="3"]
 position = Vector2(7, -7)

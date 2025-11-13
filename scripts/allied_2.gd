@@ -41,12 +41,16 @@ var flashing := false
 var hurt_cooldown := false
 var idle_timer_active := false
 
+var target_elegido : Node
+
 func _ready() -> void:
 	base_attack_area_position = attack_area.position
 	attack_area.monitoring = false
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	animated_sprite.frame_changed.connect(_on_frame_changed)
 	Global.add_tribe_member()
+	walk_speed += randi_range(-4,0)
+	idle_duration += randi_range(-0.2,0.3)
 
 
 # -------------------- DETECCIÓN DE OBJETIVO: MÁS CERCANO (MODIFICADO) --------------------
@@ -126,6 +130,7 @@ func _get_target_with_priority3() -> Node:
 
 # -------------------- MOVIMIENTO Y ATAQUE --------------------
 func _physics_process(delta: float) -> void:
+	
 	if is_dead:
 		return
 	
@@ -218,11 +223,12 @@ func set_state(new_state: State) -> void:
 	if state == new_state:
 		return
 	state = new_state
-	var target = _get_target_with_priority3()
+	#var target = _get_target_with_priority3()
+	target_elegido = _get_target_with_priority3()
 	match state:
 		State.WALK_FORWARD:
-			if target:
-				var new_direction = sign(target.global_position.x - global_position.x)
+			if target_elegido:
+				var new_direction = sign(target_elegido.global_position.x - global_position.x)
 				if new_direction == 0:
 					new_direction = 1
 				walk_direction = new_direction
@@ -269,8 +275,8 @@ func set_state(new_state: State) -> void:
 			#var offset = 10.0
 			#global_position.x += offset * walk_direction
 			#
-			if target:
-				var dir = sign(target.global_position.x - global_position.x)
+			if target_elegido:
+				var dir = sign(target_elegido.global_position.x - global_position.x)
 				if dir != 0:
 					walk_direction = dir
 					animated_sprite.flip_h = walk_direction < 0

@@ -258,20 +258,22 @@ size = Vector2(28.1644, 21.6114)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nrqq"]
 size = Vector2(33.3333, 22.1801)
 
-[node name="Allied 3" type="CharacterBody2D" groups=["Aliado_2"]]
+[node name="Allied 3" type="CharacterBody2D" groups=["Aliado_2", "Tank"]]
 modulate = Color(0.329412, 0.862745, 0.745098, 1)
 z_index = 1
 collision_layer = 8192
 collision_mask = 1152
 script = ExtResource("1_vi2ii")
 health = 90
-walk_speed = 100.0
+walk_speed = 95.0
+danio_a_muralla = 15
 danio_a_enemigo = 60
 walk_duration = 0.5
 attack_range = 45.0
 pre_attack_delay = 0.01
 idle_duration = 0.4
 attack_knockback = 200.0
+follow_range = 100.0
 use_custom_range = true
 metadata/_edit_group_ = true
 

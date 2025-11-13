@@ -18,8 +18,9 @@ point_count = 2
 [node name="Spear" type="Area2D" node_paths=PackedStringArray("self_sprite")]
 z_index = 2
 collision_layer = 1024
-collision_mask = 2567
+collision_mask = 10759
 script = ExtResource("1_efxkm")
+damage_unidades = 30
 damage_edificios = 1
 fall_gravity = 1500.0
 min_time_to_hit = 0.45

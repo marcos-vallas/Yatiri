@@ -1,40 +1,40 @@
-[gd_scene load_steps=44 format=4 uid="uid://dwrah6o3ea43a"]
+[gd_scene load_steps=44 format=4 uid="uid://db4lf7n6xqk4x"]
 
-[ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_o5qli"]
-[ext_resource type="Texture2D" uid="uid://b7gqby3jeqjbv" path="res://assets/img/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://cw3w7ubl15l72" path="res://scenes/transition_control.tscn" id="2_2wyq8"]
-[ext_resource type="PackedScene" uid="uid://cwifmrlq3q17b" path="res://scenes/player.tscn" id="3_sugp2"]
-[ext_resource type="Texture2D" uid="uid://bug2pak5p1j2e" path="res://assets/img/parallax/parallax-00.png" id="4_o6xl0"]
-[ext_resource type="Script" uid="uid://31j1lwvdnq2u" path="res://scripts/clouds.gd" id="5_85g3d"]
-[ext_resource type="Texture2D" uid="uid://c43r50yqcdch7" path="res://assets/img/parallax/parallax-01.png" id="5_tipki"]
-[ext_resource type="Texture2D" uid="uid://b1bikqe8twap4" path="res://assets/img/parallax/parallax-nuevo-1.png" id="10_og1vs"]
-[ext_resource type="Shader" uid="uid://c1gj8md3dnj1u" path="res://shaders/blur.gdshader" id="11_fv21b"]
-[ext_resource type="PackedScene" uid="uid://bdpe0in6t3f84" path="res://scenes/hud.tscn" id="11_ya4ey"]
-[ext_resource type="Texture2D" uid="uid://b6q22x87h6as4" path="res://assets/img/parallax/parallax-con aire.png" id="11_yq6so"]
-[ext_resource type="Script" uid="uid://dtel6iu06o1tn" path="res://scripts/day_night_cycle.gd" id="12_eb6dy"]
-[ext_resource type="Texture2D" uid="uid://c06gx7dr2hmoi" path="res://assets/img/parallax/parallax-nuevo-arboles-2.png" id="13_tel4y"]
-[ext_resource type="Texture2D" uid="uid://c87g586k4rkis" path="res://assets/img/parallax/parallaxjujuy/fondo_1.png" id="13_yq6so"]
-[ext_resource type="Texture2D" uid="uid://c40wg662eqw3h" path="res://assets/img/parallax/parallax-nuevo-cactus.png" id="14_qkpxi"]
-[ext_resource type="PackedScene" uid="uid://bxwyycl75xmc8" path="res://scenes/muralla_tribu.tscn" id="15_yq6so"]
-[ext_resource type="AudioStream" uid="uid://dmxfq5vavwy5r" path="res://assets/sound/birds.mp3" id="16_muem4"]
-[ext_resource type="PackedScene" uid="uid://tmd0h4oma52p" path="res://scenes/hut.tscn" id="17_muem4"]
-[ext_resource type="PackedScene" uid="uid://dffibcq8yx4ff" path="res://scenes/muralla_enemiga.tscn" id="17_qkpxi"]
-[ext_resource type="PackedScene" uid="uid://umlahfsnucks" path="res://scenes/hut_enemigo.tscn" id="19_0ld40"]
-[ext_resource type="AudioStream" uid="uid://co2iwkedlkwty" path="res://assets/sound/Ethnic Drums  Tribal Music Background for Videos [No Copyright].mp3" id="21_og1vs"]
-[ext_resource type="Script" uid="uid://78h00os5anau" path="res://scripts/game_manager_2.gd" id="25_og1vs"]
-[ext_resource type="Script" uid="uid://db0r8xp5utovh" path="res://scripts/base_spawner_2.gd" id="25_vxglm"]
-[ext_resource type="PackedScene" uid="uid://cyfvjbgy7ydwc" path="res://scenes/tutorial.tscn" id="26_vxglm"]
-[ext_resource type="PackedScene" uid="uid://f45wojucvxx6" path="res://scenes/enemy_2.tscn" id="26_yq6so"]
-[ext_resource type="PackedScene" uid="uid://df28lywfiv1bg" path="res://scenes/allied_2_customRange.tscn" id="27_5q0nq"]
-[ext_resource type="PackedScene" uid="uid://if70u5c5so77" path="res://scenes/Allied_1.tscn" id="27_dgi5k"]
-[ext_resource type="PackedScene" uid="uid://c57j15065au41" path="res://scenes/enemy_1.tscn" id="27_vxglm"]
-[ext_resource type="Texture2D" uid="uid://btfvb60do88jx" path="res://assets/img/SuriGames_v2.png" id="27_yq6so"]
-[ext_resource type="PackedScene" uid="uid://fvgpcsm2h5nm" path="res://scenes/enemy_1_customRange.tscn" id="28_tel4y"]
-[ext_resource type="Texture2D" uid="uid://cao2hu7accqv6" path="res://assets/img/Yatiri/Escenario/algarrobo_1.png" id="30_fv21b"]
-[ext_resource type="Texture2D" uid="uid://dd6wm8kdppytc" path="res://assets/img/Yatiri/Escenario/Empaladiza.png" id="35_j8jky"]
-[ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="36_fuf3a"]
-[ext_resource type="Texture2D" uid="uid://bsynl3770v1uq" path="res://assets/img/Muralla Enemiga/Muralla_enemiga.png" id="37_pibwh"]
-[ext_resource type="PackedScene" uid="uid://bqdweusddi66a" path="res://scenes/granja_milicia.tscn" id="38_pibwh"]
+[ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_hn8kg"]
+[ext_resource type="Texture2D" uid="uid://btfvb60do88jx" path="res://assets/img/SuriGames_v2.png" id="2_kj2hj"]
+[ext_resource type="PackedScene" uid="uid://bqdweusddi66a" path="res://scenes/granja_milicia.tscn" id="3_36cmm"]
+[ext_resource type="PackedScene" uid="uid://tmd0h4oma52p" path="res://scenes/hut.tscn" id="4_ioexj"]
+[ext_resource type="PackedScene" uid="uid://bxwyycl75xmc8" path="res://scenes/muralla_tribu.tscn" id="5_e1aya"]
+[ext_resource type="PackedScene" uid="uid://umlahfsnucks" path="res://scenes/hut_enemigo.tscn" id="6_2iwcc"]
+[ext_resource type="PackedScene" uid="uid://dffibcq8yx4ff" path="res://scenes/muralla_enemiga.tscn" id="7_nqm56"]
+[ext_resource type="PackedScene" uid="uid://cwifmrlq3q17b" path="res://scenes/player.tscn" id="8_mcumu"]
+[ext_resource type="Script" uid="uid://78h00os5anau" path="res://scripts/game_manager_2.gd" id="9_qtkwu"]
+[ext_resource type="PackedScene" uid="uid://if70u5c5so77" path="res://scenes/Allied_1.tscn" id="10_1kj4d"]
+[ext_resource type="PackedScene" uid="uid://df28lywfiv1bg" path="res://scenes/allied_2_customRange.tscn" id="11_sfsin"]
+[ext_resource type="PackedScene" uid="uid://c57j15065au41" path="res://scenes/enemy_1.tscn" id="12_h34cy"]
+[ext_resource type="PackedScene" uid="uid://f45wojucvxx6" path="res://scenes/enemy_2.tscn" id="13_tjerq"]
+[ext_resource type="PackedScene" uid="uid://fvgpcsm2h5nm" path="res://scenes/enemy_1_customRange.tscn" id="14_75d54"]
+[ext_resource type="Script" uid="uid://db0r8xp5utovh" path="res://scripts/base_spawner_2.gd" id="15_a6664"]
+[ext_resource type="Texture2D" uid="uid://cao2hu7accqv6" path="res://assets/img/Yatiri/Escenario/algarrobo_1.png" id="16_wvwho"]
+[ext_resource type="Texture2D" uid="uid://dd6wm8kdppytc" path="res://assets/img/Yatiri/Escenario/Empaladiza.png" id="17_3fa5c"]
+[ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="18_vmbcr"]
+[ext_resource type="Texture2D" uid="uid://bsynl3770v1uq" path="res://assets/img/Muralla Enemiga/Muralla_enemiga.png" id="19_e333d"]
+[ext_resource type="AudioStream" uid="uid://dmxfq5vavwy5r" path="res://assets/sound/birds.mp3" id="20_utd3r"]
+[ext_resource type="AudioStream" uid="uid://co2iwkedlkwty" path="res://assets/sound/Ethnic Drums  Tribal Music Background for Videos [No Copyright].mp3" id="21_iu6rw"]
+[ext_resource type="Texture2D" uid="uid://b7gqby3jeqjbv" path="res://assets/img/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="22_6ygfh"]
+[ext_resource type="PackedScene" uid="uid://cw3w7ubl15l72" path="res://scenes/transition_control.tscn" id="23_ejbio"]
+[ext_resource type="PackedScene" uid="uid://cyfvjbgy7ydwc" path="res://scenes/tutorial.tscn" id="24_cgpad"]
+[ext_resource type="Texture2D" uid="uid://bug2pak5p1j2e" path="res://assets/img/parallax/parallax-00.png" id="25_kjev4"]
+[ext_resource type="Script" uid="uid://31j1lwvdnq2u" path="res://scripts/clouds.gd" id="26_thkun"]
+[ext_resource type="Texture2D" uid="uid://c43r50yqcdch7" path="res://assets/img/parallax/parallax-01.png" id="27_h0cu1"]
+[ext_resource type="Shader" uid="uid://c1gj8md3dnj1u" path="res://shaders/blur.gdshader" id="28_qlkox"]
+[ext_resource type="Texture2D" uid="uid://b1bikqe8twap4" path="res://assets/img/parallax/parallax-nuevo-1.png" id="29_ed6qg"]
+[ext_resource type="Texture2D" uid="uid://b6q22x87h6as4" path="res://assets/img/parallax/parallax-con aire.png" id="30_5cdj7"]
+[ext_resource type="Texture2D" uid="uid://c87g586k4rkis" path="res://assets/img/parallax/parallaxjujuy/fondo_1.png" id="31_mpap2"]
+[ext_resource type="Texture2D" uid="uid://c06gx7dr2hmoi" path="res://assets/img/parallax/parallax-nuevo-arboles-2.png" id="32_7d36u"]
+[ext_resource type="Texture2D" uid="uid://c40wg662eqw3h" path="res://assets/img/parallax/parallax-nuevo-cactus.png" id="33_sujtp"]
+[ext_resource type="Script" uid="uid://dtel6iu06o1tn" path="res://scripts/day_night_cycle.gd" id="34_ihfy7"]
+[ext_resource type="PackedScene" uid="uid://bdpe0in6t3f84" path="res://scenes/hud.tscn" id="35_pervr"]
 
 [sub_resource type="Shader" id="Shader_ixsww"]
 code = "shader_type canvas_item;
@@ -69,13 +69,13 @@ shader_parameter/base_color = Color(0.851769, 0.851769, 0.851769, 1)
 size = Vector2(105, 168.813)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c6pm6"]
-shader = ExtResource("36_fuf3a")
+shader = ExtResource("18_vmbcr")
 shader_parameter/effect_enabled = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/base_color = Color(1, 1, 1, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
-texture = ExtResource("2_0wfyh")
+texture = ExtResource("22_6ygfh")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -567,7 +567,7 @@ physics_layer_0/collision_mask = 1078
 sources/0 = SubResource("TileSetAtlasSource_sugp2")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yq6so"]
-shader = ExtResource("11_fv21b")
+shader = ExtResource("28_qlkox")
 shader_parameter/strength = 0.4
 shader_parameter/sample_power = 4
 shader_parameter/is_canvas_group = false
@@ -576,7 +576,7 @@ shader_parameter/is_canvas_group = false
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("player", "tilemap", "tutorial")]
 scale = Vector2(1, 1.0058)
-script = ExtResource("1_o5qli")
+script = ExtResource("1_hn8kg")
 player = NodePath("Player")
 tilemap = NodePath("Visuales/TileMap")
 tutorial = NodePath("Visuales/CanvasLayer2/Tutorial")
@@ -591,35 +591,33 @@ scale = Vector2(1, 0.994233)
 modulate = Color(1, 1, 1, 0.121569)
 position = Vector2(0, -15)
 scale = Vector2(0.07, 0.07)
-texture = ExtResource("27_yq6so")
+texture = ExtResource("2_kj2hj")
 
-[node name="Granja_Milicia" parent="." instance=ExtResource("38_pibwh")]
+[node name="Granja_Milicia" parent="." instance=ExtResource("3_36cmm")]
 z_index = -2
 position = Vector2(-1015, 352.953)
 
-[node name="Hut" parent="." instance=ExtResource("17_muem4")]
+[node name="Hut" parent="." instance=ExtResource("4_ioexj")]
 z_index = -2
 position = Vector2(-1185, 281.368)
 
-[node name="MurallaTribu2" parent="." instance=ExtResource("15_yq6so")]
+[node name="MurallaTribu2" parent="." instance=ExtResource("5_e1aya")]
 z_index = -2
 position = Vector2(-599, 314.001)
 max_health = 100
 costo_reparacion = 1
 
 [node name="SpawnPos_Enemies" type="Marker2D" parent="."]
-position = Vector2(1975, 344.999)
+position = Vector2(725, 344.999)
 scale = Vector2(1, 0.994233)
 
-[node name="HutEnemigo" parent="." instance=ExtResource("19_0ld40")]
-position = Vector2(2148, 339.034)
-health = 2000
+[node name="HutEnemigo" parent="." instance=ExtResource("6_2iwcc")]
+position = Vector2(1096, 358.918)
 
-[node name="MurallaEnemiga" parent="." instance=ExtResource("17_qkpxi")]
-position = Vector2(1477, 294.293)
-health = 1000
+[node name="MurallaEnemiga" parent="." instance=ExtResource("7_nqm56")]
+position = Vector2(425, 294.293)
 
-[node name="Player" parent="." instance=ExtResource("3_sugp2")]
+[node name="Player" parent="." instance=ExtResource("8_mcumu")]
 process_mode = 3
 position = Vector2(-829, 332)
 
@@ -628,28 +626,29 @@ position = Vector2(-829, 332)
 [node name="Edificios_Enemigos" type="Node" parent="."]
 
 [node name="GameManager2" type="Node" parent="." node_paths=PackedStringArray("allied_spawner", "enemy_spawner")]
-script = ExtResource("25_og1vs")
+script = ExtResource("9_qtkwu")
 tiempo_dia = 15.0
-tiempo_noche = 15.0
+tiempo_noche = 20.0
 allied_spawner = NodePath("AlliedSpawner")
-aliado_1_escena = ExtResource("27_dgi5k")
-cant_Aliado_1_dia = 0.5
-aliado_2_escena = ExtResource("27_5q0nq")
+aliado_1_escena = ExtResource("10_1kj4d")
+aliado_2_escena = ExtResource("11_sfsin")
+cant_Aliado_2_dia = 5.0
 enemy_spawner = NodePath("EnemySpawner")
-enemigo_1_escena = ExtResource("27_vxglm")
-enemigo_2_escena = ExtResource("26_yq6so")
-cant_Enemigo_2_noche = 0.5
-enemigo_3_escena = ExtResource("28_tel4y")
+enemigo_1_escena = ExtResource("12_h34cy")
+cant_Enemigo_1_noche = 3.0
+enemigo_2_escena = ExtResource("13_tjerq")
+enemigo_3_escena = ExtResource("14_75d54")
+cant_Enemigo_3_noche = 5.0
 
 [node name="EnemySpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
-script = ExtResource("25_vxglm")
+script = ExtResource("15_a6664")
 spawn_marker = NodePath("../../SpawnPos_Enemies")
 spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnTimer" type="Timer" parent="GameManager2/EnemySpawner"]
 
 [node name="AlliedSpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
-script = ExtResource("25_vxglm")
+script = ExtResource("15_a6664")
 spawn_marker = NodePath("../../SpawnPos_Allies")
 spawn_timer = NodePath("SpawnTimer")
 
@@ -667,7 +666,7 @@ disable_mode = 1
 visible = false
 position = Vector2(17.001, -49)
 scale = Vector2(1.79404, 2.44935)
-texture = ExtResource("30_fv21b")
+texture = ExtResource("16_wvwho")
 
 [node name="Muralla" type="Sprite2D" parent="Paredes invisibles/StaticBody2D"]
 y_sort_enabled = true
@@ -675,7 +674,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_kmb1v")
 position = Vector2(507, 21)
 scale = Vector2(3.5, 3.5)
-texture = ExtResource("35_j8jky")
+texture = ExtResource("17_3fa5c")
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes invisibles/StaticBody2D"]
@@ -692,7 +691,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_c6pm6")
 position = Vector2(-20.9998, -77.0001)
 scale = Vector2(2.5, 2.5145)
-texture = ExtResource("37_pibwh")
+texture = ExtResource("19_e333d")
 flip_h = true
 
 [node name="Muralla2" type="Sprite2D" parent="Paredes invisibles/StaticBody2D2/Muralla"]
@@ -701,7 +700,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_c6pm6")
 position = Vector2(117.6, -15.1123)
 scale = Vector2(1.58914, 1.80272)
-texture = ExtResource("37_pibwh")
+texture = ExtResource("19_e333d")
 flip_h = true
 
 [node name="Muralla" type="Sprite2D" parent="Paredes invisibles/StaticBody2D2/Muralla"]
@@ -710,14 +709,14 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_c6pm6")
 position = Vector2(56.5749, -22.0149)
 scale = Vector2(1.90263, 2.19993)
-texture = ExtResource("37_pibwh")
+texture = ExtResource("19_e333d")
 flip_h = true
 
 [node name="Algarrobo1" type="Sprite2D" parent="Paredes invisibles/StaticBody2D2"]
 visible = false
 position = Vector2(-20.999, -103)
 scale = Vector2(1.33942, 1.56504)
-texture = ExtResource("30_fv21b")
+texture = ExtResource("16_wvwho")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes invisibles/StaticBody2D2"]
 position = Vector2(-26, -87)
@@ -727,11 +726,11 @@ shape = SubResource("RectangleShape2D_tel4y")
 
 [node name="Sfx" type="AudioStreamPlayer2D" parent="Audio"]
 scale = Vector2(1, 1.0058)
-stream = ExtResource("16_muem4")
+stream = ExtResource("20_utd3r")
 autoplay = true
 
 [node name="Music" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("21_og1vs")
+stream = ExtResource("21_iu6rw")
 volume_db = -25.46
 autoplay = true
 
@@ -748,10 +747,10 @@ tile_set = SubResource("TileSet_jyhfs")
 [node name="CanvasLayer2" type="CanvasLayer" parent="Visuales"]
 process_mode = 3
 
-[node name="TransitionControl" parent="Visuales/CanvasLayer2" instance=ExtResource("2_2wyq8")]
+[node name="TransitionControl" parent="Visuales/CanvasLayer2" instance=ExtResource("23_ejbio")]
 visible = false
 
-[node name="Tutorial" parent="Visuales/CanvasLayer2" instance=ExtResource("26_vxglm")]
+[node name="Tutorial" parent="Visuales/CanvasLayer2" instance=ExtResource("24_cgpad")]
 visible = false
 
 [node name="ParallaxJujuy" type="ParallaxBackground" parent="Visuales"]
@@ -760,16 +759,16 @@ visible = false
 motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer"]
-texture = ExtResource("4_o6xl0")
+texture = ExtResource("25_kjev4")
 centered = false
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
 motion_scale = Vector2(0, 1)
 motion_mirroring = Vector2(1440, 0)
-script = ExtResource("5_85g3d")
+script = ExtResource("26_thkun")
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer2"]
-texture = ExtResource("5_tipki")
+texture = ExtResource("27_h0cu1")
 centered = false
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
@@ -779,7 +778,7 @@ motion_mirroring = Vector2(1438, 0)
 [node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer3"]
 material = SubResource("ShaderMaterial_yq6so")
 position = Vector2(0, 64)
-texture = ExtResource("10_og1vs")
+texture = ExtResource("29_ed6qg")
 centered = false
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
@@ -790,7 +789,7 @@ motion_mirroring = Vector2(1440, 0)
 [node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer4"]
 material = SubResource("ShaderMaterial_tel4y")
 position = Vector2(0, 112)
-texture = ExtResource("11_yq6so")
+texture = ExtResource("30_5cdj7")
 centered = false
 
 [node name="ParallaxLayer10" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
@@ -801,7 +800,7 @@ motion_mirroring = Vector2(1440, 0)
 [node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer10"]
 modulate = Color(0.710741, 0.710741, 0.710741, 1)
 position = Vector2(418, 329)
-texture = ExtResource("13_yq6so")
+texture = ExtResource("31_mpap2")
 centered = false
 flip_h = true
 
@@ -812,7 +811,7 @@ motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer8"]
 position = Vector2(-4, 136)
-texture = ExtResource("13_tel4y")
+texture = ExtResource("32_7d36u")
 centered = false
 
 [node name="ParallaxLayer9" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
@@ -822,7 +821,7 @@ motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer9"]
 position = Vector2(2, 123)
-texture = ExtResource("14_qkpxi")
+texture = ExtResource("33_sujtp")
 centered = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Visuales"]
@@ -835,13 +834,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0431373, 0.0431373, 0.0862745, 0.8)
-script = ExtResource("12_eb6dy")
+script = ExtResource("34_ihfy7")
 day_duration = 3500.0
 night_duration = 150.0
 transition_time = 30.0
 
 [node name="HUD" type="CanvasLayer" parent="Visuales"]
 
-[node name="HUD" parent="Visuales/HUD" instance=ExtResource("11_ya4ey")]
+[node name="Label" type="Label" parent="Visuales/HUD"]
+modulate = Color(1, 0.317647, 0, 1)
+offset_left = 179.0
+offset_top = 30.0
+offset_right = 284.0
+offset_bottom = 53.0
+scale = Vector2(2.8529, 2.2033)
+text = "MAIN TEST !!!!"
+
+[node name="HUD" parent="Visuales/HUD" instance=ExtResource("35_pervr")]
 size_flags_horizontal = 0
 size_flags_vertical = 0

@@ -8,7 +8,6 @@ enum State { WALK_FORWARD, PRE_ATTACK, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 @export var walk_speed: float = 170.0
 @export var danio_a_base : int = 10
 @export var danio_a_muralla:int =10
-@export var danio_a_enemigo : int = 20
 @export var danio_a_aliados : int = 50
 @export_category("Comportamiento_Ataque")
 @export var walk_duration: float = 1.6
@@ -50,6 +49,8 @@ func _ready() -> void:
 	attack_area.monitoring = false
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	animated_sprite.frame_changed.connect(_on_frame_changed)
+	idle_duration += randf_range(-0.2,0.1)
+	walk_speed += randf_range(5,5)
 
 
 # -------------------- DETECCIÓN DE OBJETIVO: MÁS CERCANO (MODIFICADO) --------------------

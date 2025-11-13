@@ -5,7 +5,6 @@ signal muralla_destruida
 @export var health: int = 100
 @onready var hut_enemigo: Sprite2D = $HutEnemigo
 @onready var collision: CollisionShape2D = $CollisionShape2D
-@onready var collision2: CollisionShape2D = $CollisionShape2D2
 
 var damage_flash_count: int = 2       
 var damage_flash_duration: float = 0.1 
@@ -54,7 +53,6 @@ func _on_destroyed() -> void:
 	hut_enemigo.hide()
 	$HutEnemigoRoto.show()
 	collision.disabled = true
-	collision2.disabled = true
 	$Explotion.show()
 	$Explotion.play("default")
 	await $Explotion.animation_finished

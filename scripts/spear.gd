@@ -52,7 +52,11 @@ func _on_area_entered(area: Area2D) -> void:
 		area.take_damage(damage_edificios)
 		await get_tree().create_timer(0.2).timeout
 		queue_free()
-	if (area.is_in_group("Player_Body") or area.is_in_group("Aliado_1"))  and area.has_method("take_damage"):
+	if (area.is_in_group("Player_Body") \
+	or area.is_in_group("Aliado_1")  \
+	or area.is_in_group("Aliado_2")  \
+	or area.is_in_group("Tank"))  \
+	and area.has_method("take_damage"):
 		$CollisionShape2D.set_deferred("disabled",true)
 		if $Spear_Impact: $Spear_Impact.play()
 		if self_sprite != null : self_sprite.visible = false
@@ -87,8 +91,12 @@ func _on_body_entered(body: Node) -> void:
 		body.take_damage(damage_edificios)
 		await get_tree().create_timer(0.2).timeout
 		queue_free()
-		
-	if (body.is_in_group("Player_Body") or body.is_in_group("Aliado_1"))  and body.has_method("take_damage"):
+#		PARA LOS NPC Y PLAYER SON BODIES
+	if (body.is_in_group("Player_Body")\
+	 or body.is_in_group("Aliado_1")\
+	 or body.is_in_group("Aliado_2")\
+	 or body.is_in_group("Tank")\
+	)  and body.has_method("take_damage"):
 		$CollisionShape2D.set_deferred("disabled",true)
 		if $Spear_Impact: $Spear_Impact.play()
 		if self_sprite != null : self_sprite.visible = false

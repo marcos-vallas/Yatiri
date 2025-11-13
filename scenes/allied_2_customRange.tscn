@@ -274,6 +274,7 @@ attack_range = 45.0
 pre_attack_delay = 0.01
 idle_duration = 0.4
 attack_knockback = 200.0
+follow_range = 90.0
 use_custom_range = true
 metadata/_edit_group_ = true
 

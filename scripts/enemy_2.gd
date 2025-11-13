@@ -49,6 +49,8 @@ func _ready() -> void:
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	animated_sprite.frame_changed.connect(_on_frame_changed)
 	walk_back_variation = randf_range(walk_back_variation-0.2, walk_back_variation+0.2)
+	idle_duration += randi_range(-0.2,0.2)
+	acercamiento_ataque += randi_range(-5,5)
 	
 		# Conectamos la señal de todas las murallas existentes
 	for m in get_tree().get_nodes_in_group("Muralla"):
@@ -380,6 +382,7 @@ func _get_target_with_priority3() -> Node:
 	# 3. Recolectar Jugadores
 	all_targets.append_array(get_tree().get_nodes_in_group("Player_Body"))
 	all_targets.append_array(get_tree().get_nodes_in_group("Aliado_1"))
+	all_targets.append_array(get_tree().get_nodes_in_group("Tank"))
 	#all_targets.append_array(get_tree().get_nodes_in_group("Aliado_2"))
 
 	if all_targets.is_empty():

@@ -581,50 +581,51 @@ player = NodePath("Player")
 tilemap = NodePath("Visuales/TileMap")
 tutorial = NodePath("Visuales/CanvasLayer2/Tutorial")
 
-[node name="Alies" type="Node2D" parent="."]
+[node name="Edificios_Propios" type="Node" parent="."]
 
-[node name="SpawnPos_Allies" type="Marker2D" parent="."]
-position = Vector2(-1157, 346.987)
-scale = Vector2(1, 0.994233)
+[node name="SpawnPos_Allies" type="Marker2D" parent="Edificios_Propios"]
+position = Vector2(-1150, 341)
 
-[node name="Sprite2D" type="Sprite2D" parent="SpawnPos_Allies"]
+[node name="Sprite2D" type="Sprite2D" parent="Edificios_Propios/SpawnPos_Allies"]
 modulate = Color(1, 1, 1, 0.121569)
 position = Vector2(0, -15)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("27_yq6so")
 
-[node name="Granja_Milicia" parent="." instance=ExtResource("38_pibwh")]
+[node name="Granja_Milicia" parent="Edificios_Propios" instance=ExtResource("38_pibwh")]
 z_index = -2
-position = Vector2(-1015, 352.953)
+position = Vector2(-1015, 355)
+scale = Vector2(1, 1.0058)
 
-[node name="Hut" parent="." instance=ExtResource("17_muem4")]
+[node name="Hut" parent="Edificios_Propios" instance=ExtResource("17_muem4")]
 z_index = -2
-position = Vector2(-1185, 281.368)
+position = Vector2(-1185, 283)
+scale = Vector2(1, 1.0058)
 
-[node name="MurallaTribu2" parent="." instance=ExtResource("15_yq6so")]
+[node name="MurallaTribu2" parent="Edificios_Propios" instance=ExtResource("15_yq6so")]
 z_index = -2
-position = Vector2(-599, 314.001)
+position = Vector2(-599, 315.822)
+scale = Vector2(1, 1.0058)
 max_health = 100
 costo_reparacion = 1
 
-[node name="SpawnPos_Enemies" type="Marker2D" parent="."]
-position = Vector2(1975, 344.999)
-scale = Vector2(1, 0.994233)
+[node name="Edificios_Enemigos" type="Node" parent="."]
 
-[node name="HutEnemigo" parent="." instance=ExtResource("19_0ld40")]
-position = Vector2(2148, 339.034)
+[node name="SpawnPos_Enemies" type="Marker2D" parent="Edificios_Enemigos"]
+position = Vector2(1944, 347)
 
-[node name="MurallaEnemiga" parent="." instance=ExtResource("17_qkpxi")]
-position = Vector2(1477, 294.293)
+[node name="HutEnemigo" parent="Edificios_Enemigos" instance=ExtResource("19_0ld40")]
+position = Vector2(1975, 260.503)
+scale = Vector2(1, 1.0058)
+
+[node name="MurallaEnemiga" parent="Edificios_Enemigos" instance=ExtResource("17_qkpxi")]
+position = Vector2(1477, 296)
+scale = Vector2(1, 1.0058)
 health = 200
 
 [node name="Player" parent="." instance=ExtResource("3_sugp2")]
 process_mode = 3
 position = Vector2(-829, 332)
-
-[node name="Edificios_Propios" type="Node" parent="."]
-
-[node name="Edificios_Enemigos" type="Node" parent="."]
 
 [node name="GameManager2" type="Node" parent="." node_paths=PackedStringArray("allied_spawner", "enemy_spawner")]
 script = ExtResource("25_og1vs")
@@ -643,14 +644,14 @@ enemigo_3_escena = ExtResource("28_tel4y")
 
 [node name="EnemySpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
 script = ExtResource("25_vxglm")
-spawn_marker = NodePath("../../SpawnPos_Enemies")
+spawn_marker = NodePath("../../Edificios_Enemigos/SpawnPos_Enemies")
 spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnTimer" type="Timer" parent="GameManager2/EnemySpawner"]
 
 [node name="AlliedSpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
 script = ExtResource("25_vxglm")
-spawn_marker = NodePath("../../SpawnPos_Allies")
+spawn_marker = NodePath("../../Edificios_Propios/SpawnPos_Allies")
 spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnTimer" type="Timer" parent="GameManager2/AlliedSpawner"]

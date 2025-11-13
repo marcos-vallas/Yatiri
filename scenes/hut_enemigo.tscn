@@ -1,9 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://umlahfsnucks"]
+[gd_scene load_steps=29 format=3 uid="uid://umlahfsnucks"]
 
 [ext_resource type="Script" uid="uid://h8srdepcwyf3" path="res://scripts/hut_enemigo.gd" id="1_xwguj"]
 [ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="2_2cm1h"]
 [ext_resource type="Texture2D" uid="uid://d3t557u8vj610" path="res://assets/img/Yatiri/Escenario/Baseenemiga_rota.png" id="3_g5tuq"]
-[ext_resource type="Texture2D" uid="uid://dd6wm8kdppytc" path="res://assets/img/Yatiri/Escenario/Empaladiza.png" id="4_d1gb5"]
 [ext_resource type="AudioStream" uid="uid://beil22emq2366" path="res://assets/sound/magic.wav" id="6_2cm1h"]
 [ext_resource type="Texture2D" uid="uid://brfapmc4fr52m" path="res://assets/img/Explotion.png" id="6_g5tuq"]
 [ext_resource type="Texture2D" uid="uid://bsynl3770v1uq" path="res://assets/img/Muralla Enemiga/Muralla_enemiga.png" id="7_g5tuq"]
@@ -17,8 +16,8 @@ shader_parameter/base_color = Color(0.568973, 0.568973, 0.568973, 1)
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2cm1h"]
 load_path = "res://.godot/imported/base_enemiga.png-1cfd90e13ad79b40eb248960055d074d.ctex"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwguj"]
-size = Vector2(40.5, 135)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5tuq"]
+size = Vector2(108.5, 73)
 
 [sub_resource type="Gradient" id="Gradient_1h3n2"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.619608)
@@ -159,38 +158,28 @@ health = 200
 modulate = Color(0.442911, 0.442911, 0.442911, 1)
 texture_filter = 1
 material = SubResource("ShaderMaterial_x2tlc")
-position = Vector2(91, -14)
+position = Vector2(36, -104)
 scale = Vector2(3.5, 3.5)
 texture = SubResource("CompressedTexture2D_2cm1h")
 
 [node name="HutEnemigoRoto" type="Sprite2D" parent="."]
-visible = false
 modulate = Color(0.442911, 0.442911, 0.442911, 1)
 texture_filter = 1
 material = SubResource("ShaderMaterial_x2tlc")
-position = Vector2(91, -14)
+position = Vector2(37, -108)
 scale = Vector2(3.5, 3.5)
 texture = ExtResource("3_g5tuq")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="." groups=["Hut Enemigo"]]
-position = Vector2(225.75, 24)
-shape = SubResource("RectangleShape2D_xwguj")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="." groups=["Hut Enemigo"]]
-position = Vector2(92, 44)
-scale = Vector2(10.8545, -0.454514)
-shape = SubResource("RectangleShape2D_xwguj")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Hut Enemigo"]]
+position = Vector2(-118.5, -42.5)
+shape = SubResource("RectangleShape2D_g5tuq")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." groups=["Hut Enemigo"]]
-position = Vector2(46, 22)
-shape = SubResource("RectangleShape2D_xwguj")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Hut Enemigo"]]
-position = Vector2(-82, 21)
-shape = SubResource("RectangleShape2D_xwguj")
+position = Vector2(120.25, -42)
+shape = SubResource("RectangleShape2D_g5tuq")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(104, 104)
+position = Vector2(0, 1)
 amount = 40
 lifetime = 0.8
 speed_scale = 0.2
@@ -203,28 +192,11 @@ gravity = Vector2(0, -800)
 scale_amount_max = 2.0
 color_ramp = SubResource("Gradient_1h3n2")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-visible = false
-z_index = -1
-texture_filter = 1
-position = Vector2(-402, 30)
-scale = Vector2(3, 3)
-texture = ExtResource("4_d1gb5")
-
-[node name="Sprite2D3" type="Sprite2D" parent="."]
-visible = false
-modulate = Color(0.755386, 0.755386, 0.755386, 1)
-z_index = -1
-texture_filter = 1
-position = Vector2(244, 25)
-scale = Vector2(3, 3)
-texture = ExtResource("4_d1gb5")
-
 [node name="Explotion" type="AnimatedSprite2D" parent="."]
 visible = false
 texture_filter = 1
-position = Vector2(-71, 20)
-scale = Vector2(3, 3)
+position = Vector2(-5, -83)
+scale = Vector2(4.70313, 3)
 sprite_frames = SubResource("SpriteFrames_npd4q")
 frame = 15
 frame_progress = 1.0
@@ -238,7 +210,7 @@ pitch_scale = 0.6
 z_index = -4
 texture_filter = 1
 material = SubResource("ShaderMaterial_npd4q")
-position = Vector2(-143, 37)
+position = Vector2(-200, -53)
 scale = Vector2(2.73451, 2.8195)
 texture = ExtResource("7_g5tuq")
 flip_h = true
@@ -247,14 +219,14 @@ flip_h = true
 z_index = -4
 texture_filter = 1
 material = SubResource("ShaderMaterial_npd4q")
-position = Vector2(298, 37)
+position = Vector2(228, -58)
 scale = Vector2(2.73451, 2.8195)
 texture = ExtResource("7_g5tuq")
 flip_h = true
 
 [node name="Label" type="Label" parent="."]
-offset_left = 22.0
-offset_top = -141.0
-offset_right = 62.0
-offset_bottom = -118.0
+offset_left = -20.0
+offset_top = -235.0
+offset_right = 20.0
+offset_bottom = -212.0
 text = "Vida:"

@@ -300,6 +300,7 @@ metadata/_edit_group_ = true
 [node name="Enemy2" type="AnimatedSprite2D" parent="."]
 z_index = 2
 texture_filter = 1
+position = Vector2(0, -28)
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_lxmbh")
 animation = &"hurt"
@@ -308,7 +309,7 @@ frame = 4
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4, 1)
+position = Vector2(0, -24)
 shape = SubResource("CapsuleShape2D_veajb")
 
 [node name="Steps" type="AudioStreamPlayer2D" parent="."]
@@ -328,6 +329,8 @@ volume_db = -12.0
 [node name="AttackArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(0, -17)
 shape = SubResource("RectangleShape2D_a2yeo")
 
 [node name="SpearPosition" type="Node2D" parent="."]
+position = Vector2(-4, -41)

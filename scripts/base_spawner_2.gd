@@ -1,23 +1,24 @@
 extends Node
+class_name Base_Spawner
 # BaseSpawner.gd
 
+
+@export_category("Configuracion")
+@export var farm_spawning : bool = false
 # ... (Mantén las variables: unidad_escena, spawn_marker, spawn_timer) ...
 # --- Exportar variables de Spawner ---
+@export_category("Marcadores")
 #@export var unidad_escena: PackedScene # Escena de la unidad a spawnear
-@export var spawn_marker: Node2D # El nodo Marker2D (o similar) para la posición
-
+@export var spawn_marker: Marker2D # El nodo Marker2D (o similar) para la posición
 # --- Nodos Auxiliares ---
 @export var spawn_timer: Timer #= $SpawnTimer # Asegúrate de tener un Timer llamado "SpawnTimer" como hijo
 
+@export_category("Unidades")
 # --- Variables de Estado de Spawn ---
-var unidades_a_spawnear: int = 0
-var unidades_spawneadas: int = 0
 var intervalo_spawn: float = 1.0 # El intervalo base por defecto
-
 # NO necesitamos 'unidad_escena' aquí, la recibiremos en la función iniciar_spawn
-
 # --- Variables de Estado de Spawn ---
-var unidades_a_spawnear_lista: Array = [] # Nuevo: Almacenará las PackedScene de la oleada
+@export var unidades_a_spawnear_lista: Array = [] # Nuevo: Almacenará las PackedScene de la oleada
 var indice_spawn_actual: int = 0
 
 func _ready():
@@ -76,10 +77,17 @@ func spawn_unidad(escena: PackedScene):
 	
 	# Asigna la posición de spawn (utilizando global_position o global_transform.origin)
 	if spawn_marker:
+		print("Existe Marker")
 		#if nueva_unidad is Node2D:
-			nueva_unidad.global_position = spawn_marker.global_position
+		nueva_unidad.global_position = spawn_marker.global_position
 		#elif nueva_unidad is Node3D:
 			#nueva_unidad.global_transform.origin = spawn_marker.global_transform.origin
 	
+	if farm_spawning:
+		get_parent().get_parent().add_child(nueva_unidad)
+		print(str(get_parent().get_parent()))
+		
 	# Añade la unidad a la escena principal
-	get_parent().get_parent().add_child(nueva_unidad)
+	else:
+		get_parent().get_parent().add_child(nueva_unidad)
+		print(str(get_parent().get_parent()))

@@ -256,7 +256,7 @@ fill_from = Vector2(0.5, 0.5)
 size = Vector2(27.5, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nrqq"]
-size = Vector2(33.3333, 30.8333)
+size = Vector2(30.8333, 24.5833)
 
 [node name="Enemy_1_Custom" type="CharacterBody2D" node_paths=PackedStringArray("Collision_body") groups=["Enemy"]]
 z_index = 1
@@ -270,7 +270,7 @@ attack_range = 45.0
 pre_attack_delay = 0.02
 idle_duration = 0.5
 attack_knockback = 200.0
-custom_detection_range = 300.0
+custom_detection_range = 600.0
 use_custom_range = true
 Collision_body = NodePath("Body")
 metadata/_edit_group_ = true
@@ -278,6 +278,7 @@ metadata/_edit_group_ = true
 [node name="Enemy" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.797008, 0.728315, 0, 1)
 texture_filter = 1
+position = Vector2(0, -14.1667)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_oweuj")
 animation = &"hurt"
@@ -298,7 +299,7 @@ material = SubResource("CanvasItemMaterial_x5oq2")
 texture = SubResource("GradientTexture2D_m468s")
 
 [node name="Body" type="CollisionShape2D" parent="."]
-position = Vector2(-3.75, -3)
+position = Vector2(1.66667, -17.5)
 shape = SubResource("RectangleShape2D_hcr21")
 
 [node name="AttackHit" type="AudioStreamPlayer2D" parent="."]
@@ -310,7 +311,7 @@ collision_layer = 128
 collision_mask = 2562
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(-27.5, -1.25)
+position = Vector2(-22.9167, -16.875)
 shape = SubResource("RectangleShape2D_6nrqq")
 
 [node name="Attack" type="AudioStreamPlayer2D" parent="."]
@@ -324,9 +325,9 @@ volume_db = -20.0
 pitch_scale = 0.7
 
 [node name="Label" type="Label" parent="."]
-offset_left = -8.33333
-offset_top = -24.1667
-offset_right = 95.6667
-offset_bottom = -1.16666
-scale = Vector2(0.21072, 0.210159)
+offset_left = -4.16667
+offset_top = -35.0
+offset_right = 99.8334
+offset_bottom = -12.0
+scale = Vector2(0.11072, 0.143492)
 text = "Range seeker"

@@ -1,10 +1,10 @@
 extends Node2D
 
-@onready var player: CharacterBody2D = $Player
-@onready var tilemap: TileMapLayer = $TileMap 
+@export var player: CharacterBody2D#= $Player
+@export var tilemap: TileMapLayer #= $TileMap 
 @onready var coin_scene = preload("res://scenes/coin.tscn") 
 @onready var hut_scene = preload("res://scenes/hut.tscn")
-@onready var tutorial: Control = $CanvasLayer2/Tutorial
+@export var tutorial: Control #= $CanvasLayer2/Tutorial
 
 var segment_width: int
 var tiles: Array = []

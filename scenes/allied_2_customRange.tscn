@@ -253,10 +253,10 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hcr21"]
-size = Vector2(27.5, 34)
+size = Vector2(27.5, 32.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nrqq"]
-size = Vector2(33.3333, 30.8333)
+size = Vector2(33.3333, 25.6666)
 
 [node name="Allied 2" type="CharacterBody2D" groups=["Aliado_2"]]
 modulate = Color(0.938787, 0.505424, 0.54633, 1)
@@ -280,6 +280,7 @@ metadata/_edit_group_ = true
 [node name="Enemy" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.797008, 0.728315, 0, 1)
 texture_filter = 1
+position = Vector2(0, -15)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_oweuj")
 animation = &"hurt"
@@ -300,35 +301,39 @@ material = SubResource("CanvasItemMaterial_x5oq2")
 texture = SubResource("GradientTexture2D_m468s")
 
 [node name="Aliado_2_Body" type="CollisionShape2D" parent="."]
-position = Vector2(1.66667, -2.5)
+position = Vector2(1.66667, -18.25)
 shape = SubResource("RectangleShape2D_hcr21")
 
 [node name="AttackHit" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -15)
 stream = ExtResource("7_2ljku")
 volume_db = -12.0
 
 [node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(0, -15)
 collision_layer = 64
 collision_mask = 288
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(-27.5, -1.25)
+position = Vector2(-27.5, -3.83332)
 shape = SubResource("RectangleShape2D_6nrqq")
 
 [node name="Attack" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -15)
 stream = ExtResource("8_q880n")
 volume_db = -4.0
 pitch_scale = 0.6
 
 [node name="Steps" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -15)
 stream = ExtResource("9_ajl4a")
 volume_db = -20.0
 pitch_scale = 0.7
 
 [node name="Label" type="Label" parent="."]
 offset_left = -1.66667
-offset_top = -25.8333
+offset_top = -40.8333
 offset_right = 47.3333
-offset_bottom = -2.83333
+offset_bottom = -17.8333
 scale = Vector2(0.333333, 0.3)
 text = "Aliado"

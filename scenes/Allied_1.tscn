@@ -283,6 +283,7 @@ height = 48.0
 collision_layer = 4
 collision_mask = 385
 script = ExtResource("1_cw7t5")
+health = 100
 intervalo_ataque = 1.0
 variacion_intervalo_ataque = 0.5
 rango_ataque = 600.0
@@ -294,7 +295,7 @@ texture_filter = 1
 position = Vector2(0, -25)
 scale = Vector2(1.125, 1.15625)
 sprite_frames = SubResource("SpriteFrames_0y8nt")
-animation = &"idle"
+animation = &"death"
 autoplay = "idle"
 
 [node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
@@ -340,6 +341,7 @@ volume_db = -12.0
 position = Vector2(0, -25)
 stream = ExtResource("8_43nq5")
 volume_db = -22.0
+pitch_scale = 0.68
 
 [node name="AttackHit" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -25)

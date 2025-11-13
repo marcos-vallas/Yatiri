@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://db4lf7n6xqk4x"]
+[gd_scene load_steps=43 format=4 uid="uid://db4lf7n6xqk4x"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_hn8kg"]
 [ext_resource type="Texture2D" uid="uid://btfvb60do88jx" path="res://assets/img/SuriGames_v2.png" id="2_kj2hj"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://cwifmrlq3q17b" path="res://scenes/player.tscn" id="8_mcumu"]
 [ext_resource type="Script" uid="uid://78h00os5anau" path="res://scripts/game_manager_2.gd" id="9_qtkwu"]
 [ext_resource type="PackedScene" uid="uid://if70u5c5so77" path="res://scenes/Allied_1.tscn" id="10_1kj4d"]
-[ext_resource type="PackedScene" uid="uid://df28lywfiv1bg" path="res://scenes/allied_2_customRange.tscn" id="11_sfsin"]
 [ext_resource type="PackedScene" uid="uid://c57j15065au41" path="res://scenes/enemy_1.tscn" id="12_h34cy"]
 [ext_resource type="PackedScene" uid="uid://f45wojucvxx6" path="res://scenes/enemy_2.tscn" id="13_tjerq"]
 [ext_resource type="PackedScene" uid="uid://fvgpcsm2h5nm" path="res://scenes/enemy_1_customRange.tscn" id="14_75d54"]
@@ -604,7 +603,7 @@ position = Vector2(-1185, 281.368)
 [node name="MurallaTribu2" parent="." instance=ExtResource("5_e1aya")]
 z_index = -2
 position = Vector2(-599, 314.001)
-max_health = 100
+max_health = 20
 costo_reparacion = 1
 
 [node name="SpawnPos_Enemies" type="Marker2D" parent="."]
@@ -631,7 +630,7 @@ tiempo_dia = 15.0
 tiempo_noche = 20.0
 allied_spawner = NodePath("AlliedSpawner")
 aliado_1_escena = ExtResource("10_1kj4d")
-aliado_2_escena = ExtResource("11_sfsin")
+aliado_2_escena = ExtResource("10_1kj4d")
 cant_Aliado_2_dia = 5.0
 enemy_spawner = NodePath("EnemySpawner")
 enemigo_1_escena = ExtResource("12_h34cy")

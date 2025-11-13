@@ -97,7 +97,7 @@ func set_state_farm(new_state: int) -> void:
 			pass
 		State_Farm.READY:
 			print("Milicia Farm Ready")
-			farm_label.text = "Presione 'S' para reclutar"
+			farm_label.text = "Presiona 'S' para reclutar: %d Monedas" % costo_reclutamiento
 			farm_label.visible = true
 			pass
 		State_Farm.FARMING:

@@ -18,11 +18,15 @@ enum State { IDLE, ATTACK, HURT, DEAD, RUN }
 @export var knockback_friction: float = 800.0
 @export var damage_flash_time: float = 0.2
 @export var flash_duration: float = 0.4
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 @export_category("Comportamiento automatico")
 @export var distancia_a_la_muralla : float = 100
 @export var variacion_dist_muralla : float = 50
 @export var walk_speed : float = 50.0
+@export_category("Componentes")
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var collision_body : CollisionShape2D = $Aliado_1_Body
+
 
 var target_seleccionado : Node
 var muralla_seleccionada : Node
@@ -52,9 +56,19 @@ func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 		
-	
+	if health <= 0:
+		if state != State.DEAD:
+			set_state(State.DEAD)
+			pass
+			
+	if state == State.DEAD:
+		
+		return
+	if state == State.HURT:
+		return
 
 	if state == State.IDLE:
+		$Steps.stop()
 		var target = _get_target_with_priority3()
 		if target != null:
 			set_state(State.ATTACK)
@@ -66,19 +80,18 @@ func _physics_process(delta: float) -> void:
 			if !_get_cerca_de_muralla():
 				set_state(State.RUN)
 	
-#	se va a IDLE si no hay muralla
-	if muralla_seleccionada == null:
-		if state != State.IDLE:
-			set_state(State.IDLE)
-		velocity = Vector2.ZERO
-		move_and_slide()
-		return
-		
+	#if state == State.RUN:
+##	se va a IDLE si no hay muralla
+		#if muralla_seleccionada == null:
+			#if state != State.IDLE:
+				#set_state(State.IDLE)
+			#velocity = Vector2.ZERO
+			#move_and_slide()
+			#return
 		
 	if state == State.ATTACK:
 		pass
-	if state == State.DEAD:
-		pass
+
 	if state == State.RUN:
 		
 		if muralla_seleccionada != null:
@@ -104,18 +117,12 @@ func _physics_process(delta: float) -> void:
 		if muralla_seleccionada == null: set_state(State.IDLE)
 		
 	
-	# Mover con velocity y desacelerar
-	if velocity != Vector2.ZERO:
-		move_and_slide()
-		velocity = velocity.move_toward(Vector2.ZERO, knockback_friction * delta)
+		# Mover con velocity y desacelerar
+		if velocity != Vector2.ZERO:
+			move_and_slide()
+			velocity = velocity.move_toward(Vector2.ZERO, knockback_friction * delta)
 
-	## Si terminó hurt, volver a idle
-	#if is_hurt and animated_sprite.animation != "hurt":
-		#is_hurt = false
-		#_play_idle()
-		#
-		
-		
+
 func set_state(new_state: State) -> void:
 	if state == new_state:
 		return
@@ -126,17 +133,77 @@ func set_state(new_state: State) -> void:
 	
 	match state:
 		State.ATTACK:
-			do_attack(target_seleccionado)
+			#do_attack(target_seleccionado)
 			attack_cooldown = false
 			
+			if attack_cooldown or is_dead or not is_inside_tree():
+				return
+		
+			if target_seleccionado == null :
+				attack_cooldown = true
+				_play_idle()
+				return
+			animated_sprite.flip_h = target_seleccionado.global_position.x < global_position.x
+			var intervalo_random : float = randf_range(intervalo_ataque - 0.2, intervalo_ataque + 0.2)
+			# Instanciar flecha
+			intervalo_ataque + randf_range(0, variacion_intervalo_ataque)
+			
+			if state == State.ATTACK :
+				await get_tree().create_timer(intervalo_ataque).timeout
+			if state == State.ATTACK :
+				animated_sprite.play("attack")
+			if state == State.ATTACK :
+				if $Attack:
+					$Attack.pitch_scale = randf_range(0.8, 1.0)
+					$Attack.play()
+			if state == State.ATTACK :
+				# Esperar que termine la animación para volver a idle
+				await animated_sprite.animation_finished
+			if state == State.ATTACK :
+				var arrow = preloadArrow.instantiate()
+				arrow.global_position = $ArrowPosition.global_position
+				get_parent().add_child(arrow)
+				if target_seleccionado.is_inside_tree():
+					arrow.launch_towards_enemy(target_seleccionado)
+			if state == State.ATTACK :
+				if health > 0:
+					set_state(State.IDLE)
+			#if health <= 0:
+				#set_state(State.DEAD)
+			
+			attack_cooldown = true
 			pass
 		State.IDLE:
 			_play_idle()
 			pass
 		State.HURT:
-			if is_hurt and animated_sprite.animation != "hurt":
-				is_hurt = false
-			set_state(State.IDLE)
+			#if is_hurt and animated_sprite.animation != "hurt":
+				#is_hurt = false
+			#set_state(State.IDLE)
+			is_hurt = true
+			# Attack sound
+			if $AttackHit:
+				$AttackHit.play()
+			# Flash
+			flash_white()
+			# Animación hurt
+			animated_sprite.play("hurt")
+			animated_sprite.frame = 0
+			# Esperar que termine hurt antes de volver a idle
+			await animated_sprite.animation_finished
+			
+			if health > 0:
+				#_play_idle()
+				set_state(State.IDLE)
+				collision_body.disabled = false
+			if health <= 0:
+				#set_state_dead()
+				set_state(State.DEAD)
+				collision_body.disabled = true
+			
+			is_hurt = false
+			
+			
 			pass
 		State.RUN:
 			distancia_a_muralla_seleccionada = distancia_a_la_muralla + randf_range(0 ,variacion_dist_muralla)
@@ -150,8 +217,24 @@ func set_state(new_state: State) -> void:
 			$Steps.volume_db = steps_volume_db
 			$Steps.play()
 			pass
+		State.DEAD:
+			is_dead = true
+			$Label.visible = false
+			remove_from_group("Aliado_1")
+			#$Aliado_1_Body.disabled = true
+			collision_body.disabled = true
+			attack_cooldown = true
+			animated_sprite.play("death")
+			if $Steps:
+				$Steps.stop()
+			Global.remove_tribe_member()
+			var tween := create_tween()
+			tween.tween_interval(7)
+			tween.tween_property(animated_sprite, "modulate:a", 0.0, 3.5)
+			tween.tween_callback(Callable(self, "_on_fade_out_finished"))
 
-
+func _on_fade_out_finished() -> void:
+	queue_free()
 
 				
 func _get_target_with_priority3() -> Node:
@@ -228,70 +311,56 @@ func _get_muralla() -> Node:
 func do_attack(target:Node2D) -> void:
 	if attack_cooldown or is_dead or not is_inside_tree():
 		return
-
+	if state == State.HURT or state == State.DEAD:
+		return
 	if target == null :
 		attack_cooldown = true
 		_play_idle()
 		return
-		
 	animated_sprite.flip_h = target.global_position.x < global_position.x
-	
 	var intervalo_random : float = randf_range(intervalo_ataque - 0.2, intervalo_ataque + 0.2)
 	# Instanciar flecha
 	intervalo_ataque + randf_range(0, variacion_intervalo_ataque)
-	await get_tree().create_timer(intervalo_ataque).timeout
-	animated_sprite.play("attack")
-	
-	
-
-	if $Attack:
-		$Attack.pitch_scale = randf_range(0.8, 1.0)
-		$Attack.play()
-
-	# Esperar que termine la animación para volver a idle
-	await animated_sprite.animation_finished
-	
-	var arrow = preloadArrow.instantiate()
-	arrow.global_position = $ArrowPosition.global_position
-	get_parent().add_child(arrow)
-	if target.is_inside_tree():
-		arrow.launch_towards_enemy(target)
+	if state == State.ATTACK:
+		await get_tree().create_timer(intervalo_ataque).timeout
+		animated_sprite.play("attack")
+		if $Attack:
+			$Attack.pitch_scale = randf_range(0.8, 1.0)
+			$Attack.play()
+		# Esperar que termine la animación para volver a idle
+		await animated_sprite.animation_finished
+		var arrow = preloadArrow.instantiate()
+		arrow.global_position = $ArrowPosition.global_position
+		get_parent().add_child(arrow)
+		if target.is_inside_tree():
+			arrow.launch_towards_enemy(target)
 		
-		
-	if not is_dead:
+	if health > 0:
 		set_state(State.IDLE)
-		
+	if health <= 0:
+		set_state(State.DEAD)
+	
 	attack_cooldown = false
 	
 
 
 func take_damage(damage:int, from_direction: Vector2= Vector2(0,0), _unused: bool = true) -> void:
-	if health <= 0 or is_dead:
-		return
-
+	
+	collision_body.disabled = true
 	
 	health -= damage
-	if $AttackHit:
-		$AttackHit.play()
-
-	# Flash
-	flash_white()
-
-	# Animación hurt
-	animated_sprite.play("hurt")
-	animated_sprite.frame = 0
-
+	
+	if state == State.ATTACK:
+		
+		pass
+	set_state(State.HURT)
+	#if health <= 0:
+		#set_state(State.DEAD)
+		#return
+		
 	# Knockback
 	if from_direction != Vector2.ZERO:
 		velocity = from_direction.normalized() * knockback_force
-
-	# Esperar que termine hurt antes de volver a idle
-	await animated_sprite.animation_finished
-
-	if health > 0 and not is_dead:
-		_play_idle()
-	else:
-		set_state_dead()
 
 
 func flash_white() -> void:
@@ -312,23 +381,8 @@ func flash_white() -> void:
 		t.queue_free()
 	)
 
-func set_state_dead() -> void:
-	is_dead = true
-	remove_from_group("Aliado_1")
-	$Aliado_1_Body.disabled = true
-	attack_cooldown = true
-	animated_sprite.play("death")
-	if $Steps:
-		$Steps.stop()
-	Global.remove_tribe_member()
-	var tween := create_tween()
-	tween.tween_interval(7)
-	tween.tween_property(animated_sprite, "modulate:a", 0.0, 3.5)
-	tween.tween_callback(Callable(self, "_on_fade_out_finished"))
-	#queue_free()
 
-func _on_fade_out_finished() -> void:
-	queue_free()
+
 
 func _play_idle() -> void:
 	if is_dead:
@@ -338,6 +392,7 @@ func _play_idle() -> void:
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
+	
 	if animated_sprite.animation == "attack" and state == State.ATTACK:
 		
 		pass # Replace with function body.

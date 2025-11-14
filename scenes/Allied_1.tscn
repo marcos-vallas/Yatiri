@@ -336,22 +336,26 @@ shape = SubResource("CapsuleShape2D_u8vuu")
 [node name="Attack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_bb4o7")
 volume_db = -12.0
+bus = &"SFX"
 
 [node name="Steps" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -25)
 stream = ExtResource("8_43nq5")
 volume_db = -22.0
 pitch_scale = 0.68
+bus = &"SFX"
 
 [node name="AttackHit" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -25)
 stream = ExtResource("9_l5jti")
 volume_db = -12.0
+bus = &"SFX"
 
 [node name="Magic" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -25)
 stream = ExtResource("10_ovclc")
 volume_db = -12.0
+bus = &"SFX"
 
 [node name="ArrowPosition" type="Node2D" parent="."]
 position = Vector2(7, -36)

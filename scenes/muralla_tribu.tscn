@@ -47,10 +47,10 @@ shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/base_color = Color(0.892034, 0.892034, 0.892034, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1e087"]
-size = Vector2(105, 120)
+size = Vector2(107, 126)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yldxc"]
-size = Vector2(102, 127)
+size = Vector2(31, 121.958)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ixsww"]
 atlas = ExtResource("5_1e087")
@@ -185,21 +185,21 @@ texto_vida = NodePath("HealthLabel")
 repair_label = NodePath("RepairLabel")
 
 [node name="RepairShape" type="CollisionShape2D" parent="."]
-position = Vector2(14, 0)
 shape = SubResource("RectangleShape2D_c0sp2")
 
 [node name="Muralla" type="Sprite2D" parent="."]
 y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_rdskk")
-position = Vector2(16, -8)
+position = Vector2(0, -13)
 scale = Vector2(3.5, 3.5)
 texture = ExtResource("3_yldxc")
 flip_h = true
 
 [node name="MurallaRota" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(6.5, -15)
+texture_filter = 1
+position = Vector2(-2, -7)
 scale = Vector2(3.41304, 3.16981)
 texture = ExtResource("3_c0sp2")
 
@@ -213,15 +213,16 @@ scale = Vector2(4, 4)
 texture = ExtResource("3_yldxc")
 
 [node name="MurallaCollision" type="CollisionShape2D" parent="." groups=["Muralla"]]
-position = Vector2(15.5, -7)
+position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_1e087")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Muralla"]]
+scale = Vector2(3, 0.96)
 collision_layer = 512
-collision_mask = 128
+collision_mask = 1184
 
 [node name="StaticCollision" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(11, 0.5)
+position = Vector2(0.166666, -6.72915)
 shape = SubResource("RectangleShape2D_yldxc")
 debug_color = Color(0.710027, 0.479654, 0.221773, 0.42)
 
@@ -229,6 +230,7 @@ debug_color = Color(0.710027, 0.479654, 0.221773, 0.42)
 stream = ExtResource("4_rdskk")
 volume_db = -12.0
 pitch_scale = 0.6
+bus = &"SFX"
 
 [node name="Explotion" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -246,12 +248,15 @@ volume_db = -16.0
 pitch_scale = 0.6
 
 [node name="RepairLabel" type="Label" parent="."]
-offset_top = -157.0
-offset_right = 40.0
-offset_bottom = -134.0
+offset_left = -33.0
+offset_top = -136.0
+offset_right = 7.0
+offset_bottom = -113.0
 
 [node name="HealthLabel" type="Label" parent="."]
-offset_left = 15.0
-offset_top = -107.0
-offset_right = 40.0
-offset_bottom = -62.0
+offset_left = -2.0
+offset_top = -119.0
+offset_right = 23.0
+offset_bottom = -70.0
+text = "xx
+"

@@ -50,7 +50,8 @@ func _ready() -> void:
 	animated_sprite.frame_changed.connect(_on_frame_changed)
 	Global.add_tribe_member()
 	walk_speed += randi_range(-4,0)
-	idle_duration += randi_range(-0.2,0.3)
+	idle_duration += randi_range(-0.4,0.5)
+	walk_duration+= randi_range(0,0.4)
 
 
 # -------------------- DETECCIÓN DE OBJETIVO: MÁS CERCANO (MODIFICADO) --------------------
@@ -237,6 +238,8 @@ func set_state(new_state: State) -> void:
 
 				animated_sprite.play("walk")
 				$Steps.volume_db = steps_volume_db
+				$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
+				
 				$Steps.play()
 				attack_area.monitoring = true
 		
@@ -261,6 +264,7 @@ func set_state(new_state: State) -> void:
 			_update_attack_area_direction()
 			animated_sprite.play("walk")
 			$Steps.volume_db = steps_volume_db
+			$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
 			$Steps.play()
 			_start_walk_back_timer()
 
@@ -289,11 +293,12 @@ func set_state(new_state: State) -> void:
 			attack_area.monitoring = false
 
 		State.DEAD:
+			$Aliado_2_Body.disabled = true
 			remove_from_group("Aliado_2")
 			is_dead = true
 			velocity = Vector2.ZERO
 			animated_sprite.play("death")
-			$Aliado_2_Body.disabled = true
+			
 			$Steps.stop()
 			
 			attack_area.monitoring = false

@@ -176,3 +176,4 @@ hue_variation_curve = SubResource("Curve_04tds")
 [node name="Arrow_Impact" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("32_04tds")
 volume_db = -14.0
+bus = &"SFX"

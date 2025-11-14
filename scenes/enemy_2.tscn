@@ -316,15 +316,18 @@ shape = SubResource("CapsuleShape2D_veajb")
 stream = ExtResource("5_a2yeo")
 volume_db = -20.0
 pitch_scale = 0.6
+bus = &"SFX"
 
 [node name="Attack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_hvrhm")
 volume_db = -4.0
 pitch_scale = 0.6
+bus = &"SFX"
 
 [node name="AttackHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_lxmbh")
 volume_db = -12.0
+bus = &"SFX"
 
 [node name="AttackArea" type="Area2D" parent="."]
 

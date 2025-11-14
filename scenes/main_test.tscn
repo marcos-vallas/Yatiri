@@ -1,8 +1,10 @@
-[gd_scene load_steps=43 format=4 uid="uid://db4lf7n6xqk4x"]
+[gd_scene load_steps=46 format=4 uid="uid://db4lf7n6xqk4x"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_hn8kg"]
 [ext_resource type="Texture2D" uid="uid://btfvb60do88jx" path="res://assets/img/SuriGames_v2.png" id="2_kj2hj"]
-[ext_resource type="PackedScene" uid="uid://bqdweusddi66a" path="res://scenes/granja_milicia.tscn" id="3_36cmm"]
+[ext_resource type="PackedScene" uid="uid://bqdweusddi66a" path="res://scenes/granja_milicia_1.tscn" id="3_36cmm"]
+[ext_resource type="PackedScene" uid="uid://bn2v6avrhb4hj" path="res://scenes/granja_milicia_2.tscn" id="3_ioexj"]
+[ext_resource type="PackedScene" uid="uid://b4q75gshq3hib" path="res://scenes/granja_milicia_3.tscn" id="4_e1aya"]
 [ext_resource type="PackedScene" uid="uid://tmd0h4oma52p" path="res://scenes/hut.tscn" id="4_ioexj"]
 [ext_resource type="PackedScene" uid="uid://bxwyycl75xmc8" path="res://scenes/muralla_tribu.tscn" id="5_e1aya"]
 [ext_resource type="PackedScene" uid="uid://umlahfsnucks" path="res://scenes/hut_enemigo.tscn" id="6_2iwcc"]
@@ -10,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cwifmrlq3q17b" path="res://scenes/player.tscn" id="8_mcumu"]
 [ext_resource type="Script" uid="uid://78h00os5anau" path="res://scripts/game_manager_2.gd" id="9_qtkwu"]
 [ext_resource type="PackedScene" uid="uid://if70u5c5so77" path="res://scenes/Allied_1.tscn" id="10_1kj4d"]
+[ext_resource type="PackedScene" uid="uid://df28lywfiv1bg" path="res://scenes/allied_2_customRange.tscn" id="11_hn8kg"]
 [ext_resource type="PackedScene" uid="uid://c57j15065au41" path="res://scenes/enemy_1.tscn" id="12_h34cy"]
 [ext_resource type="PackedScene" uid="uid://f45wojucvxx6" path="res://scenes/enemy_2.tscn" id="13_tjerq"]
 [ext_resource type="PackedScene" uid="uid://fvgpcsm2h5nm" path="res://scenes/enemy_1_customRange.tscn" id="14_75d54"]
@@ -592,9 +595,17 @@ position = Vector2(0, -15)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("2_kj2hj")
 
+[node name="Granja_Milicia_2" parent="." instance=ExtResource("3_ioexj")]
+position = Vector2(-1370, 350)
+scale = Vector2(1, 0.994233)
+
+[node name="Granja_Milicia_3" parent="." instance=ExtResource("4_e1aya")]
+position = Vector2(-1562, 350)
+scale = Vector2(1, 0.994233)
+
 [node name="Granja_Milicia" parent="." instance=ExtResource("3_36cmm")]
 z_index = -2
-position = Vector2(-1015, 352.953)
+position = Vector2(-1015, 350)
 
 [node name="Hut" parent="." instance=ExtResource("4_ioexj")]
 z_index = -2
@@ -615,6 +626,7 @@ position = Vector2(1096, 358.918)
 
 [node name="MurallaEnemiga" parent="." instance=ExtResource("7_nqm56")]
 position = Vector2(425, 294.293)
+health = 70
 
 [node name="Player" parent="." instance=ExtResource("8_mcumu")]
 process_mode = 3
@@ -630,14 +642,15 @@ tiempo_dia = 15.0
 tiempo_noche = 20.0
 allied_spawner = NodePath("AlliedSpawner")
 aliado_1_escena = ExtResource("10_1kj4d")
-aliado_2_escena = ExtResource("10_1kj4d")
-cant_Aliado_2_dia = 5.0
+cant_Aliado_1_dia = 2.0
+aliado_2_escena = ExtResource("11_hn8kg")
+cant_Aliado_2_dia = 8.0
 enemy_spawner = NodePath("EnemySpawner")
 enemigo_1_escena = ExtResource("12_h34cy")
 cant_Enemigo_1_noche = 3.0
 enemigo_2_escena = ExtResource("13_tjerq")
 enemigo_3_escena = ExtResource("14_75d54")
-cant_Enemigo_3_noche = 5.0
+cant_Enemigo_3_noche = 2.0
 
 [node name="EnemySpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
 script = ExtResource("15_a6664")
@@ -842,12 +855,12 @@ transition_time = 30.0
 
 [node name="Label" type="Label" parent="Visuales/HUD"]
 modulate = Color(1, 0.317647, 0, 1)
-offset_left = 179.0
-offset_top = 30.0
-offset_right = 284.0
-offset_bottom = 53.0
-scale = Vector2(2.8529, 2.2033)
-text = "MAIN TEST !!!!"
+offset_left = 561.0
+offset_top = 347.0
+offset_right = 666.0
+offset_bottom = 370.0
+scale = Vector2(0.6929, 0.5233)
+text = "Testing Field"
 
 [node name="HUD" parent="Visuales/HUD" instance=ExtResource("35_pervr")]
 size_flags_horizontal = 0

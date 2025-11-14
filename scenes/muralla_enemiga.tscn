@@ -198,6 +198,7 @@ frame_progress = 1.0
 stream = ExtResource("5_4gyx6")
 volume_db = -12.0
 pitch_scale = 0.6
+bus = &"SFX"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 256

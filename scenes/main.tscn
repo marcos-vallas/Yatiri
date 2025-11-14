@@ -1,10 +1,12 @@
-[gd_scene load_steps=44 format=4 uid="uid://dwrah6o3ea43a"]
+[gd_scene load_steps=46 format=4 uid="uid://dwrah6o3ea43a"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://b7gqby3jeqjbv" path="res://assets/img/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cw3w7ubl15l72" path="res://scenes/transition_control.tscn" id="2_2wyq8"]
+[ext_resource type="PackedScene" uid="uid://bn2v6avrhb4hj" path="res://scenes/granja_milicia_2.tscn" id="3_fuf3a"]
 [ext_resource type="PackedScene" uid="uid://cwifmrlq3q17b" path="res://scenes/player.tscn" id="3_sugp2"]
 [ext_resource type="Texture2D" uid="uid://bug2pak5p1j2e" path="res://assets/img/parallax/parallax-00.png" id="4_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://b4q75gshq3hib" path="res://scenes/granja_milicia_3.tscn" id="4_pibwh"]
 [ext_resource type="Script" uid="uid://31j1lwvdnq2u" path="res://scripts/clouds.gd" id="5_85g3d"]
 [ext_resource type="Texture2D" uid="uid://c43r50yqcdch7" path="res://assets/img/parallax/parallax-01.png" id="5_tipki"]
 [ext_resource type="Texture2D" uid="uid://b1bikqe8twap4" path="res://assets/img/parallax/parallax-nuevo-1.png" id="10_og1vs"]
@@ -34,7 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://dd6wm8kdppytc" path="res://assets/img/Yatiri/Escenario/Empaladiza.png" id="35_j8jky"]
 [ext_resource type="Shader" uid="uid://d2s77gebv4ra8" path="res://shaders/damage.gdshader" id="36_fuf3a"]
 [ext_resource type="Texture2D" uid="uid://bsynl3770v1uq" path="res://assets/img/Muralla Enemiga/Muralla_enemiga.png" id="37_pibwh"]
-[ext_resource type="PackedScene" uid="uid://bqdweusddi66a" path="res://scenes/granja_milicia.tscn" id="38_pibwh"]
+[ext_resource type="PackedScene" uid="uid://bqdweusddi66a" path="res://scenes/granja_milicia_1.tscn" id="38_pibwh"]
 
 [sub_resource type="Shader" id="Shader_ixsww"]
 code = "shader_type canvas_item;
@@ -593,7 +595,15 @@ position = Vector2(0, -15)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("27_yq6so")
 
-[node name="Granja_Milicia" parent="." instance=ExtResource("38_pibwh")]
+[node name="Granja_Milicia_Seg" parent="." instance=ExtResource("3_fuf3a")]
+position = Vector2(-1370, 350)
+scale = Vector2(1, 0.994233)
+
+[node name="Granja_Milicia_Arq" parent="." instance=ExtResource("4_pibwh")]
+position = Vector2(-1562, 350)
+scale = Vector2(1, 0.994233)
+
+[node name="Granja_Milicia_Grand" parent="." instance=ExtResource("38_pibwh")]
 z_index = -2
 position = Vector2(-1015, 352.953)
 
@@ -602,7 +612,7 @@ z_index = -2
 position = Vector2(-1185, 281.368)
 
 [node name="MurallaTribu2" parent="." instance=ExtResource("15_yq6so")]
-z_index = -2
+z_index = -4
 position = Vector2(-599, 314.001)
 max_health = 100
 costo_reparacion = 1
@@ -629,17 +639,19 @@ position = Vector2(-829, 332)
 
 [node name="GameManager2" type="Node" parent="." node_paths=PackedStringArray("allied_spawner", "enemy_spawner")]
 script = ExtResource("25_og1vs")
-tiempo_dia = 15.0
+tiempo_dia = 12.0
 tiempo_noche = 15.0
 allied_spawner = NodePath("AlliedSpawner")
 aliado_1_escena = ExtResource("27_dgi5k")
 cant_Aliado_1_dia = 0.5
 aliado_2_escena = ExtResource("27_5q0nq")
+cant_Aliado_2_dia = 1.5
 enemy_spawner = NodePath("EnemySpawner")
 enemigo_1_escena = ExtResource("27_vxglm")
 enemigo_2_escena = ExtResource("26_yq6so")
-cant_Enemigo_2_noche = 0.5
+cant_Enemigo_2_noche = 0.75
 enemigo_3_escena = ExtResource("28_tel4y")
+cant_Enemigo_3_noche = 0.5
 
 [node name="EnemySpawner" type="Node" parent="GameManager2" node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
 script = ExtResource("25_vxglm")
@@ -729,11 +741,13 @@ shape = SubResource("RectangleShape2D_tel4y")
 scale = Vector2(1, 1.0058)
 stream = ExtResource("16_muem4")
 autoplay = true
+bus = &"SFX"
 
 [node name="Music" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("21_og1vs")
 volume_db = -25.46
 autoplay = true
+bus = &"Musica"
 
 [node name="Visuales" type="Node" parent="."]
 

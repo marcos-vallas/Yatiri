@@ -31,6 +31,7 @@ func _ready() -> void:
 	connect("area_entered", Callable(self, "_on_area_entered"))
 	connect("body_entered", Callable(self, "_on_body_entered"))
 	
+	
 func _physics_process(delta: float) -> void:
 	vel.y += fall_gravity * delta
 	global_position += vel * delta
@@ -40,79 +41,84 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if \
-	(area.is_in_group("Muralla") or area.is_in_group("Base")) \
-	and area.has_method("take_damage"):
-		$CollisionShape2D.disabled = true
+	(area.is_in_group("Muralla") or area.is_in_group("Base")):
+		
 		if $Spear_Impact:
 			$Spear_Impact.play()
 		if self_sprite != null : self_sprite.visible = false
 		if $CPUParticles2D:
 			$CPUParticles2D.visible = false
-
-		area.take_damage(damage_edificios)
+		if area.has_method("take_damage"):
+			area.take_damage(damage_edificios)
+		$CollisionShape2D.set_deferred("disabled", true)
 		await get_tree().create_timer(0.2).timeout
 		queue_free()
-	if (area.is_in_group("Player_Body") \
-	or area.is_in_group("Aliado_1")  \
-	or area.is_in_group("Aliado_2")  \
-	or area.is_in_group("Tank"))  \
-	and area.has_method("take_damage"):
-		$CollisionShape2D.set_deferred("disabled",true)
-		if $Spear_Impact: $Spear_Impact.play()
-		if self_sprite != null : self_sprite.visible = false
-		if $CPUParticles2D: $CPUParticles2D.visible = false
-
-		var knockback_dir = Vector2(sign(area.global_position.x - global_position.x), 0)
-		area.take_damage(damage_unidades, knockback_dir, true)
-
-		await get_tree().create_timer(0.2).timeout
-		queue_free()
+		#
+	#if (area.is_in_group("Player_Body") \
+	#or area.is_in_group("Aliado_1")  \
+	#or area.is_in_group("Aliado_2")  \
+	#or area.is_in_group("Tank"))  \
+	#and area.has_method("take_damage"):
+		#$CollisionShape2D.set_deferred("disabled",true)
+		#if $Spear_Impact: $Spear_Impact.play()
+		#if self_sprite != null : self_sprite.visible = false
+		#if $CPUParticles2D: $CPUParticles2D.visible = false
+#
+		#var knockback_dir = Vector2(sign(area.global_position.x - global_position.x), 0)
+		#area.take_damage(damage_unidades, knockback_dir, true)
+#
+		#await get_tree().create_timer(0.2).timeout
+		#queue_free()
 		
 	elif area.is_in_group("Ground"):
+		
 		if self_sprite != null : self_sprite.visible = false
 		$CPUParticles2D.one_shot = true
 		$CPUParticles2D.emitting = false
 		$CPUParticles2D.speed_scale = 0
+		$CollisionShape2D.set_deferred("disabled", true)
 		await get_tree().create_timer(0.3).timeout
 		queue_free()
 
 
 func _on_body_entered(body: Node) -> void:
 	if \
-	(body.is_in_group("Muralla") or body.is_in_group("Base")) \
-	and body.has_method("take_damage"):
-		$CollisionShape2D.disabled = true
+	(body.is_in_group("Muralla") or body.is_in_group("Base")):
+		
 		if $Spear_Impact:
 			$Spear_Impact.play()
 		if self_sprite != null : self_sprite.visible = false
 		if $CPUParticles2D:
 			$CPUParticles2D.visible = false
-
-		body.take_damage(damage_edificios)
+		if body.has_method("take_damage"):
+			body.take_damage(damage_edificios)
+		$CollisionShape2D.set_deferred("disabled", true)
 		await get_tree().create_timer(0.2).timeout
 		queue_free()
 #		PARA LOS NPC Y PLAYER SON BODIES
-	if (body.is_in_group("Player_Body")\
+	elif (body.is_in_group("Player_Body")\
 	 or body.is_in_group("Aliado_1")\
 	 or body.is_in_group("Aliado_2")\
-	 or body.is_in_group("Tank")\
-	)  and body.has_method("take_damage"):
-		$CollisionShape2D.set_deferred("disabled",true)
+	 or body.is_in_group("Tank")):
+		
 		if $Spear_Impact: $Spear_Impact.play()
 		if self_sprite != null : self_sprite.visible = false
 		if $CPUParticles2D: $CPUParticles2D.visible = false
-
-		var knockback_dir = Vector2(sign(body.global_position.x - global_position.x), 0)
-		body.take_damage(damage_unidades, knockback_dir, true)
-
+		
+		if body.has_method("take_damage"):
+			var knockback_dir = Vector2(sign(body.global_position.x - global_position.x), 0)
+			body.take_damage(damage_unidades, knockback_dir, true)
+		$CollisionShape2D.set_deferred("disabled",true)
 		await get_tree().create_timer(0.2).timeout
 		queue_free()
 		
 	elif body.is_in_group("Ground"):
+		
 		if self_sprite != null : self_sprite.visible = false
 		$CPUParticles2D.one_shot = true
 		$CPUParticles2D.emitting = false
 		$CPUParticles2D.speed_scale = 0
+		$CollisionShape2D.set_deferred("disabled", true)
 		await get_tree().create_timer(0.3).timeout
 		queue_free()
 
@@ -149,7 +155,7 @@ func _prepare_and_launch(target_global_pos: Vector2, time_to_hit: float) -> void
 	var distance = target_pos - global_position
 	
 	if (distance.x < -450) or (distance.x > 450):
-		print(distance.x)
+		#print(distance.x)
 		time_to_hit += (max_time_to_hit_Far - time_to_hit)/2
 
 	# Cálculo de la velocidad inicial (como estaba antes)

@@ -4,8 +4,9 @@
 [ext_resource type="Script" uid="uid://csd1ld5pyg3mo" path="res://scripts/spear.gd" id="1_efxkm"]
 [ext_resource type="AudioStream" uid="uid://bsxkfumbm0kjn" path="res://assets/sound/arrow_hit.wav" id="2_uf2bl"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uf2bl"]
-size = Vector2(17, 2)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_efxkm"]
+radius = 0.998713
+height = 14.0834
 
 [sub_resource type="Gradient" id="Gradient_efxkm"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -30,15 +31,19 @@ x_offset_random = 15.0
 correccion_altura = -0.5
 self_sprite = NodePath("Spear_Image")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -1)
-shape = SubResource("RectangleShape2D_uf2bl")
-
 [node name="Spear_Image" type="Sprite2D" parent="."]
 texture_filter = 1
-rotation = -0.750492
+position = Vector2(2.98023e-08, -1)
+rotation = -0.781126
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_43rot")
+flip_h = true
+flip_v = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12, 0)
+rotation = 1.57224
+shape = SubResource("CapsuleShape2D_efxkm")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 amount = 20
@@ -57,3 +62,4 @@ hue_variation_curve = SubResource("Curve_un1d1")
 [node name="Spear_Impact" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_uf2bl")
 volume_db = -14.0
+bus = &"SFX"

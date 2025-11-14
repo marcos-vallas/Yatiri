@@ -24,3 +24,4 @@ shape = SubResource("RectangleShape2D_ig136")
 stream = ExtResource("3_6iuya")
 volume_db = -15.0
 pitch_scale = 0.9
+bus = &"SFX"

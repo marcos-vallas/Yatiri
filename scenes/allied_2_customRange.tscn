@@ -271,7 +271,7 @@ danio_a_muralla = 5
 danio_a_enemigo = 30
 walk_duration = 0.5
 attack_range = 45.0
-pre_attack_delay = 0.01
+pre_attack_delay = 0.02
 idle_duration = 0.4
 attack_knockback = 200.0
 follow_range = 90.0
@@ -309,6 +309,7 @@ shape = SubResource("RectangleShape2D_hcr21")
 position = Vector2(0, -15)
 stream = ExtResource("7_2ljku")
 volume_db = -12.0
+bus = &"SFX"
 
 [node name="AttackArea" type="Area2D" parent="."]
 position = Vector2(0, -15)
@@ -324,12 +325,14 @@ position = Vector2(0, -15)
 stream = ExtResource("8_q880n")
 volume_db = -4.0
 pitch_scale = 0.6
+bus = &"SFX"
 
 [node name="Steps" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -15)
 stream = ExtResource("9_ajl4a")
 volume_db = -20.0
-pitch_scale = 0.7
+pitch_scale = 0.72
+bus = &"SFX"
 
 [node name="Label" type="Label" parent="."]
 offset_left = -1.66667

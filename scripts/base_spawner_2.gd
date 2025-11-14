@@ -30,6 +30,7 @@ func _ready():
 
 # Ahora, recibe una lista (Array) de escenas a spawnear
 func iniciar_spawn(lista_unidades: Array, intervalo: float = 1.0):
+	
 	unidades_a_spawnear_lista = lista_unidades
 	indice_spawn_actual = 0
 	intervalo_spawn = intervalo
@@ -53,6 +54,7 @@ func detener_spawn():
 # --- Lógica de Spawn (Función modificada) ---
 
 func _on_SpawnTimer_timeout():
+	
 	# Comprobamos si hemos spawneado todas las unidades de la lista
 	if indice_spawn_actual < unidades_a_spawnear_lista.size():
 		# Pasamos la escena específica a la función spawn_unidad
@@ -69,6 +71,7 @@ func _on_SpawnTimer_timeout():
 # --- Función para instanciar y añadir la unidad (Función modificada) ---
 # Ahora recibe la escena como argumento
 func spawn_unidad(escena: PackedScene):
+	
 	if not escena:
 		print("ERROR: La escena es nula.")
 		return

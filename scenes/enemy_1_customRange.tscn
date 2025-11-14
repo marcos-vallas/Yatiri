@@ -305,6 +305,7 @@ shape = SubResource("RectangleShape2D_hcr21")
 [node name="AttackHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_o8xwt")
 volume_db = -12.0
+bus = &"SFX"
 
 [node name="AttackArea" type="Area2D" parent="."]
 collision_layer = 128
@@ -318,11 +319,13 @@ shape = SubResource("RectangleShape2D_6nrqq")
 stream = ExtResource("8_t22le")
 volume_db = -4.0
 pitch_scale = 0.6
+bus = &"SFX"
 
 [node name="Steps" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_agcsc")
 volume_db = -20.0
 pitch_scale = 0.7
+bus = &"SFX"
 
 [node name="Label" type="Label" parent="."]
 offset_left = -4.16667

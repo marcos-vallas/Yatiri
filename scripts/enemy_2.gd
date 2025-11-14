@@ -103,6 +103,7 @@ func _physics_process(delta: float) -> void:
 				animated_sprite.play("walk")
 				$Steps.volume_db = -30.0  
 				if not $Steps.playing:
+					$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
 					$Steps.play()
 			velocity.x = walk_speed * walk_direction
 			
@@ -146,6 +147,7 @@ func set_state(new_state: State) -> void:
 				_update_attack_area_direction()
 			animated_sprite.play("walk")
 			$Steps.volume_db = steps_volume_db
+			$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
 			$Steps.play()
 
 		State.ATTACK:
@@ -165,6 +167,7 @@ func set_state(new_state: State) -> void:
 				_update_attack_area_direction()
 				animated_sprite.play("walk")
 				$Steps.volume_db = steps_volume_db
+				$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
 				$Steps.play()
 				_start_walk_back_timer()
 

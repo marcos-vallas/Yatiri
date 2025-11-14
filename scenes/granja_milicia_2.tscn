@@ -1,0 +1,291 @@
+[gd_scene load_steps=33 format=3 uid="uid://bn2v6avrhb4hj"]
+
+[ext_resource type="Script" uid="uid://fpbggi6atbcn" path="res://scripts/granja_milicia.gd" id="1_wpgp4"]
+[ext_resource type="Script" uid="uid://db0r8xp5utovh" path="res://scripts/base_spawner_2.gd" id="2_shiwm"]
+[ext_resource type="PackedScene" uid="uid://df28lywfiv1bg" path="res://scenes/allied_2_customRange.tscn" id="3_wpgp4"]
+[ext_resource type="Texture2D" uid="uid://dfh3wtla1rc6b" path="res://assets/img/Yatiri/Escenario/granja bots.png" id="4_srnqw"]
+[ext_resource type="Material" uid="uid://r0x1jbfdk122" path="res://scenes/hut.tres" id="5_rv2qq"]
+[ext_resource type="Texture2D" uid="uid://cgajbjvv8hu18" path="res://assets/img/Yatiri/Escenario/granja bots destruida.png" id="6_epwcu"]
+[ext_resource type="AudioStream" uid="uid://bj2543vduipa2" path="res://assets/sound/attack_hit.wav" id="7_hebm6"]
+[ext_resource type="Texture2D" uid="uid://brfapmc4fr52m" path="res://assets/img/Explotion.png" id="8_k0uar"]
+[ext_resource type="AudioStream" uid="uid://beil22emq2366" path="res://assets/sound/magic.wav" id="9_lxnka"]
+[ext_resource type="FontFile" uid="uid://bxqx6c1hu6ki7" path="res://assets/font/Acadian_Runes-Regular_PERSONAL_USE.ttf" id="10_shiwm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c0sp2"]
+size = Vector2(177, 23)
+
+[sub_resource type="Shader" id="Shader_c0sp2"]
+code = "shader_type canvas_item;
+
+// 🔹 Export para manejar desde el inspector de Godot
+uniform bool effect_enabled = false;
+uniform vec3 flash_color : source_color = vec3(1.0,0.0,0.0);
+uniform vec3 base_color : source_color = vec3(1.0,1.0,1.0); // color base de tu sprite
+
+void fragment() {
+    vec4 tex = texture(TEXTURE, UV);
+    
+    // 🔹 Aplicar el color base del sprite (por ejemplo, tu tono oscuro)
+    vec4 colored_tex = tex * vec4(base_color, 1.0);
+    
+    if (effect_enabled) {
+        // 🔹 Mezcla con el color del flash
+        COLOR = mix(colored_tex, vec4(flash_color, tex.a), 0.7);
+    } else {
+        COLOR = colored_tex;
+    }
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rdskk"]
+shader = SubResource("Shader_c0sp2")
+shader_parameter/effect_enabled = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/base_color = Color(0.877616, 0.877616, 0.877616, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1e087"]
+size = Vector2(108, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yldxc"]
+size = Vector2(93, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixsww"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0sp2"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auadv"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rceni"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvkct"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqa2b"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xw3ra"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23fi2"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blq51"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtea8"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfwui"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2mmq"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8trpq"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p52b1"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egmn4"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4yoi"]
+atlas = ExtResource("8_k0uar")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ypjjx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixsww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0sp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_auadv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rceni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvkct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqa2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xw3ra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23fi2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blq51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtea8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hfwui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2mmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8trpq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p52b1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egmn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4yoi")
+}],
+"loop": false,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="Granja_Milicia_2" type="Area2D" node_paths=PackedStringArray("static_body", "static_collision", "muralla_area_collision", "Spawner", "sprite_normal", "sprite_destruido", "texto_vida", "repair_label", "farm_label") groups=["Granja_bots"]]
+collision_layer = 512
+collision_mask = 5282
+script = ExtResource("1_wpgp4")
+max_health = 50
+costo_reparacion = 3
+costo_reclutamiento = 1
+static_body = NodePath("StaticBody2D")
+static_collision = NodePath("StaticBody2D/StaticCollision")
+muralla_area_collision = NodePath("MurallaCollision")
+Spawner = NodePath("spawn")
+sprite_normal = NodePath("Granja_Bots")
+sprite_destruido = NodePath("Granja_Bots_Destruida")
+texto_vida = NodePath("HealthLabel")
+repair_label = NodePath("RepairLabel")
+farm_label = NodePath("FarmLabel")
+
+[node name="spawn" type="Node2D" parent="." node_paths=PackedStringArray("spawn_marker", "spawn_timer")]
+position = Vector2(0, -4)
+script = ExtResource("2_shiwm")
+farm_spawning = true
+spawn_marker = NodePath("Marker2D")
+spawn_timer = NodePath("Timer")
+unidades_a_spawnear_lista = [ExtResource("3_wpgp4")]
+
+[node name="Marker2D" type="Marker2D" parent="spawn"]
+
+[node name="Timer" type="Timer" parent="spawn"]
+
+[node name="RepairShape" type="CollisionShape2D" parent="." groups=["Granja_bots"]]
+position = Vector2(-0.5, -24)
+shape = SubResource("RectangleShape2D_c0sp2")
+
+[node name="Granja_Bots" type="Sprite2D" parent="."]
+z_index = -2
+y_sort_enabled = true
+texture_filter = 1
+material = SubResource("ShaderMaterial_rdskk")
+position = Vector2(2, -45)
+scale = Vector2(2.3, 1.82)
+texture = ExtResource("4_srnqw")
+
+[node name="Granja_Bots_Destruida" type="Sprite2D" parent="."]
+visible = false
+z_index = -2
+texture_filter = 1
+material = ExtResource("5_rv2qq")
+position = Vector2(2, -32)
+scale = Vector2(2.29484, 1.81088)
+texture = ExtResource("6_epwcu")
+
+[node name="MurallaCollision" type="CollisionShape2D" parent="." groups=["Granja_bots"]]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_1e087")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Granja_bots"]]
+position = Vector2(0, -30)
+collision_layer = 512
+collision_mask = 128
+
+[node name="StaticCollision" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_yldxc")
+debug_color = Color(0.710027, 0.479654, 0.221773, 0.42)
+
+[node name="Hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_hebm6")
+volume_db = -12.0
+pitch_scale = 0.6
+
+[node name="Explotion" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(0, -26)
+scale = Vector2(2.90625, 2.73438)
+sprite_frames = SubResource("SpriteFrames_ypjjx")
+frame = 15
+frame_progress = 1.0
+
+[node name="Explotion2" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource("9_lxnka")
+volume_db = -16.0
+pitch_scale = 0.6
+
+[node name="RepairLabel" type="Label" parent="."]
+offset_top = -121.0
+offset_right = 51.0
+offset_bottom = -98.0
+scale = Vector2(0.559999, 0.52)
+text = "repair "
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_top = -133.0
+offset_right = 40.0
+offset_bottom = -88.0
+scale = Vector2(0.480001, 0.479999)
+text = "healt"
+
+[node name="FarmLabel" type="Label" parent="."]
+offset_top = -107.0
+offset_right = 40.0
+offset_bottom = -58.0
+scale = Vector2(0.480001, 0.440001)
+text = "farm
+"
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 4
+offset_left = -18.0
+offset_top = -81.0
+offset_right = 70.0
+offset_bottom = -62.0
+scale = Vector2(0.484942, 0.493621)
+size_flags_vertical = 0
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("10_shiwm")
+theme_override_font_sizes/font_size = 18
+text = "Seguidores"
+horizontal_alignment = 1
+vertical_alignment = 1

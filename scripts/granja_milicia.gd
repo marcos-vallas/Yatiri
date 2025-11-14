@@ -45,6 +45,7 @@ var damage_flash_count: int = 2
 var damage_flash_duration: float = 0.1
 var flash_counter: int = 0
 var flash_timer: Timer
+var farm_timer: Timer
 var is_flashing := false
 var is_player_in_area: bool = false # Rastrea si el jugador está en el área de detección
 
@@ -60,6 +61,13 @@ func _ready() -> void:
 	flash_timer.one_shot = false
 	add_child(flash_timer)
 	flash_timer.timeout.connect(_on_flash_timer_timeout)
+	
+	# Inicialización del Timer de flash
+	farm_timer = Timer.new()
+	farm_timer.one_shot = false
+	add_child(farm_timer)
+	farm_timer.timeout.connect(_on_farm_timer_timeout)
+
 
 	current_health = max_health
 	# Inicialización del estado
@@ -81,7 +89,8 @@ func _process(_delta: float) -> void:
 	if current_state == State.NORMAL:
 		if current_state_farm == State_Farm.DISABLED:
 			set_state_farm(State_Farm.READY)
-			
+	if current_state == State.DESTRUIDA:
+		set_state_farm(State_Farm.DISABLED)
 	pass
 
 func set_state_farm(new_state: int) -> void:
@@ -101,13 +110,16 @@ func set_state_farm(new_state: int) -> void:
 			farm_label.visible = true
 			pass
 		State_Farm.FARMING:
-			print("Milica Farm Farming")
+			
+			print("Farming")
+			
 			farm_label.text = "Reclutando.."
 			farm_label.visible = true
 			pass
 		State_Farm.PRODUCING:
 			print("Milica Farm Producing")
-			farm_label.visible = false
+			farm_label.text = "Reclutando.."
+			farm_label.visible = true
 			pass
 	
 	pass
@@ -230,7 +242,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			print("No hay suficientes monedas para reparar.")
 			# Opcional: mostrar un mensaje de error al jugador
 	if (current_state_farm == State_Farm.READY) and (current_state == State.NORMAL) and is_player_in_area and event.is_action_pressed("down"):
+		
 		if Global.coins >= costo_reclutamiento: 
+			set_state_farm(State_Farm.FARMING)
 			Global.remove_coins(costo_reclutamiento) # Restamos el costo
 			reclutar(costo_reclutamiento) # Reparamos
 		else:
@@ -239,7 +253,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				
 	
 func reclutar(amount_paid: int):
+	set_state_farm(State_Farm.PRODUCING)
+	farm_timer.start(1.5)
 	Spawner.iniciar_spawn(Spawner.unidades_a_spawnear_lista)
+	
 	pass
 	
 	
@@ -295,6 +312,10 @@ func _stop_flash():
 	if sprite_normal.visible and sprite_normal.material:
 		sprite_normal.material.set_shader_parameter("effect_enabled", false)
 
+func _on_farm_timer_timeout() -> void:
+	set_state_farm(State_Farm.READY)
+	
+	pass
 func _on_flash_timer_timeout() -> void:
 	if flash_counter < damage_flash_count * 2:
 		var active = flash_counter % 2 == 0

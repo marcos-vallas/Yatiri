@@ -50,7 +50,7 @@ func _ready() -> void:
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	animated_sprite.frame_changed.connect(_on_frame_changed)
 	idle_duration += randf_range(-0.2,0.1)
-	walk_speed += randf_range(5,5)
+	walk_speed += randf_range(8,8)
 
 
 # -------------------- DETECCIÓN DE OBJETIVO: MÁS CERCANO (MODIFICADO) --------------------
@@ -201,6 +201,7 @@ func set_state(new_state: State) -> void:
 
 				animated_sprite.play("walk")
 				$Steps.volume_db = steps_volume_db
+				$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
 				$Steps.play()
 				attack_area.monitoring = true
 
@@ -224,6 +225,7 @@ func set_state(new_state: State) -> void:
 			_update_attack_area_direction()
 			animated_sprite.play("walk")
 			$Steps.volume_db = steps_volume_db
+			$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
 			$Steps.play()
 			_start_walk_back_timer()
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://xrcegsl5abd4"]
 
 [ext_resource type="Texture2D" uid="uid://dihejj8oo7wgn" path="res://assets/img/Test/Screenshot 2025-11-11 162326.png" id="1_aiu1w"]
-[ext_resource type="PackedScene" uid="uid://bqdweusddi66a" path="res://scenes/granja_milicia.tscn" id="3_cy8pk"]
+[ext_resource type="PackedScene" uid="uid://bqdweusddi66a" path="res://scenes/granja_milicia_1.tscn" id="3_cy8pk"]
 [ext_resource type="PackedScene" uid="uid://cwifmrlq3q17b" path="res://scenes/player.tscn" id="4_i0auk"]
 [ext_resource type="PackedScene" uid="uid://df28lywfiv1bg" path="res://scenes/allied_2_customRange.tscn" id="5_fm7vo"]
 [ext_resource type="PackedScene" uid="uid://bbaln7a6prckb" path="res://scenes/allied_3_customRange.tscn" id="5_htfgd"]

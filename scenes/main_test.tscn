@@ -629,7 +629,7 @@ position = Vector2(425, 294.293)
 health = 70
 
 [node name="Player" parent="." instance=ExtResource("37_36cmm")]
-position = Vector2(-862, 324.12)
+position = Vector2(-862, 325)
 
 [node name="Edificios_Propios" type="Node" parent="."]
 

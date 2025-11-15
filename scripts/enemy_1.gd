@@ -50,7 +50,7 @@ func _ready() -> void:
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	animated_sprite.frame_changed.connect(_on_frame_changed)
 	idle_duration += randf_range(-0.2,0.1)
-	walk_speed += randf_range(8,8)
+	walk_speed += randf_range(10,10)
 
 
 # -------------------- DETECCIÓN DE OBJETIVO: MÁS CERCANO (MODIFICADO) --------------------

@@ -293,7 +293,7 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_dqkch")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.430712
+frame_progress = 0.841454
 
 [node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
 visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://db4lf7n6xqk4x"]
+[gd_scene load_steps=48 format=4 uid="uid://db4lf7n6xqk4x"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_hn8kg"]
 [ext_resource type="Texture2D" uid="uid://btfvb60do88jx" path="res://assets/img/SuriGames_v2.png" id="2_kj2hj"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://cw3w7ubl15l72" path="res://scenes/transition_control.tscn" id="23_ejbio"]
 [ext_resource type="PackedScene" uid="uid://cyfvjbgy7ydwc" path="res://scenes/tutorial.tscn" id="24_cgpad"]
 [ext_resource type="Texture2D" uid="uid://bug2pak5p1j2e" path="res://assets/img/parallax/parallax-00.png" id="25_kjev4"]
+[ext_resource type="PackedScene" uid="uid://dfmqmdfplwaa6" path="res://scenes/objetivos.tscn" id="26_e1aya"]
 [ext_resource type="Script" uid="uid://31j1lwvdnq2u" path="res://scripts/clouds.gd" id="26_thkun"]
 [ext_resource type="Texture2D" uid="uid://c43r50yqcdch7" path="res://assets/img/parallax/parallax-01.png" id="27_h0cu1"]
 [ext_resource type="Shader" uid="uid://c1gj8md3dnj1u" path="res://shaders/blur.gdshader" id="28_qlkox"]
@@ -577,12 +578,13 @@ shader_parameter/is_canvas_group = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tel4y"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("player", "tilemap", "tutorial")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("player", "tilemap", "tutorial", "objetivos")]
 scale = Vector2(1, 1.0058)
 script = ExtResource("1_hn8kg")
 player = NodePath("Player")
 tilemap = NodePath("Visuales/TileMap")
 tutorial = NodePath("Visuales/CanvasLayer2/Tutorial")
+objetivos = NodePath("Visuales/CanvasLayer2/Objetivos")
 
 [node name="Spear" parent="." instance=ExtResource("38_ioexj")]
 position = Vector2(-841, 70.5906)
@@ -766,6 +768,8 @@ tile_set = SubResource("TileSet_jyhfs")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="Visuales"]
 process_mode = 3
+
+[node name="Objetivos" parent="Visuales/CanvasLayer2" instance=ExtResource("26_e1aya")]
 
 [node name="TransitionControl" parent="Visuales/CanvasLayer2" instance=ExtResource("23_ejbio")]
 visible = false

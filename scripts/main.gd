@@ -5,6 +5,7 @@ extends Node2D
 @onready var coin_scene = preload("res://scenes/coin.tscn") 
 @onready var hut_scene = preload("res://scenes/hut.tscn")
 @export var tutorial: Control #= $CanvasLayer2/Tutorial
+@export var objetivos : Control
 
 var segment_width: int
 var tiles: Array = []
@@ -16,10 +17,11 @@ func _ready() -> void:
 	Global.pause()
 	tutorial.show()
 	
-	
-	
 	Global.set_coins(10)
 	Global.set_potions(5)
+	Global.set_tribe_count(0)
+	Global.health_base(100)
+	
 	
 	if has_node("CanvasLayer2/TransitionControl"):
 		var transition = $CanvasLayer2/TransitionControl
@@ -45,15 +47,69 @@ func _ready() -> void:
 	#tween.tween_property(tutorial, "modulate:a", 0.0, 1.0)  # 1 segundo de duración
 	#await tween.finished
 	#tutorial.hide()
+enum State {PAUSED, NORMAL}
+var current_State :State = State.PAUSED
 
+var cambiando_estado :bool = false
 
+func set_state(new_State : State):
+	if new_State == current_State:
+		return
+	cambiando_estado = true
+	current_State = new_State
+	
+	
+	match current_State:
+		State.PAUSED:
+			print("Pausado")
+			objetivos.show()
+			Global.pause()
+			var tween = create_tween()
+			tween.tween_property(objetivos, "modulate:a", 1.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tween.finished.connect(_on_objetive_fade_finished)
+			
+		State.NORMAL:
+			print("Normal")
+			#objetivos.hide()
+			Global.unpause()
+			var tween = create_tween()
+			tween.tween_property(objetivos, "modulate:a", 0.0, 0.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tween.finished.connect(_on_objetive_fade_finished)
+	
+	pass
+
+func _on_objetive_fade_finished():
+	cambiando_estado = false
+	if current_State == State.NORMAL:
+			#objetivos.show()
+			objetivos.hide()
+			#Global.pause()
+			#set_state(State.PAUSED)
+			pass
+	elif current_State == State.PAUSED:
+		#set_state( State.NORMAL)
+			#objetivos.hide()
+			#Global.unpause()
+			pass
+
+	
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("attack") and tutorial.visible:
 		var tween = create_tween()
 		tween.tween_property(tutorial, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		tween.finished.connect(_on_tutorial_fade_finished)
-		Global.unpause()
-		
+		#Global.unpause()
+		set_state(State.NORMAL)
+	
+	if Input.is_action_just_pressed("pause") and !tutorial.visible:
+		if cambiando_estado == false:
+			if current_State == State.NORMAL:
+				set_state(State.PAUSED)
+				pass
+			elif current_State == State.PAUSED:
+				set_state( State.NORMAL)
+			
+	
 
 	#var hut = hut_scene.instantiate()
 	#add_child(hut)
@@ -79,6 +135,7 @@ func _process(delta: float) -> void:
 
 func _on_tutorial_fade_finished() -> void:
 	tutorial.hide()
+
 
 func spawn_coins_in_row(start_pos: Vector2, count: int, spacing: int = 10) -> void:
 	for i in range(count):

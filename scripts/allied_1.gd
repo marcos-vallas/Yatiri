@@ -53,6 +53,9 @@ func _init() -> void:
 	Global.add_tribe_member()
 
 func _physics_process(delta: float) -> void:
+	if Global.paused:
+		set_state(State.IDLE)
+		return
 	if is_dead:
 		return
 		

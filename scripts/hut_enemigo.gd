@@ -47,6 +47,8 @@ func _on_flash_timer_timeout() -> void:
 
 func _on_destroyed() -> void:
 	
+	Global.pause()
+	
 	await get_tree().create_timer(0.1).timeout
 	emit_signal("muralla_destruida")
 	$Explotion2.play()
@@ -58,7 +60,7 @@ func _on_destroyed() -> void:
 	await $Explotion.animation_finished
 	$Explotion.hide()
 
-	await get_tree().create_timer(6).timeout
+	await get_tree().create_timer(4).timeout
 	Global.game_result_text = "¡Ganaste!\n\n¿Jugar de nuevo?"
 	get_tree().change_scene_to_file("res://scenes/game_over_screen.tscn")
 	

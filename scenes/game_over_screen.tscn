@@ -124,7 +124,7 @@ size_flags_vertical = 4
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("9_4tlw3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ej65t")
-text = "Menú"
+text = "Salir al Menú"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/HBoxContainer"]
 texture_filter = 1
@@ -134,7 +134,7 @@ size_flags_vertical = 4
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("9_4tlw3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_8i476")
-text = "Salir"
+text = "Jugar de nuevo"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

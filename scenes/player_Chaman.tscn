@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dyyddp7l1ifde"]
+[gd_scene load_steps=62 format=3 uid="uid://dyyddp7l1ifde"]
 
 [ext_resource type="Script" uid="uid://djjpo1k7crm8d" path="res://scripts/player.gd" id="1_yhnwa"]
 [ext_resource type="Texture2D" uid="uid://cs6ay3my44tix" path="res://assets/img/Chaman/attack/Attack-01-Sheet-1.png" id="2_a0cuu"]
@@ -26,7 +26,6 @@
 [ext_resource type="Texture2D" uid="uid://bx2rlb4c83xuo" path="res://assets/img/Chaman/Dead/Dead-Sheet-8.png" id="18_bwqew"]
 [ext_resource type="Texture2D" uid="uid://bkr43et2ptqmt" path="res://assets/img/Chaman/Damage/Damage-2.png" id="20_5frq5"]
 [ext_resource type="Texture2D" uid="uid://cxgd40h46jub7" path="res://assets/img/Chaman/Damage/Damage-3.png" id="21_srklc"]
-[ext_resource type="Texture2D" uid="uid://c3nt53d06i04f" path="res://assets/img/Chaman/Damage/Damage-4.png" id="22_npgp2"]
 [ext_resource type="Texture2D" uid="uid://b6pymdw3rfdi6" path="res://assets/img/Chaman/Idle/Idle-Sheet-1.png" id="23_ahyd6"]
 [ext_resource type="Texture2D" uid="uid://n7yuc0cp0lnt" path="res://assets/img/Chaman/Idle/Idle-Sheet-2.png" id="24_x5h6t"]
 [ext_resource type="Texture2D" uid="uid://bvypa0gevofi1" path="res://assets/img/Chaman/Idle/Idle-Sheet-3.png" id="25_5jsjk"]
@@ -97,16 +96,13 @@ animations = [{
 "speed": 9.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("20_5frq5")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("21_srklc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_npgp2")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
 "speed": 5.0
 }, {
@@ -291,9 +287,9 @@ danio_a_muralla = 2
 z_index = 4
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_dqkch")
-animation = &"attack"
+animation = &"hurt"
 autoplay = "idle"
-frame = 3
+frame = 1
 frame_progress = 1.0
 
 [node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]

@@ -79,6 +79,9 @@ func _process(delta: float) -> void:
 	
 
 func _physics_process(delta: float) -> void:
+	if Global.paused:
+		set_state(State.IDLE)
+		return
 	target = _get_target_with_priority3()
 	if is_dead:
 		return

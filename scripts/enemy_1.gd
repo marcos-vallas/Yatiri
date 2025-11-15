@@ -119,6 +119,9 @@ func _get_target_with_priority3() -> Node:
 
 # -------------------- MOVIMIENTO Y ATAQUE --------------------
 func _physics_process(delta: float) -> void:
+	if Global.paused:
+		set_state(State.IDLE)
+		return
 	if is_dead:
 		return
 	
@@ -131,8 +134,9 @@ func _physics_process(delta: float) -> void:
 			# FIX 1: Cambiamos la comparación 'state == State.WALK_FORWARD' 
 			# por la llamada a la función de transición 'set_state()'.
 			# Esto inicia el movimiento y el ciclo de ataque.
-			if not idle_timer_active:
-				set_state(State.WALK_FORWARD) 
+			if !Global.paused:
+				if not idle_timer_active:
+					set_state(State.WALK_FORWARD) 
 
 	# Lógica de WALK_FORWARD (solo se ejecuta si el estado es WALK_FORWARD)
 	if state == State.WALK_FORWARD:

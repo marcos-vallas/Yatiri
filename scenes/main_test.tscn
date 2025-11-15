@@ -770,6 +770,7 @@ tile_set = SubResource("TileSet_jyhfs")
 process_mode = 3
 
 [node name="Objetivos" parent="Visuales/CanvasLayer2" instance=ExtResource("26_e1aya")]
+visible = false
 
 [node name="TransitionControl" parent="Visuales/CanvasLayer2" instance=ExtResource("23_ejbio")]
 visible = false

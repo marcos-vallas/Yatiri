@@ -72,6 +72,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if Global.paused:
+		set_state(State.IDLE)
+		return
 	if is_dead:
 		return
 

@@ -131,6 +131,9 @@ func _get_target_with_priority3() -> Node:
 
 # -------------------- MOVIMIENTO Y ATAQUE --------------------
 func _physics_process(delta: float) -> void:
+	if Global.paused:
+		set_state(State.IDLE)
+		return
 	var cerca_de_jugador : bool = false
 	if is_dead:
 		return

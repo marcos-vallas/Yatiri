@@ -6,6 +6,8 @@ extends Node2D
 @onready var hut_scene = preload("res://scenes/hut.tscn")
 @export var tutorial: Control #= $CanvasLayer2/Tutorial
 @export var objetivos : Control
+@export var monedas_init:int =13
+@export var potions_init:int =10
 
 var segment_width: int
 var tiles: Array = []
@@ -17,8 +19,8 @@ func _ready() -> void:
 	Global.pause()
 	tutorial.show()
 	
-	Global.set_coins(10)
-	Global.set_potions(5)
+	Global.set_coins(monedas_init)
+	Global.set_potions(potions_init)
 	Global.set_tribe_count(0)
 	Global.health_base(100)
 	
@@ -65,7 +67,7 @@ func set_state(new_State : State):
 			objetivos.show()
 			Global.pause()
 			var tween = create_tween()
-			tween.tween_property(objetivos, "modulate:a", 1.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tween.tween_property(objetivos, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			tween.finished.connect(_on_objetive_fade_finished)
 			
 		State.NORMAL:
@@ -73,7 +75,7 @@ func set_state(new_State : State):
 			#objetivos.hide()
 			Global.unpause()
 			var tween = create_tween()
-			tween.tween_property(objetivos, "modulate:a", 0.0, 0.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tween.tween_property(objetivos, "modulate:a", 0.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			tween.finished.connect(_on_objetive_fade_finished)
 	
 	pass

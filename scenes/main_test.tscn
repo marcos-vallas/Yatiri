@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://bxwyycl75xmc8" path="res://scenes/muralla_tribu.tscn" id="5_e1aya"]
 [ext_resource type="PackedScene" uid="uid://umlahfsnucks" path="res://scenes/hut_enemigo.tscn" id="6_2iwcc"]
 [ext_resource type="PackedScene" uid="uid://dffibcq8yx4ff" path="res://scenes/muralla_enemiga.tscn" id="7_nqm56"]
-[ext_resource type="PackedScene" uid="uid://cwifmrlq3q17b" path="res://scenes/player.tscn" id="8_mcumu"]
 [ext_resource type="Script" uid="uid://78h00os5anau" path="res://scripts/game_manager_2.gd" id="9_qtkwu"]
 [ext_resource type="PackedScene" uid="uid://if70u5c5so77" path="res://scenes/Allied_1.tscn" id="10_1kj4d"]
 [ext_resource type="PackedScene" uid="uid://df28lywfiv1bg" path="res://scenes/allied_2_customRange.tscn" id="11_hn8kg"]
@@ -37,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://c40wg662eqw3h" path="res://assets/img/parallax/parallax-nuevo-cactus.png" id="33_sujtp"]
 [ext_resource type="Script" uid="uid://dtel6iu06o1tn" path="res://scripts/day_night_cycle.gd" id="34_ihfy7"]
 [ext_resource type="PackedScene" uid="uid://bdpe0in6t3f84" path="res://scenes/hud.tscn" id="35_pervr"]
+[ext_resource type="PackedScene" uid="uid://dyyddp7l1ifde" path="res://scenes/player_Chaman.tscn" id="37_36cmm"]
 
 [sub_resource type="Shader" id="Shader_ixsww"]
 code = "shader_type canvas_item;
@@ -628,9 +628,8 @@ position = Vector2(1096, 358.918)
 position = Vector2(425, 294.293)
 health = 70
 
-[node name="Player" parent="." instance=ExtResource("8_mcumu")]
-process_mode = 3
-position = Vector2(-829, 332)
+[node name="Player" parent="." instance=ExtResource("37_36cmm")]
+position = Vector2(-862, 324.12)
 
 [node name="Edificios_Propios" type="Node" parent="."]
 

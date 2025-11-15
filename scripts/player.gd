@@ -66,12 +66,15 @@ func _on_muralla_destruida():
 	camera_shake(2.0, 1.5)
 func _process(delta: float) -> void:
 	$Label.text = str(Global.coins)
+	
+	
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 
 	# --- Movimiento ---
 	direction.x = Input.get_axis("left", "right")
+	
 
 	# Actualizar facing_direction si se mueve
 	if direction.x != 0:
@@ -94,9 +97,13 @@ func _physics_process(delta: float) -> void:
 			await get_tree().create_timer(3).timeout
 			$Exhala.hide()  # mostrar exhala solo al cansarse
 			
-	else:
-		# caminar o descansar
-		is_running = false
+			
+	#else:
+		## caminar o descansar
+		#if (Input.is_action_pressed("left") or Input.is_action_pressed("right")) and !Input.is_action_pressed("run"):
+			#animated_sprite.play("walk")
+			#is_running = false
+		
 		if rest_timer > 0.0:
 			rest_timer -= delta
 			if rest_timer <= 0.0:
@@ -134,12 +141,25 @@ func _physics_process(delta: float) -> void:
 		elif Input.is_action_just_pressed("magic") and not is_magic_attacking:
 			_start_magic_attack()
 		elif direction.x != 0:
-			if animated_sprite.animation != "run":
-				steps.pitch_scale = randf_range(0.8, 1.0)
-				steps.play()
-				animated_sprite.play("run")
+			if (direction.x != 0 and !Input.is_action_pressed("run")):
+				if animated_sprite.animation != "walk":
+					animated_sprite.offset = Vector2.ZERO
+					animated_sprite.play("walk")
+					steps.pitch_scale = randf_range(0.3, 0.5)
+					steps.play()
+					is_running = false
+			if (direction.x != 0 and Input.is_action_pressed("run")):
+				if animated_sprite.animation != "run":
+					animated_sprite.offset = Vector2.ZERO
+					animated_sprite.play("run")
+					steps.pitch_scale = randf_range(0.8, 1.0)
+					steps.play()
+					is_running = true
+				
+				
 		else:
 			if animated_sprite.animation != "idle":
+				animated_sprite.offset = Vector2(0,1)
 				animated_sprite.play("idle")
 			if steps.playing:
 				steps.stop()
@@ -166,6 +186,7 @@ func _update_attack_area_direction() -> void:
 func _start_attack() -> void:
 	is_attacking = true
 	velocity = Vector2.ZERO
+	animated_sprite.offset = Vector2(0,-6.6)
 	animated_sprite.play("attack")
 	if steps.playing:
 		steps.stop()
@@ -182,6 +203,7 @@ func _start_magic_attack() -> void:
 	
 	is_magic_attacking = true
 	velocity = Vector2.ZERO
+	animated_sprite.offset = Vector2(0,-6)
 	animated_sprite.play("magic")
 	_spawn_lightning()
 	$Magic.play()
@@ -235,7 +257,7 @@ func take_damage(damage:int, knockback_dir: Vector2 = Vector2(0,0), hit_from_rig
 		return
 
 	$AttackHit.play()
-	flash_white()
+	#flash_white()
 	_drop_coin(hit_from_right)
 
 	var knockback_strength = 250
@@ -245,11 +267,13 @@ func take_damage(damage:int, knockback_dir: Vector2 = Vector2(0,0), hit_from_rig
 	camera_shake(0.2, 3.0)  # duración 0.2s, intensidad 3.0
 	# reproducir animación hurt solo si no estás atacando
 	if not is_attacking and not is_magic_attacking: # ⚡ agregado
+		animated_sprite.offset = Vector2(0,1)
 		animated_sprite.play("hurt")
 
 	await get_tree().create_timer(1.5).timeout
 
 	if direction.x == 0 and not is_attacking and not is_magic_attacking: # ⚡ agregado
+		animated_sprite.offset = Vector2(0,1)
 		animated_sprite.play("idle")
 	elif direction.x != 0 and not is_attacking and not is_magic_attacking: # ⚡ agregado
 		animated_sprite.play("run")
@@ -281,6 +305,7 @@ func flash_white() -> void:
 func die() -> void:
 	is_dead = true
 	$Player_Body.disabled = true
+	animated_sprite.offset = Vector2(10.0,-1.0)
 	animated_sprite.play("death")
 	velocity = Vector2.ZERO
 	animated_sprite.position.y += 6

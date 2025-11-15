@@ -25,7 +25,7 @@ enum State { WALK_FORWARD, PRE_ATTACK, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 @export var steps_volume_db: float = -23.0
 
 
-@onready var animated_sprite: AnimatedSprite2D = $Enemy
+@export var animated_sprite: AnimatedSprite2D 
 @onready var attack_area: Area2D = $AttackArea
 
 @onready var coin_scene = preload("res://scenes/coin.tscn")
@@ -131,14 +131,14 @@ func _get_target_with_priority3() -> Node:
 
 # -------------------- MOVIMIENTO Y ATAQUE --------------------
 func _physics_process(delta: float) -> void:
-	
+	var cerca_de_jugador : bool = false
 	if is_dead:
 		return
 	
 	# Detectar el objetivo en cada frame
 	var target = _get_target_with_priority3()
 	
-	var cerca_de_jugador : bool = false
+	
 	if target != null:
 		if target.is_in_group("Player_Body"):
 			var dist_player = global_position.distance_to(target.global_position)
@@ -293,6 +293,7 @@ func set_state(new_state: State) -> void:
 			attack_area.monitoring = false
 
 		State.DEAD:
+			$Label.visible = false
 			$Aliado_2_Body.disabled = true
 			remove_from_group("Aliado_2")
 			is_dead = true
@@ -328,7 +329,7 @@ func _pre_attack_timer() -> void:
 
 # -------------------- ATAQUE --------------------
 func _on_frame_changed() -> void:
-	if state == State.ATTACK and animated_sprite.frame == 2:
+	if state == State.ATTACK and animated_sprite.frame == 1:
 		var bodies = attack_area.get_overlapping_bodies()
 		var areas = attack_area.get_overlapping_areas()
 		for body in bodies + areas:
@@ -373,8 +374,7 @@ func _start_idle_timer() -> void:
 	idle_timer_active = true
 	await get_tree().create_timer(idle_duration).timeout
 	idle_timer_active = false
-	if not is_dead and state == State.IDLE:
-		set_state(State.WALK_FORWARD)
+	#if not is_dead and state == State.Idd
 
 # -------------------- DAMAGE --------------------
 func take_damage(amount: int, knockback_dir: Vector2 = Vector2(0,0), is_arrow_attack: bool = false) -> void:

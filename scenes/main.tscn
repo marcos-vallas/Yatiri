@@ -618,7 +618,7 @@ max_health = 100
 costo_reparacion = 1
 
 [node name="SpawnPos_Enemies" type="Marker2D" parent="."]
-position = Vector2(1975, 344.999)
+position = Vector2(2146, 344.999)
 scale = Vector2(1, 0.994233)
 
 [node name="HutEnemigo" parent="." instance=ExtResource("19_0ld40")]
@@ -796,6 +796,7 @@ texture = ExtResource("10_og1vs")
 centered = false
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
+modulate = Color(0.886262, 0.886261, 0.886262, 1)
 position = Vector2(0, -99)
 motion_scale = Vector2(0.2, 1)
 motion_mirroring = Vector2(1440, 0)
@@ -806,34 +807,61 @@ position = Vector2(0, 112)
 texture = ExtResource("11_yq6so")
 centered = false
 
-[node name="ParallaxLayer10" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
+[node name="mountain front" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
+modulate = Color(0.775063, 0.775063, 0.775063, 1)
 position = Vector2(0, -99)
 motion_scale = Vector2(0.3, 1)
 motion_mirroring = Vector2(1440, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer10"]
+[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/mountain front"]
 modulate = Color(0.710741, 0.710741, 0.710741, 1)
 position = Vector2(418, 329)
 texture = ExtResource("13_yq6so")
 centered = false
 flip_h = true
 
-[node name="ParallaxLayer8" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
-position = Vector2(0, -99)
+[node name="trees back 1" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
+visible = false
+modulate = Color(0.724643, 0.724643, 0.724643, 1)
+position = Vector2(-154, 110)
+scale = Vector2(0.6925, 0.52)
 motion_scale = Vector2(0.5, 1)
 motion_mirroring = Vector2(1440, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer8"]
+[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/trees back 1"]
 position = Vector2(-4, 136)
 texture = ExtResource("13_tel4y")
 centered = false
 
-[node name="ParallaxLayer9" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
+[node name="cactus back1" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
+visible = false
+modulate = Color(0.674815, 0.674815, 0.674815, 1)
+position = Vector2(212, -28)
+scale = Vector2(0.8, 0.84)
+motion_scale = Vector2(0.9, 1.286)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/cactus back1"]
+position = Vector2(2, 123)
+texture = ExtResource("14_qkpxi")
+centered = false
+
+[node name="trees fron" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
+position = Vector2(0, -99)
+motion_scale = Vector2(0.5, 1)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/trees fron"]
+position = Vector2(-4, 136)
+texture = ExtResource("13_tel4y")
+centered = false
+
+[node name="cactus front" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
 position = Vector2(0, -94)
 motion_scale = Vector2(0.7, 1)
 motion_mirroring = Vector2(1440, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer9"]
+[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/cactus front"]
 position = Vector2(2, 123)
 texture = ExtResource("14_qkpxi")
 centered = false

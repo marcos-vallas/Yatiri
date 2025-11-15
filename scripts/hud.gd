@@ -52,3 +52,6 @@ func _on_potions_changed(new_value: int) -> void:
 
 func _on_tribe_changed(new_value: int) -> void:
 	tribe_label.text = str(new_value).pad_zeros(2)
+	
+func _process(delta: float) -> void:
+	tribe_label.text = str(Global.tribe_count) #.pad_zeros(2)

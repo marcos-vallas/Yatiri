@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://db4lf7n6xqk4x"]
+[gd_scene load_steps=47 format=4 uid="uid://db4lf7n6xqk4x"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_hn8kg"]
 [ext_resource type="Texture2D" uid="uid://btfvb60do88jx" path="res://assets/img/SuriGames_v2.png" id="2_kj2hj"]
@@ -37,6 +37,7 @@
 [ext_resource type="Script" uid="uid://dtel6iu06o1tn" path="res://scripts/day_night_cycle.gd" id="34_ihfy7"]
 [ext_resource type="PackedScene" uid="uid://bdpe0in6t3f84" path="res://scenes/hud.tscn" id="35_pervr"]
 [ext_resource type="PackedScene" uid="uid://dyyddp7l1ifde" path="res://scenes/player_Chaman.tscn" id="37_36cmm"]
+[ext_resource type="PackedScene" uid="uid://dr4q58scu2r1k" path="res://scenes/spear.tscn" id="38_ioexj"]
 
 [sub_resource type="Shader" id="Shader_ixsww"]
 code = "shader_type canvas_item;
@@ -583,6 +584,11 @@ player = NodePath("Player")
 tilemap = NodePath("Visuales/TileMap")
 tutorial = NodePath("Visuales/CanvasLayer2/Tutorial")
 
+[node name="Spear" parent="." instance=ExtResource("38_ioexj")]
+position = Vector2(-841, 70.5906)
+scale = Vector2(1, 0.994233)
+fall_gravity = 10.0
+
 [node name="Alies" type="Node2D" parent="."]
 
 [node name="SpawnPos_Allies" type="Marker2D" parent="."]
@@ -631,6 +637,9 @@ health = 70
 [node name="Player" parent="." instance=ExtResource("37_36cmm")]
 position = Vector2(-862, 325)
 
+[node name="Enemy_2" parent="." instance=ExtResource("13_tjerq")]
+position = Vector2(-355, 344.999)
+
 [node name="Edificios_Propios" type="Node" parent="."]
 
 [node name="Edificios_Enemigos" type="Node" parent="."]
@@ -641,12 +650,12 @@ tiempo_dia = 15.0
 tiempo_noche = 20.0
 allied_spawner = NodePath("AlliedSpawner")
 aliado_1_escena = ExtResource("10_1kj4d")
-cant_Aliado_1_dia = 2.0
+cant_Aliado_1_dia = 0.0
 aliado_2_escena = ExtResource("11_hn8kg")
-cant_Aliado_2_dia = 8.0
+cant_Aliado_2_dia = 3.0
 enemy_spawner = NodePath("EnemySpawner")
 enemigo_1_escena = ExtResource("12_h34cy")
-cant_Enemigo_1_noche = 3.0
+cant_Enemigo_1_noche = 0.0
 enemigo_2_escena = ExtResource("13_tjerq")
 enemigo_3_escena = ExtResource("14_75d54")
 cant_Enemigo_3_noche = 2.0

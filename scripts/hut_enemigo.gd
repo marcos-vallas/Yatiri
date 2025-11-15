@@ -61,5 +61,6 @@ func _on_destroyed() -> void:
 	await get_tree().create_timer(6).timeout
 	Global.game_result_text = "¡Ganaste!\n\n¿Jugar de nuevo?"
 	get_tree().change_scene_to_file("res://scenes/game_over_screen.tscn")
-
-	queue_free()
+	
+	remove_from_group("Hut Enemigo")
+	#queue_free()

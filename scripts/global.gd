@@ -1,7 +1,9 @@
 extends Node
 
-var coins: int = 15
-var potions: int = 15
+var paused:bool = true
+
+var coins: int = 0
+var potions: int = 0
 var tribe_count: int = 0   
 var base_health: int = 40
 var base_max_health: int = 100
@@ -19,6 +21,10 @@ signal base_health_changed(new_value)  # 🔥 Nueva señal
 signal cycle_changed(new_value)
 signal time_changed(new_value)
 
+func pause() ->void:
+	paused = true
+func unpause() ->void:
+	paused = false
 
 func change_cycle(ciclo:int) -> void:
 	ciclo_actual = ciclo

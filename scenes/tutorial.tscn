@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyfvjbgy7ydwc"]
+[gd_scene load_steps=4 format=3 uid="uid://cyfvjbgy7ydwc"]
 
 [ext_resource type="FontFile" uid="uid://bxqx6c1hu6ki7" path="res://assets/font/Acadian_Runes-Regular_PERSONAL_USE.ttf" id="1_c13y7"]
+[ext_resource type="Texture2D" uid="uid://b8o5sryfw6m2o" path="res://assets/img/Fondos/Pergamino/pergamino centro blanco corto.png" id="1_ph3nu"]
+[ext_resource type="Texture2D" uid="uid://cy8528hode8q0" path="res://assets/img/Fondos/Pergamino/pergamino centro blanco.png" id="3_4kmhl"]
 
 [node name="Tutorial" type="Control"]
 process_mode = 3
@@ -20,19 +22,35 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_top = 70
 
-[node name="Label" type="Label" parent="MarginContainer"]
+[node name="PergaminoCentroBlancoCorto" type="Sprite2D" parent="."]
+modulate = Color(0.807843, 0.807843, 0.807843, 1)
+position = Vector2(332, 175.5)
+scale = Vector2(0.434783, 0.344118)
+texture = ExtResource("1_ph3nu")
+
+[node name="Label" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 2
+offset_left = 249.0
+offset_top = 128.0
+offset_right = 475.0
+offset_bottom = 279.0
+scale = Vector2(0.767681, 0.800001)
 size_flags_vertical = 0
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("1_c13y7")
 theme_override_font_sizes/font_size = 18
-text = "- A - para moverte a la izquierda
-- D - para moverte a la derecha
-- Enter - para atacar
-- Shift - para correr
-- P - para ataque mágico
-
-Presioná ENTER para empezar..."
-horizontal_alignment = 1
+text = "Movimiento a Izquierda: \"A\"  
+Movimiento a Derecha: \"D\"
+Reclutar/Reparar: \"S\"
+Correr: \"Shift\"
+Ataque Simple: \"Enter\"
+Ataque Mágico: \"P\"
+"
 vertical_alignment = 1
+
+[node name="PergaminoCentroBlanco" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(233, 205)
+scale = Vector2(0.286357, 0.227015)
+texture = ExtResource("3_4kmhl")

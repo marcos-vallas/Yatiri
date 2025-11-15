@@ -22,6 +22,7 @@ var calculation_gravity_multiplier: float = 1.5
 var elevation_boost : float = 150.0
 var elevation_scale: float = 1.5 # Ajusta este valor para controlar la intensidad del arco.
 
+var devuelta:bool = false
 
 
 var vel: Vector2 = Vector2.ZERO
@@ -42,7 +43,7 @@ func _physics_process(delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if \
 	(area.is_in_group("Muralla") or area.is_in_group("Base")):
-		
+		frenar()
 		if $Spear_Impact:
 			$Spear_Impact.play()
 		if self_sprite != null : self_sprite.visible = false
@@ -79,6 +80,15 @@ func _on_area_entered(area: Area2D) -> void:
 		$CollisionShape2D.set_deferred("disabled", true)
 		await get_tree().create_timer(0.3).timeout
 		queue_free()
+	if devuelta:
+		if area.is_in_group("Enemy"):
+			if $Spear_Impact:
+				$Spear_Impact.play()
+			if self_sprite != null : self_sprite.visible = false
+			if $CPUParticles2D:
+				$CPUParticles2D.visible = false
+			if area.has_method("take_damage"):
+				area.take_damage(damage_unidades)
 
 
 func _on_body_entered(body: Node) -> void:
@@ -113,7 +123,7 @@ func _on_body_entered(body: Node) -> void:
 		queue_free()
 		
 	elif body.is_in_group("Ground"):
-		
+		frenar()
 		if self_sprite != null : self_sprite.visible = false
 		$CPUParticles2D.one_shot = true
 		$CPUParticles2D.emitting = false
@@ -121,6 +131,34 @@ func _on_body_entered(body: Node) -> void:
 		$CollisionShape2D.set_deferred("disabled", true)
 		await get_tree().create_timer(0.3).timeout
 		queue_free()
+	
+	if devuelta:
+		if body.is_in_group("Enemy"):
+			if $Spear_Impact:
+				$Spear_Impact.play()
+			if self_sprite != null : self_sprite.visible = false
+			if $CPUParticles2D:
+				$CPUParticles2D.visible = false
+			if body.has_method("take_damage"):
+				body.take_damage(damage_unidades)
+			
+func frenar()->void:
+	vel = Vector2.ZERO
+	
+func devolver(target:Node)-> void:
+	devuelta = true
+	launch_towards_wall(target)
+	pass
+func destruir() -> void:
+	frenar()
+	$CollisionShape2D.set_deferred("disabled", true)
+	if self_sprite != null : self_sprite.visible = false
+	$CPUParticles2D.one_shot = true
+	$CPUParticles2D.emitting = false
+	$CPUParticles2D.speed_scale = 0
+	#await get_tree().create_timer(0.3).timeout
+	queue_free()
+
 
 func launch_towards_wall(objetivo: Node2D, time_to_hit: float = -1.0) -> void:
 	if not objetivo or not objetivo.is_inside_tree():
@@ -134,6 +172,7 @@ func launch_towards_wall(objetivo: Node2D, time_to_hit: float = -1.0) -> void:
 	#else: 
 		#elevation_boost = 0
 		#fall_gravity = 1500
+	frenar()
 	_prepare_and_launch(objetivo.global_position, time_to_hit)
 
 func launch_towards_muralla(muralla: Node2D, time_to_hit: float = -1.0) -> void:

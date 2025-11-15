@@ -25,6 +25,8 @@ class_name Player
 @export var danio_a_enemigo :int = 30
 @export var danio_a_muralla : int =10
 
+@export var devuelve_lanzas :bool =false
+@export var destruye_lanzas :bool =false
 
 var run_timer: float = 0.0
 var rest_timer: float = 0.0
@@ -45,6 +47,8 @@ var knockback_timer: float = 0.0
 var knockback_duration: float = 0.2
 
 var can_play_hit_sound := true
+
+var target : Node
 
 
 enum State { WALK, RUN, TIRED, ATTACK, MAGIC, IDLE, HURT, DEAD }
@@ -73,8 +77,9 @@ func _on_muralla_destruida():
 func _process(delta: float) -> void:
 	$Label.text = str(Global.coins)
 	
-	
+
 func _physics_process(delta: float) -> void:
+	target = _get_target_with_priority3()
 	if is_dead:
 		return
 
@@ -145,8 +150,9 @@ func _physics_process(delta: float) -> void:
 
 	# --- Animaciones y ataque ---
 	if is_attacking:
-		if animated_sprite.animation == "attack" and animated_sprite.frame == 2:
+		if animated_sprite.animation == "attack" :#and animated_sprite.frame == 2:
 			attack_shape.disabled = false
+			pass
 		else:
 			attack_shape.disabled = true
 
@@ -181,7 +187,39 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func _get_target_with_priority3() -> Node:
+	var all_targets = []
+	var max_range = INF
 
+	max_range = 500
+	
+	all_targets.append_array(get_tree().get_nodes_in_group("Enemy"))
+	#all_targets.append_array(get_tree().get_nodes_in_group("Muralla Enemiga"))
+	
+	if all_targets.is_empty():
+		return null
+
+	# Encontrar el objetivo más cercano que esté dentro del rango (Requisito 1 y 2)
+	var closest_target: Node = null
+	var min_dist: float = INF
+	
+	for target in all_targets:
+		# Se realiza una verificación de validez y posición
+		if is_instance_valid(target): # and target.has_method("global_position"):
+			var dist = global_position.distance_to(target.global_position)
+			
+			# Aplicar filtro de rango de detección (Requisito 2)
+			if dist <= max_range:
+				if dist < min_dist:
+					min_dist = dist 
+					closest_target = target
+					#$Label.text = ">:("
+				
+	if closest_target == null:
+		pass
+		#$Label.text = "?"
+
+	return closest_target
 
 func set_state(new_state: State) -> void:
 	if current_state == new_state:
@@ -326,13 +364,32 @@ func _on_attack_area_body_entered(body: Node) -> void:
 		var dir = Vector2(sign(body.global_position.x - global_position.x), 0) * attack_knockback
 		body.take_damage(danio_a_enemigo, dir)
 		camera_shake(0.2, 1.0)  # duración 0.2s, intensidad 3.0
+	#if body.is_in_group("Lanza") and body.has_method("launch_towards_wall") and body.has_method("destruir"):
+		#if destruye_lanzas:
+			##print("Lanza en body")
+			#play_hit_sound()
+			#if target!= null:
+				#body.devolver(target)
+			#elif target == null: body.destruir()
+	
+
 
 func _on_attack_area_area_entered(area: Area2D) -> void:
 	if (area.is_in_group("Muralla Enemiga") or area.is_in_group("Hut Enemigo")) and area.has_method("take_damage"):
 		play_hit_sound()
 		area.take_damage(danio_a_muralla)
 		camera_shake(0.2, 2.0)  # duración 0.2s, intensidad 3.0
-
+	if area.is_in_group("Lanza") and area.has_method("launch_towards_wall") and area.has_method("destruir"):
+		if destruye_lanzas:
+			#print("Lanza en area")
+			play_hit_sound()
+			if devuelve_lanzas:
+				if target!= null:
+					area.devolver(target)
+			else: area.destruir()
+			#elif target == null: area.destruir()
+		
+		
 func play_hit_sound():
 	if can_play_hit_sound:
 		$AttackHit.play()

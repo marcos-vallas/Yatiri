@@ -8,11 +8,18 @@ extends Node2D
 
 var segment_width: int
 var tiles: Array = []
+var start_pause :bool = true
 
 func _ready() -> void:
 	set_process(false)  # Desactiva _process mientras se hace la transición
 	
+	Global.pause()
 	tutorial.show()
+	
+	
+	
+	Global.set_coins(10)
+	Global.set_potions(5)
 	
 	if has_node("CanvasLayer2/TransitionControl"):
 		var transition = $CanvasLayer2/TransitionControl
@@ -45,6 +52,8 @@ func _process(delta: float) -> void:
 		var tween = create_tween()
 		tween.tween_property(tutorial, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		tween.finished.connect(_on_tutorial_fade_finished)
+		Global.unpause()
+		
 
 	#var hut = hut_scene.instantiate()
 	#add_child(hut)

@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfmqmdfplwaa6"]
+
+[ext_resource type="Texture2D" uid="uid://b8o5sryfw6m2o" path="res://assets/img/Fondos/Pergamino/pergamino centro blanco corto.png" id="1_kymwu"]
+[ext_resource type="FontFile" uid="uid://bxqx6c1hu6ki7" path="res://assets/font/Acadian_Runes-Regular_PERSONAL_USE.ttf" id="2_gvwy8"]
+[ext_resource type="Texture2D" uid="uid://cy8528hode8q0" path="res://assets/img/Fondos/Pergamino/pergamino centro blanco.png" id="3_jbhyu"]
+
+[node name="Tutorial" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 70
+
+[node name="PergaminoCentroBlancoCorto" type="Sprite2D" parent="."]
+modulate = Color(0.807843, 0.807843, 0.807843, 1)
+position = Vector2(354, 177)
+scale = Vector2(0.608398, 0.43986)
+texture = ExtResource("1_kymwu")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+offset_left = 217.0
+offset_top = 94.0
+offset_right = 679.0
+offset_bottom = 299.0
+scale = Vector2(0.700366, 0.846075)
+size_flags_vertical = 0
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_gvwy8")
+theme_override_font_sizes/font_size = 18
+text = "Objetivos:
+- Manten el Roble con vida.
+- Destruye la base de los invasores.
+- No pierdas las semillas del roble mágico.
+Consejos:
+- Recluta aliados para lograr el objetivo.
+- Manten la muralla principal reparada.
+- Los aliados son mas eficientes para destruir edificios.
+"
+vertical_alignment = 1
+
+[node name="PergaminoCentroBlanco" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(233, 205)
+scale = Vector2(0.286357, 0.227015)
+texture = ExtResource("3_jbhyu")

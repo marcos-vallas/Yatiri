@@ -46,27 +46,25 @@ func _ready():
 	tiempo_restante = tiempo_dia
 	es_de_noche = false
 	# Inicializamos el ciclo
-	iniciar_dia()
+	#iniciar_dia()
 
 func _process(delta):
 	tiempo_restante -= delta
 
-	if tiempo_restante <= 0:
-		if es_de_noche:
-			# Transición: NOCHE -> DÍA
-			
-			ciclo_actual += 1 # Preparamos la progresión
-			Global.change_time("Dia")
-			Global.change_cycle(ciclo_actual)
-			iniciar_dia()
-			
-			
-			
-		else:
+	if !Global.paused:
+		if tiempo_restante <= 0:
+			if es_de_noche:
+				# Transición: NOCHE -> DÍA
+				ciclo_actual += 1 # Preparamos la progresión
+				Global.change_time("Dia")
+				Global.change_cycle(ciclo_actual)
+				iniciar_dia()
+
+			else:
 			# Transición: DÍA -> NOCHE
-			Global.change_time("Noche")
-			iniciar_noche()
-			
+				Global.change_time("Noche")
+				iniciar_noche()
+				
 			#base_enemiga.health += 10
 			#muralla_enemiga.health += 10
 

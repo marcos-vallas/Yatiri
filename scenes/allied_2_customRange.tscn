@@ -88,10 +88,10 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hcr21"]
-size = Vector2(24, 44)
+size = Vector2(28.8889, 53.5556)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nrqq"]
-size = Vector2(33.3333, 25.6666)
+size = Vector2(36.6667, 25)
 
 [node name="Allied 2" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite") groups=["Aliado_2"]]
 z_index = 1
@@ -102,11 +102,11 @@ script = ExtResource("1_06a6k")
 health = 90
 walk_speed = 100.0
 danio_a_base = 6
-danio_a_muralla = 5
+danio_a_muralla = 4
 danio_a_enemigo = 30
 walk_duration = 0.5
 attack_range = 45.0
-pre_attack_delay = 0.02
+pre_attack_delay = 0.05
 idle_duration = 0.4
 attack_knockback = 200.0
 follow_range = 90.0
@@ -160,7 +160,7 @@ material = SubResource("CanvasItemMaterial_x5oq2")
 texture = SubResource("GradientTexture2D_m468s")
 
 [node name="Aliado_2_Body" type="CollisionShape2D" parent="."]
-position = Vector2(2, -24)
+position = Vector2(2.22222, -28.7778)
 shape = SubResource("RectangleShape2D_hcr21")
 
 [node name="AttackHit" type="AudioStreamPlayer2D" parent="."]
@@ -175,7 +175,7 @@ collision_layer = 64
 collision_mask = 288
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(-30, -17)
+position = Vector2(-32.7778, -11.9444)
 shape = SubResource("RectangleShape2D_6nrqq")
 
 [node name="Attack" type="AudioStreamPlayer2D" parent="."]

@@ -36,8 +36,8 @@ func _on_objetivo_cumplido(numero:int)->void:
 			objetivo_5.finalizar_quest()
 			objetivo_6.iniciar_quest()
 		6:
-			objetivo_5.objetivo_completado()
-			objetivo_5.finalizar_quest()
+			objetivo_6.objetivo_completado()
+			objetivo_6.finalizar_quest()
 			#objetivo_6.iniciar_quest()
 		_:
 			pass

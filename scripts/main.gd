@@ -3,7 +3,7 @@ extends Node2D
 @export var player: CharacterBody2D#= $Player
 @export var tilemap: TileMapLayer #= $TileMap 
 @onready var coin_scene = preload("res://scenes/coin.tscn") 
-@onready var hut_scene = preload("res://scenes/hut.tscn")
+#@onready var hut_scene = preload("res://scenes/hut.tscn")
 @export var tutorial: Control #= $CanvasLayer2/Tutorial
 @export var objetivos : Control
 @export var monedas_init:int =13
@@ -106,6 +106,8 @@ func _process(delta: float) -> void:
 		set_state(State.NORMAL)
 		
 		Global.cumplir_objetivo(1)
+		
+		
 	
 	if Input.is_action_just_pressed("pause") and !tutorial.visible:
 		if cambiando_estado == false:

@@ -320,6 +320,32 @@ func _on_frame_changed() -> void:
 					var dir = Vector2(sign(body.global_position.x - global_position.x), 0) * (attack_knockback / 2)
 					body.take_damage(danio_a_aliados, dir)
 			$AttackHit.play()
+			return
+		for area in bodies + areas:
+			if not is_instance_valid(area):
+				continue
+
+			if area.has_method("take_damage"):
+				if area.is_in_group("Player"):
+					var dir = Vector2(sign(area.global_position.x - global_position.x), 0) * (attack_knockback / 2)
+					var hit_from_right = area.global_position.x < global_position.x
+					area.take_damage(1, dir, hit_from_right) #danio a jugador siempre es 1
+
+				elif area.is_in_group("Muralla"):
+					area.take_damage(danio_a_muralla)
+
+				elif area.is_in_group("Base"):
+					area.take_damage(danio_a_base)
+				
+				elif area.is_in_group("Aliado_1"):
+					var dir = Vector2(sign(area.global_position.x - global_position.x), 0) * (attack_knockback / 2)
+					area.take_damage(danio_a_aliados, dir)
+					
+				elif area.is_in_group("Aliado_2"):
+					var dir = Vector2(sign(area.global_position.x - global_position.x), 0) * (attack_knockback / 2)
+					area.take_damage(danio_a_aliados, dir)
+			$AttackHit.play()
+			return
 
 
 func _on_animation_finished() -> void:

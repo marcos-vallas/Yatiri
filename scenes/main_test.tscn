@@ -639,7 +639,13 @@ position = Vector2(425, 294.293)
 health = 70
 
 [node name="Player" parent="." instance=ExtResource("37_36cmm")]
-position = Vector2(-862, 325)
+position = Vector2(-202, 325.114)
+
+[node name="Enemy_1_Custom" parent="." instance=ExtResource("14_75d54")]
+position = Vector2(158, 345.993)
+
+[node name="Allied 2" parent="." instance=ExtResource("11_hn8kg")]
+position = Vector2(-146, 348.976)
 
 [node name="Edificios_Propios" type="Node" parent="."]
 

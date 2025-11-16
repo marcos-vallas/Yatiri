@@ -40,7 +40,7 @@ func _ready() -> void:
 
 
 		# Configurar barra
-	base_health_bar.max_value = Global.base_max_health
+	base_health_bar.value = Global.base_health
 	
 func _on_time_changed(time :String) -> void:
 	tiempo = time
@@ -65,6 +65,7 @@ func _on_tribe_changed(new_value: int) -> void:
 	
 func _process(delta: float) -> void:
 	tribe_label.text = str(Global.tribe_count) #.pad_zeros(2)
+	base_health_bar.max_value = Global.base_max_health
 
 func _on_quest_update(title,desc):
 	QuestTitle.text = title

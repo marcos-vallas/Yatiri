@@ -664,7 +664,6 @@ position = Vector2(-1015, 352.953)
 [node name="Hut" parent="." instance=ExtResource("17_muem4")]
 z_index = -2
 position = Vector2(-1185, 281.368)
-health = 300
 
 [node name="MurallaTribu2" parent="." instance=ExtResource("15_yq6so")]
 z_index = -4
@@ -673,7 +672,7 @@ max_health = 200
 costo_reparacion = 1
 
 [node name="SpawnPos_Enemies" type="Marker2D" parent="."]
-position = Vector2(2146, 347.982)
+position = Vector2(2209, 347.982)
 scale = Vector2(1, 0.994233)
 
 [node name="HutEnemigo" parent="." instance=ExtResource("19_0ld40")]
@@ -681,7 +680,7 @@ position = Vector2(2148, 339.034)
 health = 2000
 
 [node name="MurallaEnemiga" parent="." instance=ExtResource("17_qkpxi")]
-position = Vector2(1477, 301.253)
+position = Vector2(1518, 295.287)
 health = 1200
 
 [node name="Player2" parent="." instance=ExtResource("10_fuf3a")]

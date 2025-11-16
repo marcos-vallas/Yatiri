@@ -50,13 +50,13 @@ region = Rect2(200, 0, 100, 100)
 atlas = ExtResource("3_oweuj")
 region = Rect2(300, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oweuj"]
-atlas = ExtResource("2_dq62l")
-region = Rect2(0, 0, 100, 100)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_hcr21"]
 atlas = ExtResource("2_dq62l")
 region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oweuj"]
+atlas = ExtResource("2_dq62l")
+region = Rect2(0, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x5oq2"]
 atlas = ExtResource("2_dq62l")
@@ -166,10 +166,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 0.5,
-"texture": SubResource("AtlasTexture_oweuj")
+"texture": SubResource("AtlasTexture_hcr21")
 }, {
 "duration": 0.5,
-"texture": SubResource("AtlasTexture_hcr21")
+"texture": SubResource("AtlasTexture_oweuj")
 }, {
 "duration": 0.5,
 "texture": SubResource("AtlasTexture_x5oq2")
@@ -256,7 +256,7 @@ fill_from = Vector2(0.5, 0.5)
 size = Vector2(27.5, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nrqq"]
-size = Vector2(33.3333, 30.8333)
+size = Vector2(28.3333, 30.8333)
 
 [node name="Enemy 1" type="CharacterBody2D" node_paths=PackedStringArray("Collision_body") groups=["Enemy"]]
 z_index = 1
@@ -265,12 +265,12 @@ collision_layer = 32
 collision_mask = 2640
 script = ExtResource("1_a1412")
 health = 90
-walk_speed = 140.0
+walk_speed = 150.0
 danio_a_base = 12
 attack_range = 45.0
 pre_attack_delay = 0.02
-idle_duration = 0.5
-attack_knockback = 200.0
+idle_duration = 0.2
+attack_knockback = 150.0
 Collision_body = NodePath("Enemy_1_Body")
 metadata/_edit_group_ = true
 
@@ -310,7 +310,7 @@ collision_layer = 128
 collision_mask = 10758
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(-27.5, -17.5)
+position = Vector2(-30, -17.5)
 shape = SubResource("RectangleShape2D_6nrqq")
 
 [node name="Attack" type="AudioStreamPlayer2D" parent="."]

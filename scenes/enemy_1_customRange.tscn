@@ -256,7 +256,7 @@ fill_from = Vector2(0.5, 0.5)
 size = Vector2(27.5, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nrqq"]
-size = Vector2(30.8333, 24.5833)
+size = Vector2(30.8333, 27.5)
 
 [node name="Enemy_1_Custom" type="CharacterBody2D" node_paths=PackedStringArray("Collision_body") groups=["Enemy"]]
 z_index = 1
@@ -265,11 +265,11 @@ collision_layer = 32
 collision_mask = 2640
 script = ExtResource("1_1nlbi")
 health = 99
-walk_speed = 140.0
+walk_speed = 150.0
 attack_range = 45.0
 pre_attack_delay = 0.02
 idle_duration = 0.5
-attack_knockback = 200.0
+attack_knockback = 180.0
 custom_detection_range = 800.0
 use_custom_range = true
 Collision_body = NodePath("Body")
@@ -281,7 +281,7 @@ texture_filter = 1
 position = Vector2(0, -14.1667)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_oweuj")
-animation = &"hurt"
+animation = &"attack"
 autoplay = "idle"
 flip_h = true
 
@@ -309,10 +309,10 @@ bus = &"SFX"
 
 [node name="AttackArea" type="Area2D" parent="."]
 collision_layer = 128
-collision_mask = 2562
+collision_mask = 10758
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(-22.9167, -16.875)
+position = Vector2(-29.5833, -16.25)
 shape = SubResource("RectangleShape2D_6nrqq")
 
 [node name="Attack" type="AudioStreamPlayer2D" parent="."]

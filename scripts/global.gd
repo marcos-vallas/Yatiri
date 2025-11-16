@@ -5,8 +5,8 @@ var paused:bool = true
 var coins: int = 0
 var potions: int = 0
 var tribe_count: int = 0   
-var base_health: int = 40
-var base_max_health: int = 100
+var base_health: int = 300
+var base_max_health: int = 300
 var game_result_text = ""
 
 var ciclo_actual : int =1 

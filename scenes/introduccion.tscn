@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyfvjbgy7ydwc"]
+[gd_scene load_steps=4 format=3 uid="uid://1dies20i84mc"]
 
-[ext_resource type="FontFile" uid="uid://bxqx6c1hu6ki7" path="res://assets/font/Acadian_Runes-Regular_PERSONAL_USE.ttf" id="1_c13y7"]
-[ext_resource type="Texture2D" uid="uid://b8o5sryfw6m2o" path="res://assets/img/Fondos/Pergamino/pergamino centro blanco corto.png" id="1_ph3nu"]
-[ext_resource type="Texture2D" uid="uid://cy8528hode8q0" path="res://assets/img/Fondos/Pergamino/pergamino centro blanco.png" id="3_4kmhl"]
+[ext_resource type="Texture2D" uid="uid://b8o5sryfw6m2o" path="res://assets/img/Fondos/Pergamino/pergamino centro blanco corto.png" id="1_kf7ok"]
+[ext_resource type="FontFile" uid="uid://bxqx6c1hu6ki7" path="res://assets/font/Acadian_Runes-Regular_PERSONAL_USE.ttf" id="2_an40n"]
+[ext_resource type="Texture2D" uid="uid://cy8528hode8q0" path="res://assets/img/Fondos/Pergamino/pergamino centro blanco.png" id="3_qdgq5"]
 
-[node name="Tutorial" type="Control"]
+[node name="Introduccion" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -26,38 +26,39 @@ theme_override_constants/margin_top = 70
 modulate = Color(0.807843, 0.807843, 0.807843, 1)
 position = Vector2(332, 171)
 scale = Vector2(0.434783, 0.309804)
-texture = ExtResource("1_ph3nu")
+texture = ExtResource("1_kf7ok")
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 2
-offset_left = 251.0
-offset_top = 115.0
-offset_right = 477.0
-offset_bottom = 288.0
+offset_left = 233.0
+offset_top = 105.0
+offset_right = 518.0
+offset_bottom = 278.0
 scale = Vector2(0.767681, 0.800001)
 size_flags_vertical = 0
 theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("1_c13y7")
+theme_override_fonts/font = ExtResource("2_an40n")
 theme_override_font_sizes/font_size = 18
-text = "Movimiento a Izquierda: \"A\"  
-Movimiento a Derecha: \"D\"
-Reclutar/Reparar: \"S\"
-Correr: \"Shift\"
-Ataque Simple: \"Enter\"
-Ataque Mágico: \"L\"
-Objetivos: \"P\"
-"
+text = "En el ultimo solsticio de invierno,
+una especie invasora de duendes 
+Ziches se ha instalado
+cerca de la tribu. Su comportamiento
+es altamente violento.
+Los Diaguitas 
+necesitan que su Yatiri los guíe
+para mantener la paz en la aldea."
 vertical_alignment = 1
 
 [node name="PergaminoCentroBlanco" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(233, 205)
 scale = Vector2(0.286357, 0.227015)
-texture = ExtResource("3_4kmhl")
+texture = ExtResource("3_qdgq5")
 
 [node name="Label2" type="Label" parent="."]
 texture_filter = 1
+layout_mode = 0
 offset_left = 228.0
 offset_top = 330.0
 offset_right = 488.0
@@ -65,7 +66,7 @@ offset_bottom = 366.0
 scale = Vector2(0.767681, 0.800001)
 size_flags_vertical = 0
 theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("1_c13y7")
+theme_override_fonts/font = ExtResource("2_an40n")
 theme_override_font_sizes/font_size = 18
-text = "Presiona \"Enter\" para comenzar."
+text = "Presiona \"Enter\" para continuar."
 vertical_alignment = 1

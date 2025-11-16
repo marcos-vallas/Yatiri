@@ -1,13 +1,201 @@
-[gd_scene load_steps=46 format=3 uid="uid://f45wojucvxx6"]
+[gd_scene load_steps=80 format=3 uid="uid://f45wojucvxx6"]
 
 [ext_resource type="Script" uid="uid://bb4oaaat0nymm" path="res://scripts/enemy_2.gd" id="1_hqy2m"]
+[ext_resource type="Texture2D" uid="uid://cgik50jl85amf" path="res://assets/img/Ziche/Ziche__Death_0.png" id="2_3eqed"]
+[ext_resource type="Texture2D" uid="uid://dwgtfxmc1dsjo" path="res://assets/img/Ziche/Ziche__Ataque_0.png" id="2_7bwrd"]
 [ext_resource type="Texture2D" uid="uid://b46lc5b7jxtko" path="res://assets/img/Spear Native/attack.png" id="2_a4ywr"]
+[ext_resource type="Texture2D" uid="uid://dpioap7bcln8p" path="res://assets/img/Ziche/Ziche__Ataque_1.png" id="3_6do3i"]
 [ext_resource type="Texture2D" uid="uid://1aqaxe6rhdc7" path="res://assets/img/Spear Native/death.png" id="3_hvrhm"]
 [ext_resource type="Texture2D" uid="uid://belofc5lirui2" path="res://assets/img/Spear Native/idel.png" id="3_k4auq"]
+[ext_resource type="Texture2D" uid="uid://dbto5x50gwgpp" path="res://assets/img/Ziche/Ziche__Death_1.png" id="3_smvsi"]
+[ext_resource type="Texture2D" uid="uid://djnqmcw8utroe" path="res://assets/img/Ziche/Ziche__Hurt_1.png" id="4_7bwrd"]
 [ext_resource type="Texture2D" uid="uid://vxedo3q8onw2" path="res://assets/img/Spear Native/run.png" id="4_fdqbe"]
+[ext_resource type="Texture2D" uid="uid://cl23mf5j75jyq" path="res://assets/img/Ziche/Ziche__Hurt_0.png" id="5_6do3i"]
 [ext_resource type="AudioStream" uid="uid://bi5wbna2aygui" path="res://assets/sound/footstep.wav" id="5_a2yeo"]
 [ext_resource type="AudioStream" uid="uid://43hb83e5omms" path="res://assets/sound/attack.wav" id="6_hvrhm"]
+[ext_resource type="Texture2D" uid="uid://kohnfpux3utq" path="res://assets/img/Ziche/Ziche__IDLE_0.png" id="6_qjnyp"]
+[ext_resource type="Texture2D" uid="uid://bwwu81bqjln6s" path="res://assets/img/Ziche/Ziche__IDLE_1.png" id="7_1jmet"]
 [ext_resource type="AudioStream" uid="uid://bj2543vduipa2" path="res://assets/sound/attack_hit.wav" id="7_lxmbh"]
+[ext_resource type="Texture2D" uid="uid://dwjnogjpwcxe7" path="res://assets/img/Ziche/Ziche_run2_Run_1.png" id="8_r53gs"]
+[ext_resource type="Texture2D" uid="uid://t45m82hxpfbv" path="res://assets/img/Ziche/Ziche_run2_Run_2.png" id="9_772e2"]
+[ext_resource type="Texture2D" uid="uid://cxwgtmd1jwnul" path="res://assets/img/Ziche/Ziche_run2_Run_3.png" id="10_0atp2"]
+[ext_resource type="Texture2D" uid="uid://be6aojrxoqera" path="res://assets/img/Ziche/Ziche_run2_Run_4.png" id="11_a86bm"]
+[ext_resource type="Texture2D" uid="uid://b803kvnblcdot" path="res://assets/img/Ziche/Ziche_run2_Run_0.png" id="12_phn6v"]
+[ext_resource type="Texture2D" uid="uid://co3e7m6en7bde" path="res://assets/img/ZicheRojo/Ziche_rojo_Run_4.png" id="15_wbe07"]
+[ext_resource type="Texture2D" uid="uid://dhwy2822exygf" path="res://assets/img/ZicheRojo/Ziche_rojo_Lanzamiento_0.png" id="22_h57il"]
+[ext_resource type="Texture2D" uid="uid://bh8u5ghlmsikm" path="res://assets/img/ZicheRojo/Ziche_rojo_Lanzamiento_1.png" id="23_wbe07"]
+[ext_resource type="Texture2D" uid="uid://bu0rvxafkphug" path="res://assets/img/ZicheRojo/Ziche_rojo_Lanzamiento_2.png" id="24_52uuk"]
+[ext_resource type="Texture2D" uid="uid://dgq6uidjvwmqj" path="res://assets/img/ZicheRojo/Ziche_rojo_Death_0.png" id="25_qypmd"]
+[ext_resource type="Texture2D" uid="uid://cfm52bqikycrh" path="res://assets/img/ZicheRojo/Ziche_rojo_Death_1.png" id="26_di7ta"]
+[ext_resource type="Texture2D" uid="uid://dxhaksf62xb6m" path="res://assets/img/ZicheRojo/Ziche_rojo_Hurt_0.png" id="27_bp1hr"]
+[ext_resource type="Texture2D" uid="uid://ix7n7aiujx0u" path="res://assets/img/ZicheRojo/Ziche_rojo_Hurt_1.png" id="28_pacgd"]
+[ext_resource type="Texture2D" uid="uid://c1wn6ij2gttbs" path="res://assets/img/ZicheRojo/Ziche_rojo_IDLE_0.png" id="29_gudce"]
+[ext_resource type="Texture2D" uid="uid://cjsmh0kj4knq4" path="res://assets/img/ZicheRojo/Ziche_rojo_IDLE_1.png" id="30_1r7lx"]
+[ext_resource type="Texture2D" uid="uid://b5toqqt3cu25w" path="res://assets/img/ZicheRojo/Ziche_rojo_Run_0.png" id="31_aagj6"]
+[ext_resource type="Texture2D" uid="uid://26bei65t7vdy" path="res://assets/img/ZicheRojo/Ziche_rojo_Run_1.png" id="32_5v02v"]
+[ext_resource type="Texture2D" uid="uid://3ldiw6horu5e" path="res://assets/img/ZicheRojo/Ziche_rojo_Run_2.png" id="33_upjqh"]
+[ext_resource type="Texture2D" uid="uid://bjjkxdaex1qd5" path="res://assets/img/ZicheRojo/Ziche_rojo_Run_3.png" id="34_tlnsu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6b383"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_h57il")
+}, {
+"duration": 0.5,
+"texture": ExtResource("23_wbe07")
+}, {
+"duration": 3.0,
+"texture": ExtResource("24_52uuk")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 4.0,
+"texture": ExtResource("25_qypmd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_di7ta")
+}],
+"loop": false,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_bp1hr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_pacgd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_bp1hr")
+}, {
+"duration": 1.5,
+"texture": ExtResource("28_pacgd")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_gudce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_1r7lx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_aagj6")
+}, {
+"duration": 0.8,
+"texture": ExtResource("32_5v02v")
+}, {
+"duration": 1.2,
+"texture": ExtResource("33_upjqh")
+}, {
+"duration": 0.8,
+"texture": ExtResource("34_tlnsu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_wbe07")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a73yg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7bwrd")
+}, {
+"duration": 2.0,
+"texture": ExtResource("3_6do3i")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": ExtResource("2_3eqed")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_smvsi")
+}],
+"loop": false,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_7bwrd")
+}, {
+"duration": 2.0,
+"texture": ExtResource("5_6do3i")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_qjnyp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1jmet")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_r53gs")
+}, {
+"duration": 0.5,
+"texture": ExtResource("9_772e2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0atp2")
+}, {
+"duration": 0.8,
+"texture": ExtResource("11_a86bm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_phn6v")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_23374"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6jc3m"]
+gradient = SubResource("Gradient_23374")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f341w"]
+blend_mode = 1
+light_mode = 2
+
+[sub_resource type="Gradient" id="Gradient_4ume3"]
+offsets = PackedFloat32Array(0, 0.652482)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fihk1"]
+gradient = SubResource("Gradient_4ume3")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a2yeo"]
 atlas = ExtResource("2_a4ywr")
@@ -281,7 +469,7 @@ height = 44.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2yeo"]
 
-[node name="Enemy_2" type="CharacterBody2D" groups=["Enemy"]]
+[node name="Enemy_2" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite") groups=["Enemy"]]
 collision_layer = 32
 collision_mask = 592
 script = ExtResource("1_hqy2m")
@@ -295,18 +483,49 @@ attack_knockback = 300.0
 distancia_a_la_muralla = 150.0
 variacion_dist_muralla = 100.0
 knockback_force = 150.0
+animated_sprite = NodePath("ZicheRojo")
 metadata/_edit_group_ = true
 
+[node name="ZicheRojo" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -40)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_6b383")
+animation = &"death"
+autoplay = "idle"
+frame = 1
+frame_progress = 1.0
+
+[node name="Enemy3" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(0, -38.3333)
+scale = Vector2(0.48, 0.48)
+sprite_frames = SubResource("SpriteFrames_a73yg")
+animation = &"walk"
+
+[node name="PointLight2D" type="PointLight2D" parent="Enemy3"]
+visible = false
+color = Color(1, 1, 1, 0)
+energy = 1.4
+texture = SubResource("GradientTexture2D_6jc3m")
+texture_scale = 2.0
+height = 512.0
+
+[node name="Light" type="Sprite2D" parent="Enemy3/PointLight2D"]
+modulate = Color(0.0313726, 0.207843, 0.0313726, 0.490196)
+material = SubResource("CanvasItemMaterial_f341w")
+texture = SubResource("GradientTexture2D_fihk1")
+
 [node name="Enemy2" type="AnimatedSprite2D" parent="."]
+visible = false
 z_index = 2
 texture_filter = 1
 position = Vector2(0, -28)
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_lxmbh")
-animation = &"hurt"
+animation = &"idle"
 autoplay = "idle"
-frame = 4
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -24)
@@ -336,4 +555,4 @@ position = Vector2(0, -17)
 shape = SubResource("RectangleShape2D_a2yeo")
 
 [node name="SpearPosition" type="Node2D" parent="."]
-position = Vector2(-4, -41)
+position = Vector2(-35, -35)

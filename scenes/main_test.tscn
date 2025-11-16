@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://db4lf7n6xqk4x"]
+[gd_scene load_steps=49 format=4 uid="uid://db4lf7n6xqk4x"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_hn8kg"]
 [ext_resource type="Texture2D" uid="uid://btfvb60do88jx" path="res://assets/img/SuriGames_v2.png" id="2_kj2hj"]
@@ -24,12 +24,13 @@
 [ext_resource type="AudioStream" uid="uid://co2iwkedlkwty" path="res://assets/sound/Ethnic Drums  Tribal Music Background for Videos [No Copyright].mp3" id="21_iu6rw"]
 [ext_resource type="Texture2D" uid="uid://b7gqby3jeqjbv" path="res://assets/img/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="22_6ygfh"]
 [ext_resource type="PackedScene" uid="uid://cw3w7ubl15l72" path="res://scenes/transition_control.tscn" id="23_ejbio"]
-[ext_resource type="PackedScene" uid="uid://cyfvjbgy7ydwc" path="res://scenes/tutorial.tscn" id="24_cgpad"]
+[ext_resource type="PackedScene" uid="uid://cyfvjbgy7ydwc" path="res://scenes/controles.tscn" id="24_cgpad"]
 [ext_resource type="Texture2D" uid="uid://bug2pak5p1j2e" path="res://assets/img/parallax/parallax-00.png" id="25_kjev4"]
 [ext_resource type="PackedScene" uid="uid://dfmqmdfplwaa6" path="res://scenes/objetivos.tscn" id="26_e1aya"]
 [ext_resource type="Script" uid="uid://31j1lwvdnq2u" path="res://scripts/clouds.gd" id="26_thkun"]
 [ext_resource type="Texture2D" uid="uid://c43r50yqcdch7" path="res://assets/img/parallax/parallax-01.png" id="27_h0cu1"]
 [ext_resource type="Shader" uid="uid://c1gj8md3dnj1u" path="res://shaders/blur.gdshader" id="28_qlkox"]
+[ext_resource type="PackedScene" uid="uid://1dies20i84mc" path="res://scenes/introduccion.tscn" id="29_2iwcc"]
 [ext_resource type="Texture2D" uid="uid://b1bikqe8twap4" path="res://assets/img/parallax/parallax-nuevo-1.png" id="29_ed6qg"]
 [ext_resource type="Texture2D" uid="uid://b6q22x87h6as4" path="res://assets/img/parallax/parallax-con aire.png" id="30_5cdj7"]
 [ext_resource type="Texture2D" uid="uid://c87g586k4rkis" path="res://assets/img/parallax/parallaxjujuy/fondo_1.png" id="31_mpap2"]
@@ -578,11 +579,12 @@ shader_parameter/is_canvas_group = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tel4y"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("player", "tilemap", "tutorial", "objetivos")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("player", "tilemap", "introduccion", "tutorial", "objetivos")]
 scale = Vector2(1, 1.0058)
 script = ExtResource("1_hn8kg")
 player = NodePath("Player")
 tilemap = NodePath("Visuales/TileMap")
+introduccion = NodePath("Visuales/CanvasLayer2/Introduccion")
 tutorial = NodePath("Visuales/CanvasLayer2/Tutorial")
 objetivos = NodePath("Visuales/CanvasLayer2/Objetivos")
 monedas_init = 20
@@ -640,12 +642,6 @@ health = 70
 
 [node name="Player" parent="." instance=ExtResource("37_36cmm")]
 position = Vector2(-202, 325.114)
-
-[node name="Enemy_1_Custom" parent="." instance=ExtResource("14_75d54")]
-position = Vector2(158, 345.993)
-
-[node name="Allied 2" parent="." instance=ExtResource("11_hn8kg")]
-position = Vector2(-146, 348.976)
 
 [node name="Edificios_Propios" type="Node" parent="."]
 
@@ -782,6 +778,9 @@ visible = false
 [node name="Tutorial" parent="Visuales/CanvasLayer2" instance=ExtResource("24_cgpad")]
 visible = false
 
+[node name="Introduccion" parent="Visuales/CanvasLayer2" instance=ExtResource("29_2iwcc")]
+visible = false
+
 [node name="ParallaxJujuy" type="ParallaxBackground" parent="Visuales"]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
@@ -882,3 +881,7 @@ text = "Testing Field"
 [node name="HUD" parent="Visuales/HUD" instance=ExtResource("35_pervr")]
 size_flags_horizontal = 0
 size_flags_vertical = 0
+
+[node name="Enemy_2" parent="." instance=ExtResource("13_tjerq")]
+position = Vector2(184, 345.993)
+walk_back_variation = 0.3

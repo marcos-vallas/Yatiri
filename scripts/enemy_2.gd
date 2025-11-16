@@ -25,7 +25,7 @@ enum State { WALK_FORWARD, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 @export_category("Misc")
 @export var steps_volume_db: float = -23.0
 
-@onready var animated_sprite: AnimatedSprite2D = $Enemy2
+@export var animated_sprite: AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackArea
 @onready var spear_position: Node2D = $SpearPosition
 
@@ -213,7 +213,7 @@ func _on_fade_out_finished() -> void:
 
 # -------------------- ATAQUE --------------------
 func _on_frame_changed() -> void:
-	if state == State.ATTACK and animated_sprite.frame == 3:
+	if state == State.ATTACK and animated_sprite.frame == 2:
 		_throw_spear()
 
 func _throw_spear() -> void:

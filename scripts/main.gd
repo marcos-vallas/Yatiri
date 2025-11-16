@@ -4,6 +4,7 @@ extends Node2D
 @export var tilemap: TileMapLayer #= $TileMap 
 @onready var coin_scene = preload("res://scenes/coin.tscn") 
 #@onready var hut_scene = preload("res://scenes/hut.tscn")
+@export var introduccion : Control
 @export var tutorial: Control #= $CanvasLayer2/Tutorial
 @export var objetivos : Control
 @export var monedas_init:int =13
@@ -18,7 +19,8 @@ func _ready() -> void:
 	set_process(false)  # Desactiva _process mientras se hace la transición
 	
 	Global.pause()
-	tutorial.show()
+	#tutorial.show()
+	introduccion.show()
 	
 	Global.set_coins(monedas_init)
 	Global.set_potions(potions_init)
@@ -69,7 +71,7 @@ func set_state(new_State : State):
 			objetivos.show()
 			Global.pause()
 			var tween = create_tween()
-			tween.tween_property(objetivos, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tween.tween_property(objetivos, "modulate:a", 1.0, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			tween.finished.connect(_on_objetive_fade_finished)
 			
 		State.NORMAL:
@@ -77,7 +79,7 @@ func set_state(new_State : State):
 			#objetivos.hide()
 			Global.unpause()
 			var tween = create_tween()
-			tween.tween_property(objetivos, "modulate:a", 0.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tween.tween_property(objetivos, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			tween.finished.connect(_on_objetive_fade_finished)
 	
 	pass
@@ -98,14 +100,20 @@ func _on_objetive_fade_finished():
 
 	
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("attack") and tutorial.visible:
-		var tween = create_tween()
-		tween.tween_property(tutorial, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		tween.finished.connect(_on_tutorial_fade_finished)
-		#Global.unpause()
-		set_state(State.NORMAL)
+	if Input.is_action_just_pressed("attack"):
+		if introduccion.visible:
+			var tween = create_tween()
+			tween.tween_property(introduccion, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tween.finished.connect(_on_introduccion_fade_finished)
+			#tween.tween_property(tutorial, "modulate:a", 1.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		
-		Global.cumplir_objetivo(1)
+		if tutorial.visible:
+			var tween = create_tween()
+			tween.tween_property(tutorial, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tween.finished.connect(_on_tutorial_fade_finished)
+		#Global.unpause()
+			set_state(State.NORMAL)
+			Global.cumplir_objetivo(1)
 		
 		
 	
@@ -146,7 +154,9 @@ func _process(delta: float) -> void:
 
 func _on_tutorial_fade_finished() -> void:
 	tutorial.hide()
-
+func _on_introduccion_fade_finished()->void:
+	introduccion.hide()
+	tutorial.show()
 
 func spawn_coins_in_row(start_pos: Vector2, count: int, spacing: int = 10) -> void:
 	for i in range(count):

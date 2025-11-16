@@ -26,7 +26,7 @@ enum State { WALK_FORWARD, PRE_ATTACK, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 
 
 
-@onready var animated_sprite: AnimatedSprite2D = $Enemy
+@export var animated_sprite: AnimatedSprite2D 
 @onready var attack_area: Area2D = $AttackArea
 
 @export var Collision_body : CollisionShape2D
@@ -145,7 +145,7 @@ func _physics_process(delta: float) -> void:
 			if new_direction == 0:
 				new_direction = 1
 			walk_direction = new_direction
-			animated_sprite.flip_h = walk_direction < 0
+			animated_sprite.flip_h = -walk_direction < 0
 			_update_attack_area_direction()
 
 			if animated_sprite.animation != "walk":
@@ -200,7 +200,7 @@ func set_state(new_state: State) -> void:
 				if new_direction == 0:
 					new_direction = 1
 				walk_direction = new_direction
-				animated_sprite.flip_h = walk_direction < 0
+				animated_sprite.flip_h = -walk_direction < 0
 				_update_attack_area_direction()
 
 				animated_sprite.play("walk")
@@ -225,7 +225,7 @@ func set_state(new_state: State) -> void:
 
 		State.WALK_BACK:
 			velocity.x = -walk_speed * walk_direction
-			animated_sprite.flip_h = (-walk_direction) < 0
+			animated_sprite.flip_h = walk_direction < 0
 			_update_attack_area_direction()
 			animated_sprite.play("walk")
 			$Steps.volume_db = steps_volume_db
@@ -249,7 +249,7 @@ func set_state(new_state: State) -> void:
 				var dir = sign(target.global_position.x - global_position.x)
 				if dir != 0:
 					walk_direction = dir
-					animated_sprite.flip_h = walk_direction < 0
+					animated_sprite.flip_h = -walk_direction < 0
 					_update_attack_area_direction()
 
 		State.HURT:
@@ -293,7 +293,7 @@ func _pre_attack_timer() -> void:
 
 # -------------------- ATAQUE --------------------
 func _on_frame_changed() -> void:
-	if state == State.ATTACK and animated_sprite.frame == 2:
+	if state == State.ATTACK and animated_sprite.frame == 1:
 		var bodies = attack_area.get_overlapping_bodies()
 		var areas = attack_area.get_overlapping_areas()
 		for body in bodies + areas:
@@ -408,16 +408,16 @@ func _update_attack_area_direction() -> void:
 	else:
 		attack_area.position = base_attack_area_position
 
-func face_direction(looking_right: bool) -> void:
-	if looking_right:
-		walk_direction = 1
-		animated_sprite.flip_h = false
-	else:
-		walk_direction = -1
-		animated_sprite.flip_h = true
-	
-	var offset = 50.0
-	if walk_direction > 0:
-		attack_area.position = base_attack_area_position + Vector2(offset, 0)
-	else:
-		attack_area.position = base_attack_area_position
+#func face_direction(looking_right: bool) -> void:
+	#if looking_right:
+		#walk_direction = 1
+		#animated_sprite.flip_h = true
+	#else:
+		#walk_direction = -1
+		#animated_sprite.flip_h = false
+	#
+	#var offset = 50.0
+	#if walk_direction > 0:
+		#attack_area.position = base_attack_area_position + Vector2(offset, 0)
+	#else:
+		#attack_area.position = base_attack_area_position

@@ -23,7 +23,7 @@ enum State { WALK_FORWARD, PRE_ATTACK, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 @export var use_custom_range: bool = false # Bandera para usar el rango personalizado
 @export_category("Misc")
 @export var steps_volume_db: float = -23.0
-
+@export var sapucay :AudioStreamPlayer
 
 @export var animated_sprite: AnimatedSprite2D 
 @onready var attack_area: Area2D = $AttackArea
@@ -42,6 +42,10 @@ var hurt_cooldown := false
 var idle_timer_active := false
 
 var target_elegido : Node
+
+var sapucay_hecho : bool = false
+
+
 
 func _ready() -> void:
 	base_attack_area_position = attack_area.position
@@ -94,6 +98,7 @@ func _get_target_with_priority3() -> Node:
 	
 	if all_targets.is_empty():
 		return null
+	
 
 	# Encontrar el objetivo más cercano que esté dentro del rango (Requisito 1 y 2)
 	var closest_target: Node = null
@@ -110,6 +115,11 @@ func _get_target_with_priority3() -> Node:
 					min_dist = dist 
 					closest_target = target
 					$Label.text = ">:("
+					if closest_target.is_in_group("Muralla Enemiga"):
+						if !sapucay_hecho:
+							if sapucay != null:
+								sapucay.play()
+								sapucay_hecho = true
 				
 	if closest_target == null:
 		$Label.text = "?"

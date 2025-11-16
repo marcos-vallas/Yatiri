@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bbaln7a6prckb"]
+[gd_scene load_steps=62 format=3 uid="uid://bbaln7a6prckb"]
 
 [ext_resource type="Script" uid="uid://drd8cqljr3vdd" path="res://scripts/allied_2.gd" id="1_vi2ii"]
 [ext_resource type="Texture2D" uid="uid://cycwf12i7gs2r" path="res://assets/img/Lanzero/lanzero__ATTACK_0.png" id="2_kwlep"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dtiv686ksxns" path="res://assets/img/Lanzero/lanzero__RUN_0.png" id="9_q8js6"]
 [ext_resource type="AudioStream" uid="uid://bi5wbna2aygui" path="res://assets/sound/footstep.wav" id="9_vqmah"]
 [ext_resource type="Texture2D" uid="uid://cr16bwvatwdsp" path="res://assets/img/Lanzero/lanzero__RUN_1.png" id="10_3iunq"]
+[ext_resource type="AudioStream" uid="uid://b4akaq4y2ir75" path="res://assets/sound/sapucay.mp3" id="19_1f3ba"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7f5li"]
 animations = [{
@@ -340,7 +341,7 @@ size = Vector2(31.0811, 31.8484)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nrqq"]
 size = Vector2(29.0541, 34.1233)
 
-[node name="Allied 3" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite") groups=["Aliado_2", "Tank"]]
+[node name="Allied 3" type="CharacterBody2D" node_paths=PackedStringArray("sapucay", "animated_sprite") groups=["Aliado_2", "Tank"]]
 modulate = Color(1, 1, 0.309804, 1)
 z_index = 1
 collision_layer = 8192
@@ -357,6 +358,7 @@ idle_duration = 0.4
 attack_knockback = 200.0
 follow_range = 100.0
 use_custom_range = true
+sapucay = NodePath("Sapucay")
 animated_sprite = NodePath("Aliado 2")
 metadata/_edit_group_ = true
 
@@ -455,3 +457,7 @@ offset_right = 45.0
 offset_bottom = -49.0
 scale = Vector2(0.333333, 0.3)
 text = "Aliado"
+
+[node name="Sapucay" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_1f3ba")
+volume_db = -30.0

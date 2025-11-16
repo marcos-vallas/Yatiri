@@ -1,8 +1,10 @@
-[gd_scene load_steps=47 format=4 uid="uid://dwrah6o3ea43a"]
+[gd_scene load_steps=49 format=4 uid="uid://dwrah6o3ea43a"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://b7gqby3jeqjbv" path="res://assets/img/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cw3w7ubl15l72" path="res://scenes/transition_control.tscn" id="2_2wyq8"]
+[ext_resource type="Script" uid="uid://dmf1eu0uj560t" path="res://scenes/objetivos.gd" id="2_5he1u"]
+[ext_resource type="Script" uid="uid://dk5uvb0ovvles" path="res://scripts/Quest.gd" id="2_c6pm6"]
 [ext_resource type="PackedScene" uid="uid://bn2v6avrhb4hj" path="res://scenes/granja_milicia_2.tscn" id="3_fuf3a"]
 [ext_resource type="Texture2D" uid="uid://bug2pak5p1j2e" path="res://assets/img/parallax/parallax-00.png" id="4_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b4q75gshq3hib" path="res://scenes/granja_milicia_3.tscn" id="4_pibwh"]
@@ -585,7 +587,57 @@ tilemap = NodePath("Visuales/TileMap")
 tutorial = NodePath("Visuales/CanvasLayer2/Tutorial")
 objetivos = NodePath("Visuales/CanvasLayer2/Objetivos")
 
-[node name="Alies" type="Node2D" parent="."]
+[node name="Objetivos" type="Node2D" parent="." node_paths=PackedStringArray("objetivo_1", "objetivo_2", "objetivo_3", "objetivo_4", "objetivo_5", "objetivo_6")]
+script = ExtResource("2_5he1u")
+objetivo_1 = NodePath("objetivo1")
+objetivo_2 = NodePath("objetivo2")
+objetivo_3 = NodePath("objetivo3")
+objetivo_4 = NodePath("objetivo4")
+objetivo_5 = NodePath("objetivo5")
+objetivo_6 = NodePath("objetivo6")
+
+[node name="objetivo1" type="Node2D" parent="Objetivos"]
+script = ExtResource("2_c6pm6")
+quest_name = "Aprendiendo"
+quest_desc = "Leer Controles"
+completed_text = "Bien"
+quest_status = 1
+metadata/_custom_type_script = "uid://dk5uvb0ovvles"
+
+[node name="objetivo2" type="Node2D" parent="Objetivos"]
+script = ExtResource("2_c6pm6")
+quest_name = "Ver ayuda"
+quest_desc = "Leer consejos (Tecla \"P\")"
+completed_text = "Bien2"
+metadata/_custom_type_script = "uid://dk5uvb0ovvles"
+
+[node name="objetivo3" type="Node2D" parent="Objetivos"]
+script = ExtResource("2_c6pm6")
+quest_name = "Mejorar la tribu"
+quest_desc = "Reparar un edificio de reclutamiento."
+completed_text = "Bien2"
+metadata/_custom_type_script = "uid://dk5uvb0ovvles"
+
+[node name="objetivo4" type="Node2D" parent="Objetivos"]
+script = ExtResource("2_c6pm6")
+quest_name = "Mejorar la tribu"
+quest_desc = "Reclutar una unidad"
+completed_text = "Bien2"
+metadata/_custom_type_script = "uid://dk5uvb0ovvles"
+
+[node name="objetivo5" type="Node2D" parent="Objetivos"]
+script = ExtResource("2_c6pm6")
+quest_name = "Regalos del destino"
+quest_desc = "Prueba el ataque magico (Tecla \"L\")"
+completed_text = "Bien2"
+metadata/_custom_type_script = "uid://dk5uvb0ovvles"
+
+[node name="objetivo6" type="Node2D" parent="Objetivos"]
+script = ExtResource("2_c6pm6")
+quest_name = "Cuidando la tribu"
+quest_desc = "Destruye la base enemiga"
+completed_text = "Bien2"
+metadata/_custom_type_script = "uid://dk5uvb0ovvles"
 
 [node name="SpawnPos_Allies" type="Marker2D" parent="."]
 position = Vector2(-1157, 346.987)
@@ -612,11 +664,12 @@ position = Vector2(-1015, 352.953)
 [node name="Hut" parent="." instance=ExtResource("17_muem4")]
 z_index = -2
 position = Vector2(-1185, 281.368)
+health = 300
 
 [node name="MurallaTribu2" parent="." instance=ExtResource("15_yq6so")]
 z_index = -4
 position = Vector2(-599, 314.001)
-max_health = 100
+max_health = 200
 costo_reparacion = 1
 
 [node name="SpawnPos_Enemies" type="Marker2D" parent="."]
@@ -628,8 +681,8 @@ position = Vector2(2148, 339.034)
 health = 2000
 
 [node name="MurallaEnemiga" parent="." instance=ExtResource("17_qkpxi")]
-position = Vector2(1477, 294.293)
-health = 1000
+position = Vector2(1477, 301.253)
+health = 1200
 
 [node name="Player2" parent="." instance=ExtResource("10_fuf3a")]
 position = Vector2(-858, 325)

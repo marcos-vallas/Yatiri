@@ -585,6 +585,8 @@ player = NodePath("Player")
 tilemap = NodePath("Visuales/TileMap")
 tutorial = NodePath("Visuales/CanvasLayer2/Tutorial")
 objetivos = NodePath("Visuales/CanvasLayer2/Objetivos")
+monedas_init = 20
+potions_init = 15
 
 [node name="Spear" parent="." instance=ExtResource("38_ioexj")]
 position = Vector2(-841, 70.5906)
@@ -639,9 +641,6 @@ health = 70
 [node name="Player" parent="." instance=ExtResource("37_36cmm")]
 position = Vector2(-862, 325)
 
-[node name="Enemy_2" parent="." instance=ExtResource("13_tjerq")]
-position = Vector2(-355, 344.999)
-
 [node name="Edificios_Propios" type="Node" parent="."]
 
 [node name="Edificios_Enemigos" type="Node" parent="."]
@@ -657,7 +656,6 @@ aliado_2_escena = ExtResource("11_hn8kg")
 cant_Aliado_2_dia = 3.0
 enemy_spawner = NodePath("EnemySpawner")
 enemigo_1_escena = ExtResource("12_h34cy")
-cant_Enemigo_1_noche = 0.0
 enemigo_2_escena = ExtResource("13_tjerq")
 enemigo_3_escena = ExtResource("14_75d54")
 cant_Enemigo_3_noche = 2.0

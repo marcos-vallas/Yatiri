@@ -80,7 +80,9 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if Global.paused:
-		set_state(State.IDLE)
+		#set_state(State.IDLE)
+		direction=Vector2.ZERO
+		$Steps.stop()
 		return
 	target = _get_target_with_priority3()
 	if is_dead:
@@ -168,6 +170,7 @@ func _physics_process(delta: float) -> void:
 			set_state(State.ATTACK)
 		elif Input.is_action_just_pressed("magic") and not is_magic_attacking:
 			#_start_magic_attack()
+			Global.cumplir_objetivo(5)
 			set_state(State.MAGIC)
 		elif direction.x != 0:
 			if !Input.is_action_pressed("run"):
@@ -290,6 +293,7 @@ func set_state(new_state: State) -> void:
 			set_state(State.IDLE)
 			pass
 		State.HURT:
+			
 			pass
 		State.DEAD:
 			pass
@@ -403,13 +407,16 @@ func play_hit_sound():
 func take_damage(damage:int, knockback_dir: Vector2 = Vector2(0,0), hit_from_right: bool=false ) -> void:
 	if is_dead:
 		return
-
+	is_hurt = true
 	$AttackHit.play()
 	#flash_white()
 	_drop_coin(hit_from_right)
 
-	var knockback_strength = 250
+	var knockback_strength = 50
 	velocity = knockback_dir.normalized() * knockback_strength
+	
+	set_state(State.HURT)
+	
 	is_hurt = true
 	knockback_timer = knockback_duration
 	camera_shake(0.2, 3.0)  # duración 0.2s, intensidad 3.0
@@ -418,8 +425,9 @@ func take_damage(damage:int, knockback_dir: Vector2 = Vector2(0,0), hit_from_rig
 		animated_sprite.offset = Vector2(0,1)
 		animated_sprite.play("hurt")
 
-	await get_tree().create_timer(1.5).timeout
-
+	await get_tree().create_timer(0.5).timeout
+	is_hurt = false
+	
 	if direction.x == 0 and not is_attacking and not is_magic_attacking: # ⚡ agregado
 		animated_sprite.offset = Vector2(0,1)
 		#animated_sprite.play("idle")
@@ -480,6 +488,7 @@ func _drop_coin(hit_from_right: bool):
 
 	var enemies = get_tree().get_nodes_in_group("Enemy")
 	if enemies.size() == 0:
+		coin.queue_free()
 		return
 
 	var enemy_node = enemies[randi() % enemies.size()]

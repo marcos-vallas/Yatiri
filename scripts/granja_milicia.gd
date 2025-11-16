@@ -110,7 +110,7 @@ func set_state_farm(new_state: int) -> void:
 			farm_label.visible = true
 			pass
 		State_Farm.FARMING:
-			
+			Global.cumplir_objetivo(4)
 			print("Farming")
 			
 			farm_label.text = "Reclutando.."
@@ -135,6 +135,7 @@ func set_state(new_state: int) -> void:
 	
 	match current_state:
 		State.NORMAL:
+			Global.cumplir_objetivo(3)
 			remove_from_group("Granja_bots_destroyed")
 			add_to_group("Granja_bots")
 			# Sprite Normal

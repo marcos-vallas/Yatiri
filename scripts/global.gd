@@ -13,6 +13,17 @@ var ciclo_actual : int =1
 var tiempo_actual : String = "Dia "
 
 
+var QuestBox = false
+var QuestTitle = ""
+var QuestDescription = ""
+
+
+signal objetivo_cumplido(numero_de_objetivo)
+
+
+signal quest_update(title,description)
+signal quest_visible(condition)
+
 signal coins_changed(new_value)
 signal potions_changed(new_value)
 signal tribe_changed(new_value)
@@ -96,3 +107,18 @@ func reset_base_health() -> void:
 func _on_base_destroyed() -> void:
 	print("💥 Base destruida")
 	game_result_text = "¡La base ha caído!"
+	
+func update_quest(title:String, description:String) ->void:
+	emit_signal("quest_update",title,description)
+	
+	pass
+	
+func show_quest(show:bool=true)->void:
+	if show:
+		emit_signal("quest_visible", true)
+	if !show:
+		emit_signal("quest_visible", false)
+	pass
+
+func cumplir_objetivo(numero:int)->void:
+	emit_signal("objetivo_cumplido", numero)

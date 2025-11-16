@@ -1,5 +1,12 @@
 extends Control
 
+#class_name HUDcito
+
+@onready var QuestBox: CanvasLayer = $QuestBox
+@onready var QuestTitle: RichTextLabel = $QuestBox/QuestTitle
+@onready var QuestDesc: RichTextLabel = $QuestBox/QuestDescription
+
+
 @onready var coins_label: Label = $MarginContainer/VBoxContainer/HBoxContainer/Coins
 @onready var potions_label: Label = $MarginContainer/VBoxContainer/HBoxContainer3/Potions
 #@onready var tribe_label: Label = $MarginContainer/HBoxContainer2/TribuNumber
@@ -18,6 +25,9 @@ func _ready() -> void:
 	Global.base_health_changed.connect(_on_base_health_changed)
 	Global.cycle_changed.connect(_on_cicle_changed)
 	Global.time_changed.connect(_on_time_changed)
+	
+	Global.quest_update.connect(_on_quest_update)
+	Global.quest_visible.connect(_on_quest_visible)
 
 	# Inicializar visuales
 	_on_coins_changed(Global.coins)
@@ -28,7 +38,7 @@ func _ready() -> void:
 	_on_time_changed(Global.tiempo_actual)
 	_on_cicle_changed(Global.ciclo_actual)
 
-	
+
 		# Configurar barra
 	base_health_bar.max_value = Global.base_max_health
 	
@@ -55,3 +65,14 @@ func _on_tribe_changed(new_value: int) -> void:
 	
 func _process(delta: float) -> void:
 	tribe_label.text = str(Global.tribe_count) #.pad_zeros(2)
+
+func _on_quest_update(title,desc):
+	QuestTitle.text = title
+	QuestDesc.text = desc
+	pass
+func _on_quest_visible(value):
+	if value:
+		QuestBox.visible = true
+	else :
+		QuestBox.visible = false
+	pass

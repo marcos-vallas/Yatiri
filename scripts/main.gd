@@ -9,6 +9,7 @@ extends Node2D
 @export var monedas_init:int =13
 @export var potions_init:int =10
 
+
 var segment_width: int
 var tiles: Array = []
 var start_pause :bool = true
@@ -23,6 +24,7 @@ func _ready() -> void:
 	Global.set_potions(potions_init)
 	Global.set_tribe_count(0)
 	Global.health_base(100)
+	
 	
 	
 	if has_node("CanvasLayer2/TransitionControl"):
@@ -102,14 +104,19 @@ func _process(delta: float) -> void:
 		tween.finished.connect(_on_tutorial_fade_finished)
 		#Global.unpause()
 		set_state(State.NORMAL)
+		
+		Global.cumplir_objetivo(1)
 	
 	if Input.is_action_just_pressed("pause") and !tutorial.visible:
 		if cambiando_estado == false:
 			if current_State == State.NORMAL:
+				
 				set_state(State.PAUSED)
 				pass
 			elif current_State == State.PAUSED:
+				Global.cumplir_objetivo(2)
 				set_state( State.NORMAL)
+		
 			
 	
 

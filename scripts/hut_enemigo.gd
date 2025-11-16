@@ -47,8 +47,8 @@ func _on_flash_timer_timeout() -> void:
 
 func _on_destroyed() -> void:
 	
+	Global.cumplir_objetivo(6)
 	Global.pause()
-	
 	await get_tree().create_timer(0.1).timeout
 	emit_signal("muralla_destruida")
 	$Explotion2.play()

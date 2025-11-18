@@ -73,9 +73,12 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if Global.paused:
-		set_state(State.IDLE)
+		if state != State.DEAD:
+			set_state(State.IDLE)
+			velocity = Vector2.ZERO
 		return
-	if is_dead:
+	if is_dead or (state == State.DEAD):
+		is_dead = true
 		return
 
 	# si está en HURT, dejamos que el knockback actúe libremente
@@ -141,17 +144,17 @@ func set_state(new_state: State) -> void:
 	var target = _get_target_with_priority3()
 	match state:
 		State.WALK_FORWARD:
-			
-			if target:
-				walk_direction = sign(target.global_position.x - global_position.x)
-				if walk_direction == 0:
-					walk_direction = 1
-				_update_sprite_flip()
-				_update_attack_area_direction()
-			animated_sprite.play("walk")
-			$Steps.volume_db = steps_volume_db
-			$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
-			$Steps.play()
+			if !Global.paused:
+				if target:
+					walk_direction = sign(target.global_position.x - global_position.x)
+					if walk_direction == 0:
+						walk_direction = 1
+					_update_sprite_flip()
+					_update_attack_area_direction()
+				animated_sprite.play("walk")
+				$Steps.volume_db = steps_volume_db
+				$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
+				$Steps.play()
 
 		State.ATTACK:
 			velocity = Vector2.ZERO
@@ -164,15 +167,15 @@ func set_state(new_state: State) -> void:
 				_reset_attack_sound_cooldown()
 
 		State.WALK_BACK:
-			
-				velocity.x = -walk_speed * walk_direction
-				_update_sprite_flip()
-				_update_attack_area_direction()
-				animated_sprite.play("walk")
-				$Steps.volume_db = steps_volume_db
-				$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
-				$Steps.play()
-				_start_walk_back_timer()
+				if !Global.paused:
+					velocity.x = -walk_speed * walk_direction
+					_update_sprite_flip()
+					_update_attack_area_direction()
+					animated_sprite.play("walk")
+					$Steps.volume_db = steps_volume_db
+					$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
+					$Steps.play()
+					_start_walk_back_timer()
 
 		State.IDLE:
 			velocity = Vector2.ZERO
@@ -202,6 +205,7 @@ func set_state(new_state: State) -> void:
 			tween.tween_property(animated_sprite, "modulate:a", 0.0, 3.0)  
 			tween.tween_callback(Callable(self, "_on_fade_out_finished"))
 			_entregar_recompensa()
+			
 			
 func _entregar_recompensa()-> void:
 	var powerUp = powerUp_scene.instantiate()
@@ -287,7 +291,7 @@ func _idle_wait_and_go()->void:
 		elif (not is_dead and state == State.IDLE) and _get_cerca_de_muralla():
 			set_state(State.ATTACK)
 
-# -------------------- DAMAGE --------------------
+# -------------------- DAMdddddddddAGE --------------------
 func take_damage(amount: int, knockback_dir: Vector2= Vector2(0,0)) -> void:
 	if health <= 0 or is_dead or hurt_cooldown:
 		return

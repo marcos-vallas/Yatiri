@@ -69,6 +69,7 @@ func _get_target_with_priority3() -> Node:
 	# 2. Recolectar Murallas válidas (no destruidas)
 	var murallas_raw = []
 	murallas_raw.append_array(get_tree().get_nodes_in_group("Area2D_Muralla"))
+	murallas_raw.append_array(get_tree().get_nodes_in_group("Granja_bots"))
 	
 	#print(murallas_raw)
 	for m in murallas_raw:
@@ -120,9 +121,12 @@ func _get_target_with_priority3() -> Node:
 # -------------------- MOVIMIENTO Y ATAQUE --------------------
 func _physics_process(delta: float) -> void:
 	if Global.paused:
-		set_state(State.IDLE)
+		if state != State.DEAD:
+			velocity = Vector2.ZERO
+			set_state(State.IDLE)
 		return
-	if is_dead:
+	if is_dead or state == State.DEAD:
+		is_dead=true
 		return
 	
 	# Detectar el objetivo en cada frame
@@ -165,19 +169,29 @@ func _physics_process(delta: float) -> void:
 	# --- Chequeo posterior de colisión o rango (solo si está avanzando) ---
 	if state == State.WALK_FORWARD:
 		if target:
-			if global_position.distance_to(target.global_position) <= attack_range \
-			or (target.is_in_group("Muralla") and is_on_wall()) \
-			or (target.is_in_group("Base") and (_is_touching_base() or is_on_wall())):
+			var actual_dist = global_position.distance_to(target.global_position)
+			if (actual_dist <= attack_range) \
+			or ((target.is_in_group("Muralla") and (actual_dist <= attack_range + 40)))\
+			or ((target.is_in_group("Granja_bots") and (actual_dist <= attack_range + 40)))\
+			or ((target.is_in_group("Base") and (actual_dist <= attack_range + 40))): \
+			#or (target.is_in_group("Base") and (_is_touching_base() or is_on_wall())):
 				set_state(State.PRE_ATTACK)
 
 # -------------------- DETECTAR COLISIÓN CON BASE --------------------
-func _is_touching_base() -> bool:
-	var count := get_slide_collision_count()
-	for i in range(count):
-		var col = get_slide_collision(i)
-		if col and col.get_collider() and col.get_collider().is_in_group("Base"):
-			return true
-	return false
+#func _is_touching_base() -> bool:
+	#var count := get_slide_collision_count()
+	#for i in range(count):
+		#var col = get_slide_collision(i)
+		#if col and col.get_collider() and col.get_collider().is_in_group("Base"):
+			#return true
+	#return false
+#func _is_touching_wall() -> bool:
+	#var count := get_slide_collision_count()
+	#for i in range(count):
+		#var col = get_slide_collision(i)
+		#if col and col.get_collider() and col.get_collider().is_in_group("Muralla"):
+			#return true
+	#return false
 
 func set_target_detection_range(range_value: float, enable: bool = true) -> void:
 	if enable and range_value > 0:
@@ -195,19 +209,20 @@ func set_state(new_state: State) -> void:
 	var target = _get_target_with_priority3()
 	match state:
 		State.WALK_FORWARD:
-			if target:
-				var new_direction = sign(target.global_position.x - global_position.x)
-				if new_direction == 0:
-					new_direction = 1
-				walk_direction = new_direction
-				animated_sprite.flip_h = -walk_direction < 0
-				_update_attack_area_direction()
+			if !Global.paused:
+				if target:
+					var new_direction = sign(target.global_position.x - global_position.x)
+					if new_direction == 0:
+						new_direction = 1
+					walk_direction = new_direction
+					animated_sprite.flip_h = -walk_direction < 0
+					_update_attack_area_direction()
 
-				animated_sprite.play("walk")
-				$Steps.volume_db = steps_volume_db
-				$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
-				$Steps.play()
-				attack_area.monitoring = true
+					animated_sprite.play("walk")
+					$Steps.volume_db = steps_volume_db
+					$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
+					$Steps.play()
+					attack_area.monitoring = true
 
 		State.PRE_ATTACK:
 			velocity = Vector2.ZERO
@@ -241,9 +256,9 @@ func set_state(new_state: State) -> void:
 			_start_idle_timer()
 			
 			
-				# --- Pequeño desplazamiento lateral ---
-			var offset = 10.0
-			global_position.x += offset * walk_direction
+				## --- Pequeño desplazamiento lateral ---
+			#var offset = 10.0
+			#global_position.x += offset * walk_direction
 			
 			if target:
 				var dir = sign(target.global_position.x - global_position.x)
@@ -296,9 +311,53 @@ func _on_frame_changed() -> void:
 	if state == State.ATTACK and animated_sprite.frame == 1:
 		var bodies = attack_area.get_overlapping_bodies()
 		var areas = attack_area.get_overlapping_areas()
-		for body in bodies + areas:
+		
+		for area in areas:
+			if not is_instance_valid(area):
+				continue
+			print(str(area))
+			if area.has_method("take_damage"):
+				
+				#if area.is_in_group("Player"):
+					#var dir = Vector2(sign(area.global_position.x - global_position.x), 0) * (attack_knockback / 2)
+					#var hit_from_right = area.global_position.x < global_position.x
+					#area.take_damage(1, dir, hit_from_right) #danio a jugador siempre es 1
+					#$AttackHit.play()
+					#return
+				if area.is_in_group("Muralla"):
+					if area.has_method("is_destroyed"):
+						var destruida = area.is_destroyed()
+						if !destruida:
+							area.take_damage(danio_a_muralla)
+							print("Enemy1 danio a area.ingroup('muralla')")
+							$AttackHit.play()
+							return
+				if area.is_in_group("Granja_bots"):
+					if area.has_method("is_destroyed"):
+						var destruida = area.is_destroyed()
+						if !destruida:
+							area.take_damage(danio_a_muralla)
+							$AttackHit.play()
+							return
+					
+				elif area.is_in_group("Base"):
+					area.take_damage(danio_a_base)
+					$AttackHit.play()
+					#return
+				#elif area.is_in_group("Aliado_1"):
+					#var dir = Vector2(sign(area.global_position.x - global_position.x), 0) * (attack_knockback / 2)
+					#area.take_damage(danio_a_aliados, dir)
+					#
+				#elif area.is_in_group("Aliado_2"):
+					#var dir = Vector2(sign(area.global_position.x - global_position.x), 0) * (attack_knockback / 2)
+					#area.take_damage(danio_a_aliados, dir)
+			
+			#return
+			
+		for body in bodies:
 			if not is_instance_valid(body):
 				continue
+			print(str(body))
 
 			if body.has_method("take_damage"):
 				if body.is_in_group("Player"):
@@ -306,11 +365,12 @@ func _on_frame_changed() -> void:
 					var hit_from_right = body.global_position.x < global_position.x
 					body.take_damage(1, dir, hit_from_right) #danio a jugador siempre es 1
 
-				elif body.is_in_group("Muralla"):
-					body.take_damage(danio_a_muralla)
+				#elif body.is_in_group("Muralla"):
+					#body.take_damage(danio_a_muralla)
+					#print("Enemy1 danio a body.ingroup('muralla')")
 
-				elif body.is_in_group("Base"):
-					body.take_damage(danio_a_base)
+				#elif body.is_in_group("Base"):
+					#body.take_damage(danio_a_base)
 				
 				elif body.is_in_group("Aliado_1"):
 					var dir = Vector2(sign(body.global_position.x - global_position.x), 0) * (attack_knockback / 2)
@@ -320,33 +380,7 @@ func _on_frame_changed() -> void:
 					var dir = Vector2(sign(body.global_position.x - global_position.x), 0) * (attack_knockback / 2)
 					body.take_damage(danio_a_aliados, dir)
 			$AttackHit.play()
-			return
-		for area in bodies + areas:
-			if not is_instance_valid(area):
-				continue
-
-			if area.has_method("take_damage"):
-				if area.is_in_group("Player"):
-					var dir = Vector2(sign(area.global_position.x - global_position.x), 0) * (attack_knockback / 2)
-					var hit_from_right = area.global_position.x < global_position.x
-					area.take_damage(1, dir, hit_from_right) #danio a jugador siempre es 1
-
-				elif area.is_in_group("Muralla"):
-					area.take_damage(danio_a_muralla)
-
-				elif area.is_in_group("Base"):
-					area.take_damage(danio_a_base)
-				
-				elif area.is_in_group("Aliado_1"):
-					var dir = Vector2(sign(area.global_position.x - global_position.x), 0) * (attack_knockback / 2)
-					area.take_damage(danio_a_aliados, dir)
-					
-				elif area.is_in_group("Aliado_2"):
-					var dir = Vector2(sign(area.global_position.x - global_position.x), 0) * (attack_knockback / 2)
-					area.take_damage(danio_a_aliados, dir)
-			$AttackHit.play()
-			return
-
+			#return
 
 func _on_animation_finished() -> void:
 	if animated_sprite.animation == "attack" and state == State.ATTACK:

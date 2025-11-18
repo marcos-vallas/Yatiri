@@ -47,7 +47,7 @@ shader_parameter/base_color = Color(0.877616, 0.877616, 0.877616, 1)
 size = Vector2(108, 62)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yldxc"]
-size = Vector2(93, 57)
+size = Vector2(44, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ixsww"]
 atlas = ExtResource("8_bxb8l")
@@ -174,7 +174,7 @@ collision_layer = 512
 collision_mask = 5282
 script = ExtResource("1_4q2wq")
 max_health = 50
-costo_reparacion = 3
+tiempo_reclutamiento = 0.75
 static_body = NodePath("StaticBody2D")
 static_collision = NodePath("StaticBody2D/StaticCollision")
 muralla_area_collision = NodePath("MurallaCollision")
@@ -191,7 +191,7 @@ script = ExtResource("2_3ckk0")
 farm_spawning = true
 spawn_marker = NodePath("Marker2D")
 spawn_timer = NodePath("Timer")
-unidades_a_spawnear_lista = [ExtResource("3_4q2wq")]
+unidades_a_spawnear_lista = [ExtResource("3_4q2wq"), ExtResource("3_4q2wq")]
 
 [node name="Marker2D" type="Marker2D" parent="spawn"]
 

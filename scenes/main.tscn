@@ -618,6 +618,7 @@ script = ExtResource("2_c6pm6")
 quest_name = "Mejorar la tribu"
 quest_desc = "Reparar un edificio de reclutamiento."
 completed_text = "Bien2"
+reward_monedas = 10
 metadata/_custom_type_script = "uid://dk5uvb0ovvles"
 
 [node name="objetivo4" type="Node2D" parent="Objetivos"]
@@ -625,6 +626,7 @@ script = ExtResource("2_c6pm6")
 quest_name = "Mejorar la tribu"
 quest_desc = "Reclutar una unidad"
 completed_text = "Bien2"
+reward_monedas = 10
 metadata/_custom_type_script = "uid://dk5uvb0ovvles"
 
 [node name="objetivo5" type="Node2D" parent="Objetivos"]
@@ -632,12 +634,13 @@ script = ExtResource("2_c6pm6")
 quest_name = "Regalos del destino"
 quest_desc = "Prueba el ataque magico (Tecla \"L\")"
 completed_text = "Bien2"
+reward_pociones = 6
 metadata/_custom_type_script = "uid://dk5uvb0ovvles"
 
 [node name="objetivo6" type="Node2D" parent="Objetivos"]
 script = ExtResource("2_c6pm6")
 quest_name = "Cuidando la tribu"
-quest_desc = "Destruye la base enemiga"
+quest_desc = "Destruye la cueva de los Ziches"
 completed_text = "Bien2"
 metadata/_custom_type_script = "uid://dk5uvb0ovvles"
 
@@ -652,11 +655,11 @@ scale = Vector2(0.07, 0.07)
 texture = ExtResource("27_yq6so")
 
 [node name="Granja_Milicia_Seg" parent="." instance=ExtResource("3_fuf3a")]
-position = Vector2(-1370, 350)
+position = Vector2(-801, 349.97)
 scale = Vector2(1, 0.994233)
 
 [node name="Granja_Milicia_Arq" parent="." instance=ExtResource("4_pibwh")]
-position = Vector2(-1562, 350)
+position = Vector2(-1395, 349.97)
 scale = Vector2(1, 0.994233)
 
 [node name="Granja_Milicia_Grand" parent="." instance=ExtResource("38_pibwh")]
@@ -669,7 +672,7 @@ position = Vector2(-1185, 281.368)
 
 [node name="MurallaTribu2" parent="." instance=ExtResource("15_yq6so")]
 z_index = -4
-position = Vector2(-599, 314.001)
+position = Vector2(-482, 314.178)
 max_health = 200
 costo_reparacion = 1
 
@@ -686,7 +689,7 @@ position = Vector2(1518, 295.287)
 health = 1200
 
 [node name="Player2" parent="." instance=ExtResource("10_fuf3a")]
-position = Vector2(-858, 325)
+position = Vector2(-1206, 325.114)
 
 [node name="Edificios_Propios" type="Node" parent="."]
 
@@ -698,13 +701,14 @@ tiempo_dia = 12.0
 tiempo_noche = 15.0
 allied_spawner = NodePath("AlliedSpawner")
 aliado_1_escena = ExtResource("27_dgi5k")
-cant_Aliado_1_dia = 0.5
+cant_Aliado_1_dia = 0.0
 aliado_2_escena = ExtResource("27_5q0nq")
-cant_Aliado_2_dia = 1.5
+cant_Aliado_2_dia = 0.0
 enemy_spawner = NodePath("EnemySpawner")
 enemigo_1_escena = ExtResource("27_vxglm")
+cant_Enemigo_1_noche = 0.75
 enemigo_2_escena = ExtResource("26_yq6so")
-cant_Enemigo_2_noche = 0.75
+cant_Enemigo_2_noche = 0.25
 enemigo_3_escena = ExtResource("28_tel4y")
 cant_Enemigo_3_noche = 0.5
 

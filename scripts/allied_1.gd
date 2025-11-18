@@ -56,7 +56,8 @@ func _physics_process(delta: float) -> void:
 	if Global.paused:
 		set_state(State.IDLE)
 		return
-	if is_dead:
+	if is_dead or state == State.DEAD:
+		is_dead = true
 		return
 		
 	if health <= 0:

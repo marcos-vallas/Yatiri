@@ -10,7 +10,9 @@ class_name Granja_Milicia
 var current_health: int = max_health
 @export_category("Costos")
 @export var costo_reparacion: int = 1 # Monedas necesarias para la reparación
+@export var reparacion_por_pago : int = 25
 @export var costo_reclutamiento : int = 2
+@export var tiempo_reclutamiento : float = 1.5
 # @export var reparacion_por_moneda: int = 2 # Ya no es necesaria, repararemos al 100%
 
 @export_category("Collisions")
@@ -89,7 +91,7 @@ func _process(_delta: float) -> void:
 	if current_state == State.NORMAL:
 		if current_state_farm == State_Farm.DISABLED:
 			set_state_farm(State_Farm.READY)
-	if current_state == State.DESTRUIDA:
+	if current_state == State.DESTRUIDA or current_state == State.DAMAGED:
 		set_state_farm(State_Farm.DISABLED)
 	pass
 
@@ -255,7 +257,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 func reclutar(amount_paid: int):
 	set_state_farm(State_Farm.PRODUCING)
-	farm_timer.start(1.5)
+	farm_timer.start(tiempo_reclutamiento)
 	Spawner.iniciar_spawn(Spawner.unidades_a_spawnear_lista)
 	
 	pass
@@ -263,7 +265,7 @@ func reclutar(amount_paid: int):
 	
 func repair_wall(amount_paid: int):
 	# La cantidad de health recuperada depende de la cantidad de monedas
-	var recovered_health = amount_paid * 5#reparacion_por_moneda
+	var recovered_health = amount_paid * reparacion_por_pago#reparacion_por_moneda
 	current_health += recovered_health
 	
 	if current_health >= max_health:

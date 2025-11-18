@@ -21,10 +21,10 @@ texture = ExtResource("1_kymwu")
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 2
-offset_left = 217.0
-offset_top = 94.0
-offset_right = 679.0
-offset_bottom = 299.0
+offset_left = 212.0
+offset_top = 98.0
+offset_right = 644.0
+offset_bottom = 315.0
 scale = Vector2(0.700366, 0.846075)
 size_flags_vertical = 0
 theme_override_constants/outline_size = 3
@@ -37,20 +37,37 @@ text = "Objetivos:
 Consejos:
 - Recluta aliados para lograr el objetivo.
 - Manten la muralla principal reparada.
-- Los aliados son mas eficientes para destruir edificios.
+- Los aliados son mas eficientes para 
+destruir edificios.
 "
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="."]
 texture_filter = 1
-offset_left = 156.0
-offset_top = 335.0
-offset_right = 676.0
-offset_bottom = 371.0
+layout_mode = 0
+offset_left = 262.0
+offset_top = 336.0
+offset_right = 460.0
+offset_bottom = 372.0
 scale = Vector2(0.690527, 0.800001)
 size_flags_vertical = 0
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("2_gvwy8")
 theme_override_font_sizes/font_size = 18
-text = "Mientras puedas leer los objetivos no se crearan nuevas unidades."
+text = "Pulsa \"P\" para continuar"
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 307.0
+offset_top = 16.0
+offset_right = 505.0
+offset_bottom = 52.0
+scale = Vector2(0.690527, 0.800001)
+size_flags_vertical = 0
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_gvwy8")
+theme_override_font_sizes/font_size = 18
+text = "Pausado"
 vertical_alignment = 1

@@ -54,8 +54,9 @@ func _ready() -> void:
 	animated_sprite.frame_changed.connect(_on_frame_changed)
 	Global.add_tribe_member()
 	walk_speed += randi_range(-4,0)
-	idle_duration += randi_range(-0.4,0.5)
-	walk_duration+= randi_range(0,0.4)
+	idle_duration += randi_range(-0.4,0.4)
+	walk_duration+= randi_range(-0.2,0.4)
+	follow_range += randi_range(0,5)
 
 
 # -------------------- DETECCIÓN DE OBJETIVO: MÁS CERCANO (MODIFICADO) --------------------
@@ -99,7 +100,6 @@ func _get_target_with_priority3() -> Node:
 	if all_targets.is_empty():
 		return null
 	
-
 	# Encontrar el objetivo más cercano que esté dentro del rango (Requisito 1 y 2)
 	var closest_target: Node = null
 	var min_dist: float = INF
@@ -142,10 +142,14 @@ func _get_target_with_priority3() -> Node:
 # -------------------- MOVIMIENTO Y ATAQUE --------------------
 func _physics_process(delta: float) -> void:
 	if Global.paused:
-		set_state(State.IDLE)
+		if state != State.DEAD:
+			set_state(State.IDLE)
 		return
 	var cerca_de_jugador : bool = false
-	if is_dead:
+	if health <= 0 :
+		set_state(State.DEAD)
+	if is_dead or state == State.DEAD:
+		is_dead = true
 		return
 	
 	# Detectar el objetivo en cada frame
@@ -203,12 +207,17 @@ func _physics_process(delta: float) -> void:
 			#$Label.text = str(target)
 			#print(global_position.distance_to(target.global_position))
 			#print(attack_range)
-			if global_position.distance_to(target.global_position) <= attack_range \
-			and (\
-			target.is_in_group("Muralla Enemiga") \
-			or target.is_in_group("Enemy") \
-			or target.is_in_group("Hut Enemigo")\
-			):
+			var dist_to_target = global_position.distance_to(target.global_position)
+			#if dist_to_target <= attack_range \
+			if (dist_to_target <= attack_range) \
+			or ((target.is_in_group("Muralla Enemiga") and (dist_to_target <= attack_range + 10)))\
+			or ((target.is_in_group("Enemy") and (dist_to_target <= attack_range + 30)))\
+			or ((target.is_in_group("Hut Enemigo") and (dist_to_target <= attack_range + 10))): \
+			#and (\
+			#target.is_in_group("Muralla Enemiga") \
+			#or target.is_in_group("Enemy") \
+			#or target.is_in_group("Hut Enemigo")\
+			#):
 				set_state(State.PRE_ATTACK)
 				#print("Aliado 2 ataca")
 			if global_position.distance_to(target.global_position) <= follow_range \
@@ -241,20 +250,21 @@ func set_state(new_state: State) -> void:
 	target_elegido = _get_target_with_priority3()
 	match state:
 		State.WALK_FORWARD:
-			if target_elegido:
-				var new_direction = sign(target_elegido.global_position.x - global_position.x)
-				if new_direction == 0:
-					new_direction = 1
-				walk_direction = new_direction
-				animated_sprite.flip_h = walk_direction < 0
-				_update_attack_area_direction()
+			if !Global.paused:
+				if target_elegido:
+					var new_direction = sign(target_elegido.global_position.x - global_position.x)
+					if new_direction == 0:
+						new_direction = 1
+					walk_direction = new_direction
+					animated_sprite.flip_h = walk_direction < 0
+					_update_attack_area_direction()
 
-				animated_sprite.play("walk")
-				$Steps.volume_db = steps_volume_db
-				$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
-				
-				$Steps.play()
-				attack_area.monitoring = true
+					animated_sprite.play("walk")
+					$Steps.volume_db = steps_volume_db
+					$Steps.set_deferred("pitch_scale",randf_range(0.60,0.75))
+					
+					$Steps.play()
+					attack_area.monitoring = true
 		
 
 		State.PRE_ATTACK:
@@ -282,16 +292,12 @@ func set_state(new_state: State) -> void:
 			_start_walk_back_timer()
 
 		State.IDLE:
+			
 			velocity = Vector2.ZERO
 			$Steps.stop()
 			attack_area.monitoring = false
 			animated_sprite.play("idle")
 			_start_idle_timer()
-			
-				## --- Pequeño desplazamiento lateral ---
-			#var offset = 10.0
-			#global_position.x += offset * walk_direction
-			#
 			if target_elegido:
 				var dir = sign(target_elegido.global_position.x - global_position.x)
 				if dir != 0:
@@ -391,11 +397,12 @@ func _start_idle_timer() -> void:
 
 # -------------------- DAMAGE --------------------
 func take_damage(amount: int, knockback_dir: Vector2 = Vector2(0,0), is_arrow_attack: bool = false) -> void:
-	if health <= 0 or is_dead or hurt_cooldown:
+	if health <= 0 or is_dead or hurt_cooldown or (state==State.DEAD):
 		return
+	
 	health -= amount
-	hurt_cooldown = true
 	set_state(State.HURT)
+	hurt_cooldown = true
 	velocity = knockback_dir
 	flash_white()
 	await get_tree().create_timer(0.01).timeout

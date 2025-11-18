@@ -46,11 +46,11 @@ shader_parameter/effect_enabled = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/base_color = Color(0.892034, 0.892034, 0.892034, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1e087"]
-size = Vector2(107, 126)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yldxc"]
-size = Vector2(31, 121.958)
+size = Vector2(23, 128.396)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1e087"]
+size = Vector2(118, 126)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ixsww"]
 atlas = ExtResource("5_1e087")
@@ -212,19 +212,19 @@ position = Vector2(-50, -17)
 scale = Vector2(4, 4)
 texture = ExtResource("3_yldxc")
 
-[node name="MurallaCollision" type="CollisionShape2D" parent="." groups=["Muralla"]]
-position = Vector2(0, -9)
-shape = SubResource("RectangleShape2D_1e087")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Muralla"]]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 scale = Vector2(3, 0.96)
 collision_layer = 512
-collision_mask = 1184
+collision_mask = 1056
 
 [node name="StaticCollision" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0.166666, -6.72915)
+position = Vector2(0.500001, -10.0312)
 shape = SubResource("RectangleShape2D_yldxc")
 debug_color = Color(0.710027, 0.479654, 0.221773, 0.42)
+
+[node name="MurallaCollision" type="CollisionShape2D" parent="." groups=["Muralla"]]
+position = Vector2(-1, -9)
+shape = SubResource("RectangleShape2D_1e087")
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_rdskk")

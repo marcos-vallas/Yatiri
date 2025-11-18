@@ -587,7 +587,7 @@ tilemap = NodePath("Visuales/TileMap")
 introduccion = NodePath("Visuales/CanvasLayer2/Introduccion")
 tutorial = NodePath("Visuales/CanvasLayer2/Tutorial")
 objetivos = NodePath("Visuales/CanvasLayer2/Objetivos")
-monedas_init = 20
+monedas_init = 50
 potions_init = 15
 
 [node name="Spear" parent="." instance=ExtResource("38_ioexj")]
@@ -608,11 +608,11 @@ scale = Vector2(0.07, 0.07)
 texture = ExtResource("2_kj2hj")
 
 [node name="Granja_Milicia_2" parent="." instance=ExtResource("3_ioexj")]
-position = Vector2(-1370, 350)
+position = Vector2(-824, 349.97)
 scale = Vector2(1, 0.994233)
 
 [node name="Granja_Milicia_3" parent="." instance=ExtResource("4_e1aya")]
-position = Vector2(-1562, 350)
+position = Vector2(-1213, 349.97)
 scale = Vector2(1, 0.994233)
 
 [node name="Granja_Milicia" parent="." instance=ExtResource("3_36cmm")]
@@ -621,7 +621,7 @@ position = Vector2(-1015, 350)
 
 [node name="Hut" parent="." instance=ExtResource("4_ioexj")]
 z_index = -2
-position = Vector2(-1185, 281.368)
+position = Vector2(-1417, 281.368)
 
 [node name="MurallaTribu2" parent="." instance=ExtResource("5_e1aya")]
 z_index = -2
@@ -641,7 +641,7 @@ position = Vector2(425, 294.293)
 health = 70
 
 [node name="Player" parent="." instance=ExtResource("37_36cmm")]
-position = Vector2(-202, 325.114)
+position = Vector2(-748, 325.114)
 
 [node name="Edificios_Propios" type="Node" parent="."]
 
@@ -882,6 +882,8 @@ text = "Testing Field"
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Enemy_2" parent="." instance=ExtResource("13_tjerq")]
-position = Vector2(184, 345.993)
-walk_back_variation = 0.3
+[node name="Enemy 1" parent="." instance=ExtResource("12_h34cy")]
+position = Vector2(-232, 346.987)
+
+[node name="Enemy_1_Custom" parent="." instance=ExtResource("14_75d54")]
+position = Vector2(2, 345.993)

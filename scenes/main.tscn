@@ -697,10 +697,13 @@ position = Vector2(-1206, 325.114)
 
 [node name="Edificios_Enemigos" type="Node" parent="."]
 
-[node name="GameManager2" type="Node" parent="." node_paths=PackedStringArray("allied_spawner", "enemy_spawner")]
+[node name="GameManager2" type="Node" parent="." node_paths=PackedStringArray("SpriteCielo", "Sprite7Colores", "SpriteNubes", "allied_spawner", "enemy_spawner")]
 script = ExtResource("25_og1vs")
 tiempo_dia = 12.0
 tiempo_noche = 15.0
+SpriteCielo = NodePath("../Visuales/ParallaxJujuy/ParallaxLayer/Cielo")
+Sprite7Colores = NodePath("../Visuales/ParallaxJujuy/ParallaxLayer4/7Colores")
+SpriteNubes = NodePath("../Visuales/ParallaxJujuy/ParallaxLayer2/Nubes")
 allied_spawner = NodePath("AlliedSpawner")
 aliado_1_escena = ExtResource("27_dgi5k")
 cant_Aliado_1_dia = 0.0
@@ -857,6 +860,7 @@ scale = Vector2(0.819285, 0.92)
 motion_mirroring = Vector2(1440, 0)
 
 [node name="Cielo" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer"]
+modulate = Color(0, 0.0883232, 0.175878, 1)
 texture = ExtResource("4_o6xl0")
 centered = false
 
@@ -865,7 +869,7 @@ motion_scale = Vector2(0, 1)
 motion_mirroring = Vector2(1440, 0)
 script = ExtResource("5_85g3d")
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer2"]
+[node name="Nubes" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer2"]
 texture = ExtResource("5_tipki")
 centered = false
 
@@ -885,7 +889,7 @@ position = Vector2(0, -99)
 motion_scale = Vector2(0.2, 1)
 motion_mirroring = Vector2(1440, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer4"]
+[node name="7Colores" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer4"]
 modulate = Color(0.646029, 0.646029, 0.646029, 1)
 material = SubResource("ShaderMaterial_tel4y")
 position = Vector2(0, 112)
@@ -898,7 +902,7 @@ position = Vector2(0, -99)
 motion_scale = Vector2(0.3, 1)
 motion_mirroring = Vector2(1440, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/mountain front"]
+[node name="Cerrito" type="Sprite2D" parent="Visuales/ParallaxJujuy/mountain front"]
 modulate = Color(0.710741, 0.710741, 0.710741, 1)
 position = Vector2(418, 329)
 texture = ExtResource("13_yq6so")

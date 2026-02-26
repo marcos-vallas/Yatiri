@@ -6,6 +6,8 @@ extends Node
 @export var tiempo_dia: float = 300.0 # Duración del DÍA en segundos
 @export var tiempo_noche: float = 180.0 # Duración de la NOCHE en segundos
 @export var SpriteCielo: Sprite2D
+@export var Sprite7Colores: Sprite2D
+@export var SpriteNubes: Sprite2D
 
 # --- Referencias a los Nodos Spawner ---
 # Asegúrate de conectar estos nodos en el Inspector o en _ready()
@@ -53,7 +55,8 @@ func _ready():
 
 func _process(delta):
 	tiempo_restante -= delta
-
+	actualizar_cielo()
+	
 	if !Global.paused:
 		if tiempo_restante <= 0:
 			if es_de_noche:
@@ -71,9 +74,41 @@ func _process(delta):
 			#base_enemiga.health += 10
 			#muralla_enemiga.health += 10
 
+func normalize_value(value: float, min_val: float, max_val: float) -> float:
+	if min_val == max_val:
+		return 0.0 # Evita división por cero
+	return clamp((value - min_val) / (max_val - min_val), 0.0, 1.0)
+
 
 # --- Funciones de Transición de Ciclo ---
+func actualizar_cielo():
+	#83, 173, 255 a 0,23,45 (RGB).
+	
+	var Color_Dia = Color.from_rgba8(83, 173, 255)
+	var Color_Noche = Color.from_rgba8(0, 23, 45)
+	
+	var Cerro_Dia = Color.from_rgba8(165,165,165)
+	var Cerro_Noche = Color.from_rgba8(130,130,130)
+	
+	var Nubes_Dia = Color.from_rgba8(255,255,255)
+	var Nubes_Noche = Color.from_rgba8(2,55,80)
+	
+	
+	if !es_de_noche :
+		var peso := normalize_value(tiempo_restante, 0.0, tiempo_noche)
+		SpriteCielo.modulate = Color_Noche.lerp(Color_Dia,peso)
+		Sprite7Colores.modulate = Cerro_Noche.lerp(Cerro_Dia,peso)
+		SpriteNubes.modulate = Nubes_Noche.lerp(Nubes_Dia,peso)
+		pass
+		
+	if es_de_noche :
+		var peso := normalize_value(tiempo_restante, 0.0, tiempo_dia)
+		SpriteCielo.modulate = Color_Dia.lerp(Color_Noche,peso)
+		Sprite7Colores.modulate = Cerro_Dia.lerp(Cerro_Noche,peso)
+		SpriteNubes.modulate = Nubes_Dia.lerp(Nubes_Noche,peso)
 
+	pass
+	
 func iniciar_dia():
 	es_de_noche = false
 	tiempo_restante = tiempo_dia

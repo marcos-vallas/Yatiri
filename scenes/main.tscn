@@ -588,6 +588,8 @@ tilemap = NodePath("Visuales/TileMap")
 introduccion = NodePath("Visuales/CanvasLayer2/Introduccion")
 tutorial = NodePath("Visuales/CanvasLayer2/Tutorial_Controles")
 objetivos = NodePath("Visuales/CanvasLayer2/Objetivos")
+monedas_init = 20
+potions_init = 15
 
 [node name="Objetivos" type="Node2D" parent="." node_paths=PackedStringArray("objetivo_1", "objetivo_2", "objetivo_3", "objetivo_4", "objetivo_5", "objetivo_6")]
 script = ExtResource("2_5he1u")
@@ -681,12 +683,12 @@ position = Vector2(2209, 347.982)
 scale = Vector2(1, 0.994233)
 
 [node name="HutEnemigo" parent="." instance=ExtResource("19_0ld40")]
-position = Vector2(2148, 339.034)
+position = Vector2(2148, 348.976)
 health = 2000
 
 [node name="MurallaEnemiga" parent="." instance=ExtResource("17_qkpxi")]
 position = Vector2(1518, 295.287)
-health = 1200
+health = 10
 
 [node name="Player2" parent="." instance=ExtResource("10_fuf3a")]
 position = Vector2(-1206, 325.114)
@@ -854,7 +856,7 @@ scale = Vector2(0.819285, 0.92)
 [node name="ParallaxLayer" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
 motion_mirroring = Vector2(1440, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer"]
+[node name="Cielo" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer"]
 texture = ExtResource("4_o6xl0")
 centered = false
 
@@ -878,12 +880,13 @@ texture = ExtResource("10_og1vs")
 centered = false
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Visuales/ParallaxJujuy"]
-modulate = Color(0.886262, 0.886261, 0.886262, 1)
+modulate = Color(0.745581, 0.74558, 0.745582, 1)
 position = Vector2(0, -99)
 motion_scale = Vector2(0.2, 1)
 motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer4"]
+modulate = Color(0.646029, 0.646029, 0.646029, 1)
 material = SubResource("ShaderMaterial_tel4y")
 position = Vector2(0, 112)
 texture = ExtResource("11_yq6so")

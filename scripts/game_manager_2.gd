@@ -5,6 +5,7 @@ extends Node
 # --- Exportar variables de Tiempo ---
 @export var tiempo_dia: float = 300.0 # Duración del DÍA en segundos
 @export var tiempo_noche: float = 180.0 # Duración de la NOCHE en segundos
+@export var SpriteCielo: Sprite2D
 
 # --- Referencias a los Nodos Spawner ---
 # Asegúrate de conectar estos nodos en el Inspector o en _ready()
@@ -29,6 +30,8 @@ extends Node
 @export var cant_Enemigo_2_noche :float =1
 @export var enemigo_3_escena: PackedScene
 @export var cant_Enemigo_3_noche :float =1
+
+
 
 @export_category("Unidades")
 # --- Referencias a Escenas de Unidades ---
@@ -67,6 +70,7 @@ func _process(delta):
 				
 			#base_enemiga.health += 10
 			#muralla_enemiga.health += 10
+
 
 # --- Funciones de Transición de Ciclo ---
 

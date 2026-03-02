@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyfvjbgy7ydwc"]
+[gd_scene load_steps=5 format=3 uid="uid://cyfvjbgy7ydwc"]
 
 [ext_resource type="FontFile" uid="uid://bxqx6c1hu6ki7" path="res://assets/font/Acadian_Runes-Regular_PERSONAL_USE.ttf" id="1_c13y7"]
 [ext_resource type="Texture2D" uid="uid://b8o5sryfw6m2o" path="res://assets/img/Fondos/Pergamino/pergamino centro blanco corto.png" id="1_ph3nu"]
+[ext_resource type="Texture2D" uid="uid://biyar4dwqffgg" path="res://assets/img/Fondos/Pergamino/PergaminoGod1.png" id="1_tdf2h"]
 [ext_resource type="Texture2D" uid="uid://cy8528hode8q0" path="res://assets/img/Fondos/Pergamino/pergamino centro blanco.png" id="3_4kmhl"]
 
 [node name="Controles" type="Control"]
@@ -22,7 +23,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_top = 70
 
+[node name="PergaminoGod1" type="Sprite2D" parent="."]
+position = Vector2(311.25, 176)
+scale = Vector2(0.3385, 0.252)
+texture = ExtResource("1_tdf2h")
+
 [node name="PergaminoCentroBlancoCorto" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.807843, 0.807843, 0.807843, 1)
 position = Vector2(332, 171)
 scale = Vector2(0.434783, 0.309804)

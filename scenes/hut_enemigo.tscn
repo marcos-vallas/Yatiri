@@ -17,7 +17,7 @@ shader_parameter/base_color = Color(0.568973, 0.568973, 0.568973, 1)
 load_path = "res://.godot/imported/base_enemiga.png-1cfd90e13ad79b40eb248960055d074d.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g5tuq"]
-size = Vector2(96.906, 95.25)
+size = Vector2(179.906, 95.25)
 
 [sub_resource type="Gradient" id="Gradient_1h3n2"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.619608)
@@ -171,7 +171,7 @@ scale = Vector2(3.5, 3.5)
 texture = ExtResource("3_g5tuq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Hut Enemigo"]]
-position = Vector2(-169.453, -33)
+position = Vector2(-127.953, -33)
 shape = SubResource("RectangleShape2D_g5tuq")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]

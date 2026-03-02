@@ -651,6 +651,7 @@ position = Vector2(-1157, 346.987)
 scale = Vector2(1, 0.994233)
 
 [node name="Sprite2D" type="Sprite2D" parent="SpawnPos_Allies"]
+visible = false
 modulate = Color(1, 1, 1, 0.121569)
 position = Vector2(0, -15)
 scale = Vector2(0.07, 0.07)
@@ -670,7 +671,8 @@ position = Vector2(-1015, 352.953)
 
 [node name="Hut" parent="." instance=ExtResource("17_muem4")]
 z_index = -2
-position = Vector2(-1185, 281.368)
+position = Vector2(-1185, 316.166)
+scale = Vector2(0.525, 0.525)
 
 [node name="MurallaTribu2" parent="." instance=ExtResource("15_yq6so")]
 z_index = -4
@@ -684,11 +686,12 @@ scale = Vector2(1, 0.994233)
 
 [node name="HutEnemigo" parent="." instance=ExtResource("19_0ld40")]
 position = Vector2(2148, 348.976)
-health = 2000
+scale = Vector2(0.545, 0.545)
+health = 1200
 
 [node name="MurallaEnemiga" parent="." instance=ExtResource("17_qkpxi")]
 position = Vector2(1518, 295.287)
-health = 10
+health = 600
 
 [node name="Player2" parent="." instance=ExtResource("10_fuf3a")]
 position = Vector2(-1206, 325.114)

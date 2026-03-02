@@ -5,5 +5,5 @@
 [resource]
 shader = ExtResource("1_dplni")
 shader_parameter/effect_enabled = false
-shader_parameter/flash_color = Color(1, 1, 1, 1)
-shader_parameter/base_color = Color(0.813258, 0.813258, 0.813258, 1)
+shader_parameter/flash_color = Color(0.900658, 0, 0.269462, 1)
+shader_parameter/base_color = Color(1, 1, 1, 1)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfmqmdfplwaa6"]
+[gd_scene load_steps=4 format=3 uid="uid://dfmqmdfplwaa6"]
 
 [ext_resource type="Texture2D" uid="uid://b8o5sryfw6m2o" path="res://assets/img/Fondos/Pergamino/pergamino centro blanco corto.png" id="1_kymwu"]
 [ext_resource type="FontFile" uid="uid://bxqx6c1hu6ki7" path="res://assets/font/Acadian_Runes-Regular_PERSONAL_USE.ttf" id="2_gvwy8"]
+[ext_resource type="Texture2D" uid="uid://biyar4dwqffgg" path="res://assets/img/Fondos/Pergamino/PergaminoGod1.png" id="2_kymwu"]
 
 [node name="Objetivos" type="Control"]
 process_mode = 3
@@ -13,10 +14,16 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PergaminoCentroBlancoCorto" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.807843, 0.807843, 0.807843, 1)
 position = Vector2(331, 180)
 scale = Vector2(0.509333, 0.310294)
 texture = ExtResource("1_kymwu")
+
+[node name="PergaminoGod1" type="Sprite2D" parent="."]
+position = Vector2(317.5, 181)
+scale = Vector2(0.447, 0.314)
+texture = ExtResource("2_kymwu")
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1

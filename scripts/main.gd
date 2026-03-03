@@ -5,8 +5,11 @@ extends Node2D
 @onready var coin_scene = preload("res://scenes/coin.tscn") 
 #@onready var hut_scene = preload("res://scenes/hut.tscn")
 @export var introduccion : Control
+@export var Omitir_Intro : bool
 @export var tutorial: Control #= $CanvasLayer2/Tutorial
+@export var Omitir_Tutorial : bool
 @export var objetivos : Control
+@export var Omitir_Objetivos : bool
 @export var monedas_init:int =13
 @export var potions_init:int =10
 

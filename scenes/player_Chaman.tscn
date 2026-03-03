@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://dyyddp7l1ifde"]
+[gd_scene load_steps=63 format=3 uid="uid://dyyddp7l1ifde"]
 
 [ext_resource type="Script" uid="uid://djjpo1k7crm8d" path="res://scripts/player.gd" id="1_yhnwa"]
 [ext_resource type="Texture2D" uid="uid://cs6ay3my44tix" path="res://assets/img/Chaman/attack/Attack-01-Sheet-1.png" id="2_a0cuu"]
@@ -46,6 +46,7 @@
 [ext_resource type="Texture2D" uid="uid://djcdr2f5mllmy" path="res://assets/img/Chaman/Walk/Walk-6.png" id="39_kui2l"]
 [ext_resource type="Texture2D" uid="uid://bxd11xj1r2s0a" path="res://assets/img/Chaman/Walk/Walk-7.png" id="40_sujry"]
 [ext_resource type="Texture2D" uid="uid://14srdjp5s55o" path="res://assets/img/Chaman/Walk/Walk-8.png" id="41_n7bqj"]
+[ext_resource type="Texture2D" uid="uid://dq1i853wbsw5w" path="res://assets/img/coin/coin_1.png" id="41_oxsrt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dqkch"]
 animations = [{
@@ -273,7 +274,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d2wvv"]
 size = Vector2(27, 20)
 
-[node name="Player" type="CharacterBody2D" groups=["Player", "Player_Body"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("targetDevolucion") groups=["Player", "Player_Body"]]
 collision_layer = 2
 collision_mask = 393
 script = ExtResource("1_yhnwa")
@@ -282,6 +283,12 @@ flash_duration = 0.6
 run_duration = 7.0
 danio_a_enemigo = 50
 danio_a_muralla = 2
+targetDevolucion = NodePath("PuntoDevolucion")
+
+[node name="PuntoDevolucion" type="Marker2D" parent="."]
+
+[node name="Coin1" type="Sprite2D" parent="PuntoDevolucion"]
+texture = ExtResource("41_oxsrt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 4

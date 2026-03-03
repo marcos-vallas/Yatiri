@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://dbm1v2e5003qf"]
+
+[ext_resource type="Script" uid="uid://cfaxfuc4e84j7" path="res://scenes/condor.gd" id="1_dfaih"]
+[ext_resource type="Texture2D" uid="uid://dw0hbu5g2nkti" path="res://assets/img/Animales/Condor__Animation 1_0.png" id="1_uqn8g"]
+[ext_resource type="Texture2D" uid="uid://cu82ddrewyf7j" path="res://assets/img/Animales/Condor__Animation 1_1.png" id="2_dfaih"]
+[ext_resource type="Texture2D" uid="uid://xh0d1vljpclp" path="res://assets/img/Animales/Condor__Animation 1_2.png" id="3_yqlv8"]
+[ext_resource type="Texture2D" uid="uid://ckeu385nt37n" path="res://assets/img/Animales/Condor__Animation 1_3.png" id="4_51lap"]
+[ext_resource type="Texture2D" uid="uid://cf5jr6ps72iyf" path="res://assets/img/Animales/Condor__Animation 1_4.png" id="5_k21ec"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eycq5"]
+size = Vector2(123, 53)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7grra"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_uqn8g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_dfaih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yqlv8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_51lap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_k21ec")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Condor" type="CharacterBody2D"]
+script = ExtResource("1_dfaih")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16.5, 15.5)
+shape = SubResource("RectangleShape2D_eycq5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7grra")
+autoplay = "default"

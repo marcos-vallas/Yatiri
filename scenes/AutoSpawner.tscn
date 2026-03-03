@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dubca7yl1bst5"]
+
+[ext_resource type="Script" uid="uid://ntni62i8p3d3" path="res://scenes/auto_spawner.gd" id="1_r80k1"]
+
+[node name="AutoSpawner" type="Node2D"]
+script = ExtResource("1_r80k1")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="SpawnPos" type="Marker2D" parent="."]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

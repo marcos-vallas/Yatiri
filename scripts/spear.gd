@@ -148,6 +148,7 @@ func frenar()->void:
 func devolver(target:Node)-> void:
 	devuelta = true
 	launch_towards_wall(target)
+	#print("Spear Devuelta")
 	pass
 func destruir() -> void:
 	frenar()

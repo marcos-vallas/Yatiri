@@ -49,6 +49,7 @@ var knockback_duration: float = 0.2
 var can_play_hit_sound := true
 
 var target : Node
+@export var targetDevolucion : Node
 
 
 enum State { WALK, RUN, TIRED, ATTACK, MAGIC, IDLE, HURT, DEAD }
@@ -306,12 +307,14 @@ func _update_attack_area_direction() -> void:
 		exhala.rotation_degrees = 90
 		exhala.position.x = abs(exhala.position.x)
 		attack_area.position = base_attack_area_position
+		$PuntoDevolucion.position = Vector2(150,20)
 	else:
 		animated_sprite.flip_h = true
 		exhala.flip_h = true
 		exhala.rotation_degrees = -90
 		exhala.position.x = -abs(exhala.position.x)
 		attack_area.position = base_attack_area_position + Vector2(-attack_offset, 0)
+		$PuntoDevolucion.position = Vector2(-150,20)
 		
 		
 # --- ATAQUE FÍSICO ---
@@ -386,13 +389,15 @@ func _on_attack_area_area_entered(area: Area2D) -> void:
 		play_hit_sound()
 		area.take_damage(danio_a_muralla)
 		camera_shake(0.2, 2.0)  # duración 0.2s, intensidad 3.0
-	if area.is_in_group("Lanza") and area.has_method("launch_towards_wall") and area.has_method("destruir"):
-		if destruye_lanzas:
+	if area.is_in_group("Lanza") and area.has_method("devolver") and area.has_method("destruir"):
+		#if destruye_lanzas:aaa
 			#print("Lanza en area")
 			play_hit_sound()
 			if devuelve_lanzas:
 				if target!= null:
 					area.devolver(target)
+				if target == null:
+					area.devolver(targetDevolucion)
 			else: area.destruir()
 			#elif target == null: area.destruir()
 		

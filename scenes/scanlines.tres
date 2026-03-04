@@ -1,8 +1,8 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ba3vcoix7bqna"]
 
-[ext_resource type="Shader" uid="uid://b8vwy6cqi4nnx" path="res://scenes/scanlinesSin.tres" id="1_d2nfx"]
+[ext_resource type="Shader" uid="uid://b5jj4bnhh5ybr" path="res://scenes/AlphaCicle.tres" id="1_d2nfx"]
 
 [resource]
 shader = ExtResource("1_d2nfx")
-shader_parameter/Freq_2 = 16.718
-shader_parameter/Freq_1 = 1.188
+shader_parameter/Freq_2 = 4.926
+shader_parameter/Freq_1 = 2.054

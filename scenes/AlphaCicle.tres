@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=19 format=3 uid="uid://b8vwy6cqi4nnx"]
+[gd_resource type="VisualShader" load_steps=19 format=3 uid="uid://b5jj4bnhh5ybr"]
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_f6586"]
 input_name = "time"
@@ -179,7 +179,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-259.162, 65.5803)
+graph_offset = Vector2(95.6922, 40.9294)
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2(1480, 380)

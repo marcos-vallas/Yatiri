@@ -1,0 +1,60 @@
+[gd_scene load_steps=12 format=3 uid="uid://8wa0pmu6o8x6"]
+
+[ext_resource type="Script" uid="uid://cfaxfuc4e84j7" path="res://scenes/Animal.gd" id="1_btewf"]
+[ext_resource type="Texture2D" uid="uid://dyxh1qkcqgbn5" path="res://assets/img/Animales/Puma/Puma_Animation 1_0.png" id="2_aive4"]
+[ext_resource type="Texture2D" uid="uid://1hfqk427khou" path="res://assets/img/Animales/Puma/Puma_Animation 1_1.png" id="3_o8g0j"]
+[ext_resource type="Texture2D" uid="uid://daww0m2d3dbbm" path="res://assets/img/Animales/Puma/Puma_Animation 1_2.png" id="4_xnlti"]
+[ext_resource type="Texture2D" uid="uid://dkio55uptvi84" path="res://assets/img/Animales/Puma/Puma_Animation 1_3.png" id="5_cb71l"]
+[ext_resource type="Texture2D" uid="uid://bb31ujn0wfxd4" path="res://assets/img/Animales/Puma/Puma_Animation 1_4.png" id="6_dy8cd"]
+[ext_resource type="Texture2D" uid="uid://bhq56ikj6r5bw" path="res://assets/img/Animales/Puma/Puma_Animation 1_5.png" id="7_3y445"]
+[ext_resource type="Texture2D" uid="uid://p110dn8i88r6" path="res://assets/img/Animales/Puma/Puma_Animation 1_6.png" id="8_pwlbq"]
+[ext_resource type="Texture2D" uid="uid://b23mh3iofjhbj" path="res://assets/img/Animales/Puma/Puma_Animation 1_7.png" id="9_hk70v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eycq5"]
+size = Vector2(188, 87)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7grra"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_aive4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_o8g0j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xnlti")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cb71l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dy8cd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3y445")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_pwlbq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_hk70v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 11.0
+}]
+
+[node name="Puma" type="CharacterBody2D"]
+script = ExtResource("1_btewf")
+flip = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.595, 0.595)
+shape = SubResource("RectangleShape2D_eycq5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.39, 0.374)
+sprite_frames = SubResource("SpriteFrames_7grra")
+autoplay = "default"
+frame_progress = 0.588976

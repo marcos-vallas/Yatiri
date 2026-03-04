@@ -34,7 +34,7 @@ func _physics_process(delta):
 		velocity.y += gravedad * delta
 	else:
 		velocity.y = 0
-		print("en el piso")
+		#print("en el piso")
 		destruir()
 		
 	# Mueve el objeto y detecta colisiones automáticamente

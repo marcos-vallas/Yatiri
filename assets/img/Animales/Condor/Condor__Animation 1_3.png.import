@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu82ddrewyf7j"
-path="res://.godot/imported/Condor__Animation 1_1.png-03b4001e85bd71de370b98e740d6e655.ctex"
+uid="uid://ckeu385nt37n"
+path="res://.godot/imported/Condor__Animation 1_3.png-4ae80ca63f94bb02239fd1f730bc162a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/img/Animales/Condor__Animation 1_1.png"
-dest_files=["res://.godot/imported/Condor__Animation 1_1.png-03b4001e85bd71de370b98e740d6e655.ctex"]
+source_file="res://assets/img/Animales/Condor/Condor__Animation 1_3.png"
+dest_files=["res://.godot/imported/Condor__Animation 1_3.png-4ae80ca63f94bb02239fd1f730bc162a.ctex"]
 
 [params]
 

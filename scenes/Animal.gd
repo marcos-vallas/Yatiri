@@ -4,9 +4,11 @@ extends CharacterBody2D
 @export var path_follow : PathFollow2D
 @export var speed = 50
 
+
 var direccion :Vector2
 var posicion_anterior : Vector2
 
+@export var flip : bool = false
 
 func _ready():
 	posicion_anterior = path_follow.global_position
@@ -22,7 +24,15 @@ func _physics_process(delta: float) -> void:
 	posicion_anterior = pos
 	
 func _process(delta: float) -> void:
-	if direccion.x < 0:
-		$AnimatedSprite2D.flip_h = false
-	if direccion.x > 0:
-		$AnimatedSprite2D.flip_h = true
+	
+	if !flip:
+		if direccion.x < 0:
+			$AnimatedSprite2D.flip_h = false
+		if direccion.x > 0:
+			$AnimatedSprite2D.flip_h = true
+			
+	if flip:
+		if direccion.x > 0:
+			$AnimatedSprite2D.flip_h = false
+		if direccion.x < 0:
+			$AnimatedSprite2D.flip_h = true

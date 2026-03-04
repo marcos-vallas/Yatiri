@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://dcfjbeypc7nhh"]
+[gd_scene load_steps=56 format=4 uid="uid://dcfjbeypc7nhh"]
 
 [ext_resource type="Script" uid="uid://cy1jfvpk34272" path="res://scripts/main.gd" id="1_hnb0p"]
 [ext_resource type="PackedScene" uid="uid://dr4q58scu2r1k" path="res://scenes/spear.tscn" id="2_t7nas"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://cyfvjbgy7ydwc" path="res://scenes/controles.tscn" id="28_lboam"]
 [ext_resource type="PackedScene" uid="uid://1dies20i84mc" path="res://scenes/introduccion.tscn" id="29_75rot"]
 [ext_resource type="Texture2D" uid="uid://bug2pak5p1j2e" path="res://assets/img/parallax/parallax-00.png" id="30_8chk2"]
+[ext_resource type="Shader" uid="uid://y2rl0fjkl22i" path="res://scenes/ColorCicle.tres" id="30_ulhg3"]
 [ext_resource type="Script" uid="uid://31j1lwvdnq2u" path="res://scripts/clouds.gd" id="31_gn65m"]
 [ext_resource type="Texture2D" uid="uid://c43r50yqcdch7" path="res://assets/img/parallax/parallax-01.png" id="32_nju01"]
 [ext_resource type="Material" uid="uid://ba3vcoix7bqna" path="res://scenes/scanlines.tres" id="34_dop21"]
@@ -43,6 +44,7 @@
 [ext_resource type="PackedScene" uid="uid://bdpe0in6t3f84" path="res://scenes/hud.tscn" id="40_xbv8i"]
 [ext_resource type="PackedScene" uid="uid://bud5itt0riwm4" path="res://scenes/power_up_Char.tscn" id="41_dop21"]
 [ext_resource type="PackedScene" uid="uid://dbm1v2e5003qf" path="res://scenes/Condor.tscn" id="41_t7nas"]
+[ext_resource type="PackedScene" uid="uid://8wa0pmu6o8x6" path="res://scenes/Puma.tscn" id="45_twg81"]
 
 [sub_resource type="Shader" id="Shader_ixsww"]
 code = "shader_type canvas_item;
@@ -574,12 +576,23 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 1078
 sources/0 = SubResource("TileSetAtlasSource_sugp2")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_twg81"]
+shader = ExtResource("30_ulhg3")
+shader_parameter/Freq_2 = 1.879
+shader_parameter/Freq_1 = 3.266
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dop21"]
 size = Vector2(8983, 7.9539)
 
 [sub_resource type="Curve2D" id="Curve2D_g8oj7"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 513, -148.141, 0, 0, 0, 0, 86, 23.8616, 0, 0, 0, 0, -326, -177.968)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_twg81"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -368.07, 328.097, 0, 0, 0, 0, -2495.07, 323.126, 0, 0, 0, 0, -369.07, 327.103)
 }
 point_count = 3
 
@@ -795,7 +808,7 @@ visible = false
 motion_mirroring = Vector2(1440, 0)
 
 [node name="Cielo" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer"]
-self_modulate = Color(0.160784, 0.141176, 0.670588, 1)
+material = SubResource("ShaderMaterial_twg81")
 texture = ExtResource("30_8chk2")
 centered = false
 
@@ -824,7 +837,7 @@ motion_scale = Vector2(0.2, 1)
 motion_mirroring = Vector2(1440, 0)
 
 [node name="CErro" type="Sprite2D" parent="Visuales/ParallaxJujuy/ParallaxLayer4"]
-self_modulate = Color(1, 0.25098, 1, 1)
+self_modulate = Color(1, 0.717647, 1, 1)
 material = ExtResource("34_dop21")
 position = Vector2(0, 112)
 texture = ExtResource("35_i82it")
@@ -976,3 +989,22 @@ preloadObject = ExtResource("2_t7nas")
 
 [node name="Marker2D" type="Marker2D" parent="Condor3/Condor"]
 position = Vector2(300, -105.389)
+
+[node name="Puma2" type="Node2D" parent="."]
+position = Vector2(2257, -5.9654)
+
+[node name="Puma" parent="Puma2" node_paths=PackedStringArray("path_follow") instance=ExtResource("45_twg81")]
+position = Vector2(-1490, 326.109)
+scale = Vector2(1, 0.994233)
+collision_layer = 4
+collision_mask = 1185
+path_follow = NodePath("../Path2D/PathFollow2D")
+speed = 150
+
+[node name="Path2D" type="Path2D" parent="Puma2"]
+position = Vector2(-42.93, 0)
+curve = SubResource("Curve2D_twg81")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Puma2/Path2D"]
+position = Vector2(-368.07, 328.097)
+rotation = -3.13926

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bud5itt0riwm4"]
+
+[ext_resource type="Script" uid="uid://d2yxdw7xjetib" path="res://scripts/power_upchart.gd" id="1_7focy"]
+[ext_resource type="Texture2D" uid="uid://doac04bh3ce28" path="res://assets/img/Plant 1.png" id="2_sjha5"]
+[ext_resource type="AudioStream" uid="uid://dc3o3l2es42pd" path="res://assets/sound/magic 2.wav" id="3_kmpy7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7focy"]
+size = Vector2(16, 5.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ig136"]
+size = Vector2(29, 38)
+
+[node name="PowerUp_chart" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_7focy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 13.25)
+shape = SubResource("RectangleShape2D_7focy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_sjha5")
+
+[node name="PowerUp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_kmpy7")
+volume_db = -15.0
+pitch_scale = 0.9
+bus = &"SFX"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 3)
+shape = SubResource("RectangleShape2D_ig136")

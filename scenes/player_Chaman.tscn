@@ -288,6 +288,7 @@ targetDevolucion = NodePath("PuntoDevolucion")
 [node name="PuntoDevolucion" type="Marker2D" parent="."]
 
 [node name="Coin1" type="Sprite2D" parent="PuntoDevolucion"]
+visible = false
 texture = ExtResource("41_oxsrt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

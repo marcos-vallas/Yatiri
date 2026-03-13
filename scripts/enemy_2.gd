@@ -29,7 +29,7 @@ enum State { WALK_FORWARD, ATTACK, WALK_BACK, IDLE, HURT, DEAD }
 @onready var attack_area: Area2D = $AttackArea
 @onready var spear_position: Node2D = $SpearPosition
 
-@onready var powerUp_scene = preload("res://scenes/power_up.tscn")
+@export var powerUp_scene:PackedScene# = preload("res://scenes/power_up.tscn")
 
 var base_attack_area_position: Vector2
 var state: State = State.WALK_FORWARD
@@ -209,7 +209,7 @@ func set_state(new_state: State) -> void:
 			
 func _entregar_recompensa()-> void:
 	var powerUp = powerUp_scene.instantiate()
-	powerUp.global_position = global_position
+	powerUp.global_position = global_position + Vector2(0,-50)
 	get_parent().get_parent().add_child(powerUp)
 	
 func _on_fade_out_finished() -> void:

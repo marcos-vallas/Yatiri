@@ -586,13 +586,13 @@ size = Vector2(8983, 7.9539)
 
 [sub_resource type="Curve2D" id="Curve2D_g8oj7"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 513, -148.141, 0, 0, 0, 0, 86, 23.8616, 0, 0, 0, 0, -326, -177.968)
+"points": PackedVector2Array(0, 0, 0, 0, -496.052, -181.945, 0, 0, 0, 0, -12.9235, 19.8847, 0, 0, 0, 0, 499.486, -176.974, 0, 0, 0, 0, -10.6711, -10.9366, 0, 0, 0, 0, -480.286, -195.864)
 }
-point_count = 3
+point_count = 5
 
 [sub_resource type="Curve2D" id="Curve2D_twg81"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -368.07, 328.097, 0, 0, 0, 0, -2495.07, 323.126, 0, 0, 0, 0, -369.07, 327.103)
+"points": PackedVector2Array(0, 0, 0, 0, 556.93, 332.074, 0, 0, 0, 0, -2495.07, 323.126, 0, 0, 0, 0, 553.93, 336.051)
 }
 point_count = 3
 
@@ -933,8 +933,8 @@ position = Vector2(202, 122.291)
 curve = SubResource("Curve2D_g8oj7")
 
 [node name="PathCondor1" type="PathFollow2D" parent="Condor1/CurvaCondor1"]
-position = Vector2(513, -148.141)
-rotation = 2.75866
+position = Vector2(-496.052, -181.945)
+rotation = 0.395718
 
 [node name="Condor" parent="Condor1" node_paths=PackedStringArray("path_follow") instance=ExtResource("41_t7nas")]
 position = Vector2(655, 111.354)
@@ -951,12 +951,13 @@ sec_btw_spawns = 3.0
 position = Vector2(1267, -5.9654)
 
 [node name="CurvaCondor" type="Path2D" parent="Condor2"]
-position = Vector2(202, 122.291)
+position = Vector2(165.476, 122.291)
+scale = Vector2(0.887962, 1)
 curve = SubResource("Curve2D_g8oj7")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Condor2/CurvaCondor"]
-position = Vector2(513, -148.141)
-rotation = 2.75866
+position = Vector2(-496.052, -181.945)
+rotation = 0.395718
 
 [node name="Condor" parent="Condor2" node_paths=PackedStringArray("path_follow") instance=ExtResource("41_t7nas")]
 position = Vector2(655, 111.354)
@@ -975,8 +976,8 @@ position = Vector2(202, 122.291)
 curve = SubResource("Curve2D_g8oj7")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Condor3/CurvaCondor"]
-position = Vector2(513, -148.141)
-rotation = 2.75866
+position = Vector2(-496.052, -181.945)
+rotation = 0.395718
 
 [node name="Condor" parent="Condor3" node_paths=PackedStringArray("path_follow") instance=ExtResource("41_t7nas")]
 position = Vector2(655, 111.354)
@@ -1006,5 +1007,5 @@ position = Vector2(-42.93, 0)
 curve = SubResource("Curve2D_twg81")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Puma2/Path2D"]
-position = Vector2(-368.07, 328.097)
-rotation = -3.13926
+position = Vector2(556.93, 332.074)
+rotation = -3.13866

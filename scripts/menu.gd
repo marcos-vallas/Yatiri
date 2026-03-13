@@ -29,3 +29,12 @@ func _on_quit_button_pressed() -> void:
 	$CanvasLayer/TransitionControl/AnimationPlayer.play_backwards("screen_transition")
 	await $CanvasLayer/TransitionControl/AnimationPlayer.animation_finished
 	get_tree().quit()
+
+
+func _on_ritual_button_pressed() -> void:
+	$CanvasLayer/TransitionControl.visible = true
+	$CanvasLayer/TransitionControl/AnimationPlayer.play_backwards("screen_transition")
+	await $CanvasLayer/TransitionControl/AnimationPlayer.animation_finished
+	get_tree().change_scene_to_file("res://scenes/Ritual_test.tscn")
+	$CanvasLayer/TransitionControl.visible = false
+	pass # Replace with function body.

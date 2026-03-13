@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://f45wojucvxx6"]
+[gd_scene load_steps=23 format=3 uid="uid://f45wojucvxx6"]
 
 [ext_resource type="Script" uid="uid://bb4oaaat0nymm" path="res://scripts/enemy_2.gd" id="1_hqy2m"]
+[ext_resource type="PackedScene" uid="uid://bud5itt0riwm4" path="res://scenes/power_up_Char.tscn" id="2_3eqed"]
 [ext_resource type="AudioStream" uid="uid://bi5wbna2aygui" path="res://assets/sound/footstep.wav" id="5_a2yeo"]
 [ext_resource type="AudioStream" uid="uid://43hb83e5omms" path="res://assets/sound/attack.wav" id="6_hvrhm"]
 [ext_resource type="AudioStream" uid="uid://bj2543vduipa2" path="res://assets/sound/attack_hit.wav" id="7_lxmbh"]
@@ -115,6 +116,7 @@ distancia_a_la_muralla = 150.0
 variacion_dist_muralla = 100.0
 knockback_force = 150.0
 animated_sprite = NodePath("ZicheRojo")
+powerUp_scene = ExtResource("2_3eqed")
 metadata/_edit_group_ = true
 
 [node name="ZicheRojo" type="AnimatedSprite2D" parent="."]

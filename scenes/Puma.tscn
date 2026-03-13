@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://8wa0pmu6o8x6"]
+[gd_scene load_steps=13 format=3 uid="uid://8wa0pmu6o8x6"]
 
 [ext_resource type="Script" uid="uid://cfaxfuc4e84j7" path="res://scenes/Animal.gd" id="1_btewf"]
 [ext_resource type="Texture2D" uid="uid://dyxh1qkcqgbn5" path="res://assets/img/Animales/Puma/Puma_Animation 1_0.png" id="2_aive4"]
@@ -45,6 +45,9 @@ animations = [{
 "speed": 11.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aive4"]
+size = Vector2(41, 43)
+
 [node name="Puma" type="CharacterBody2D"]
 script = ExtResource("1_btewf")
 flip = true
@@ -57,4 +60,14 @@ shape = SubResource("RectangleShape2D_eycq5")
 scale = Vector2(0.39, 0.374)
 sprite_frames = SubResource("SpriteFrames_7grra")
 autoplay = "default"
-frame_progress = 0.588976
+frame_progress = 0.885362
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(44.5, -4.5)
+shape = SubResource("RectangleShape2D_aive4")
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]

@@ -36,3 +36,11 @@ func _process(delta: float) -> void:
 			$AnimatedSprite2D.flip_h = false
 		if direccion.x < 0:
 			$AnimatedSprite2D.flip_h = true
+
+
+func _on_attack_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Enemy") and body.has_method("take_damage"):
+		#play_hit_sound()
+		#var dir = Vector2(sign(body.global_position.x - global_position.x), 0) * attack_knockback
+		body.take_damage(300, (Vector2(0,1)))
+		pass # Replace with function body.

@@ -702,8 +702,8 @@ position = Vector2(-1206, 325.114)
 
 [node name="GameManager2" type="Node" parent="." node_paths=PackedStringArray("SpriteCielo", "Sprite7Colores", "SpriteNubes", "allied_spawner", "enemy_spawner")]
 script = ExtResource("25_og1vs")
-tiempo_dia = 12.0
-tiempo_noche = 15.0
+tiempo_dia = 30.0
+tiempo_noche = 30.0
 SpriteCielo = NodePath("../Visuales/ParallaxJujuy/ParallaxLayer/Cielo")
 Sprite7Colores = NodePath("../Visuales/ParallaxJujuy/ParallaxLayer4/7Colores")
 SpriteNubes = NodePath("../Visuales/ParallaxJujuy/ParallaxLayer2/Nubes")
